@@ -14,7 +14,7 @@ class HouseExpensesContainer extends React.Component {
         currentWorkPeriod={this.props.currentWorkPeriod}
         workPeriods={this.props.workPeriods}
         expensesGeneralData={this.props.expensesGeneralData}
-        expensesData={this.props.expхпensesData}
+        expensesData={this.props.expensesData}
         expensesFilesData={this.props.expensesFilesData}
         expensesSelectedFile={this.props.expensesSelectedFile}
         setExpensesData={this.props.setExpensesData}

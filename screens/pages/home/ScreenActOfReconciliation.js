@@ -128,6 +128,19 @@ export default class ScreenActOfReconciliation extends React.Component {
     this.props.setShowLoading(showLoading);
   }
 
+  setStartFromAndTo(){
+    if (this.props.workPeriods == null) {
+      return;
+    }
+    if(this.props.fromMonth == ''){
+      this.onFromYearChange(this.props.workPeriods[0].substring(2, 6));
+      this.onFromMonthChange(this.props.workPeriods[0]);
+      this.onToYearChange(this.props.workPeriods[this.props.workPeriods.length - 1].substring(2, 6));
+      this.onToMonthChange(this.props.workPeriods[this.props.workPeriods.length - 1]);
+    }
+    //console.log("start", this.props.workPeriods)
+  }
+
   render() {
     function isDisabled(props) {
       if (
@@ -187,8 +200,9 @@ export default class ScreenActOfReconciliation extends React.Component {
                     }
                   }
                 }}>
-                <Picker.Item key={0} label={'Рік'} value={0} />
+                
                 {getYearsItems(this.props.workPeriods)}
+                {this.setStartFromAndTo()}
               </Picker>
               <Picker
                 prompt="Місяць"
@@ -218,7 +232,7 @@ export default class ScreenActOfReconciliation extends React.Component {
                     }
                   }
                 }}>
-                <Picker.Item key={0} label={'Рік'} value={0} />
+                
                 {getYearsItems(this.props.workPeriods)}
               </Picker>
               <Picker

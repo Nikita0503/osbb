@@ -67,8 +67,8 @@ export default class ScreenHouseExpenses extends React.Component {
     this.onExpensesSelectedFileChange = this.onExpensesSelectedFileChange.bind(this);
   }
 
-  onExpensesDataChange(userData) {
-    this.props.setExpensesData(userData);
+  onExpensesDataChange(expenseData) {
+    this.props.setExpensesData(expenseData);
   }
 
   onExpensesSelectedFileChange(selectedFile){
@@ -94,7 +94,7 @@ export default class ScreenHouseExpenses extends React.Component {
       .then(response => response.json())
       .then(responseJson => {
         this.onExpensesDataChange(responseJson);
-        console.log(responseJson);
+        //console.log("exp1", responseJson);
       })
       .catch(error => {
         console.error(error);
@@ -159,6 +159,7 @@ export default class ScreenHouseExpenses extends React.Component {
 
 
   getLoadingView(){
+    //console.log("exp2", this.props.expensesData)
     if(this.props.expensesData == null)
     return(
     <View style={styles.container}>

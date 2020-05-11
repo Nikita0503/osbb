@@ -58,6 +58,13 @@ export default class ScreenAddOffer extends React.Component {
   onPublicityChange(publicity) {
     this.props.setAddOfferPublicity(publicity);
   }
+  
+  setStartSelected(){
+    if(this.props.addOfferSystem == null){
+      this.onSystemChange(1);
+      this.onPublicityChange(1);
+    }
+  }
 
   render() {
     return (
@@ -79,6 +86,7 @@ export default class ScreenAddOffer extends React.Component {
               }}
               value={this.props.addOfferTopic}
             />
+            {this.setStartSelected()}
             <View style={{ flexDirection: 'row' }}>
               <Picker
                 prompt="Система"
@@ -86,8 +94,9 @@ export default class ScreenAddOffer extends React.Component {
                 style={{ width: '45%', marginLeft: 15 }}
                 onValueChange={(itemValue, itemIndex) => {
                   this.onSystemChange(itemValue);
+                  console.log("1", itemValue)
                 }}>
-                <Picker.Item key={0} label={'Система'} value={0} />
+               
                 <Picker.Item key={0} label={'вода'} value={1} />
                 <Picker.Item key={0} label={'тепло'} value={2} />
                 <Picker.Item key={0} label={'газ'} value={3} />
@@ -110,9 +119,10 @@ export default class ScreenAddOffer extends React.Component {
                 selectedValue={this.props.addOfferPublicity}
                 style={{ width: '45%', marginLeft: 10 }}
                 onValueChange={(itemValue, itemIndex) => {
+                
                   this.onPublicityChange(itemValue);
                 }}>
-                <Picker.Item key={0} label={'Публічність'} value={0} />
+                
                 <Picker.Item key={0} label={'публічна'} value={1} />
                 <Picker.Item key={0} label={'приватна'} value={2} />
               </Picker>
@@ -149,6 +159,20 @@ export default class ScreenAddOffer extends React.Component {
                   ' ' +
                   this.props.addOfferPublicity
               );*/
+              if(this.props.addOfferTopic == null 
+                || this.props.addOfferText == null
+                || this.props.addOfferSystem == null
+                || this.props.addOfferPublicity == null){
+                  Alert.alert(
+                    'Повідомлення',
+                    'Заповнено некоректно',
+                    [
+                      {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    { cancelable: true }
+                  )
+                  return
+                }
               var ws = new WebSocket(
                 'wss://app.osbb365.com/socket.io/?auth_token=' +
                   this.props.token +
@@ -161,7 +185,7 @@ export default class ScreenAddOffer extends React.Component {
                     1
                     ? 'true'
                     : 'false';
-                var jopa = '4211["/claim/create",{"subject":"' +
+                var text = '4211["/claim/create",{"subject":"' +
                     this.props.addOfferTopic +
                     '","text":"' +
                     this.props.addOfferText +
@@ -174,9 +198,9 @@ export default class ScreenAddOffer extends React.Component {
                           this.props.workPeriods.length - 1
                         ] +
                         '"}]';
-                  console.log('govno',jopa)
+                  console.log('message',text)
                 ws.send(
-                  jopa
+                  text
                 );
               };
 

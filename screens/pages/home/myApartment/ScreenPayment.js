@@ -2,70 +2,51 @@ import * as React from 'react';
 import { Text, View, StyleSheet, Image, FlatList } from 'react-native';
 import PageHeader from "../../../../components/PageHeader";
 
-const DATA = [
-  {
-    contribution: 'Утримання будинку',
-    sum: '10000',
-    paymentDate: '10 жовтня 2016',
-    bank: 'Приват Банк'
-  },
-  {
-    contribution: 'Утримання будинку22',
-    sum: '10000',
-    paymentDate: '10 жовтня 2016',
-    bank: 'Приват Банк'
-  },
-  {
-    contribution: 'Утримання будинку2',
-    sum: '10000',
-    paymentDate: '10 жовтня 2016',
-    bank: 'Приват Банк'
-  },
-];
 
-function getDateString(date) {
-  var day = 1;
-  var month = 2;
-  var year = 3;
-  switch (month) {
-    case '0':
-      month = ' січня ';
+
+function getDateString(data) {
+  if (data == null) return;
+  var date = new Date(data);
+  var month;
+  switch (date.getMonth()) {
+    case 0:
+      month = ' січ. ';
       break;
-    case '1':
-      month = ' лютого ';
+    case 1:
+      month = ' лют. ';
       break;
-    case '2':
-      month = ' березня ';
+    case 2:
+      month = ' бер. ';
       break;
-    case '3':
-      month = ' квітня ';
+    case 3:
+      month = ' квіт. ';
       break;
-    case '4':
-      month = ' травня';
+    case 4:
+      month = ' трав. ';
       break;
-    case '5':
-      month = ' червня ';
+    case 5:
+      month = ' черв. ';
       break;
-    case '6':
-      month = ' липня ';
+    case 6:
+      month = ' лип. ';
       break;
-    case '7':
-      month = ' серпня ';
+    case 7:
+      month = ' серп. ';
       break;
-    case '8':
-      month = ' вересня ';
+    case 8:
+      month = ' вер. ';
       break;
-    case '9':
-      month = ' жовтня ';
+    case 9:
+      month = ' жовт. ';
       break;
-    case '10':
-      month = ' листопада ';
+    case 10:
+      month = ' лист. ';
       break;
-    case '11':
-      month = ' грудня ';
+    case 11:
+      month = ' груд. ';
       break;
   }
-  return day + month + year;
+  return date.getDate() + month + date.getFullYear();
 }
 
 export default class ScreenPayment extends React.Component {
@@ -99,10 +80,10 @@ export default class ScreenPayment extends React.Component {
       .then(response => response.json())
       .then(responseJson => {
       
-      console.log("!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#", responseJson);
+      console.log("!", responseJson);
       let payments = new Array();
         for(var i = 0; i < responseJson.length; i++){
-          console.log("!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#", responseJson[i]);
+          //console.log("!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#", responseJson[i]);
           var payment = responseJson[i];
           var data = {
             contribution: payment.captionService,
@@ -127,10 +108,10 @@ export default class ScreenPayment extends React.Component {
         <View style={styles.container}>
           <View style={styles.container, {marginTop: 10}}>
             <View style={{flexDirection: 'row'}}>
-              <Text style={styles.dataColumnNameStyle}>Назва</Text>
-              <Text style={styles.dataColumnNameStyle}>Одиниця виміру</Text>
-              <Text style={styles.dataColumnNameStyle}>Послуга активна</Text>
-              <Text style={styles.dataColumnNameStyle}>Тариф</Text>
+              <Text style={styles.dataColumnNameStyle}>Внесок</Text>
+              <Text style={styles.dataColumnNameStyle}>Сплачено, грн</Text>
+              <Text style={styles.dataColumnNameStyle}>Дата оплати</Text>
+              <Text style={styles.dataColumnNameStyle}>Банк</Text>
             </View>
             <FlatList
               data={this.props.currentPaymentsData}

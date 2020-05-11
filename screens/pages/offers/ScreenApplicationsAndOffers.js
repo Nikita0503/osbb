@@ -116,7 +116,7 @@ export default class ScreenApplicationsAndOffers extends React.Component {
           data: data[0].data,
           my: false
         };
-        console.log("archive", obj);
+        //console.log("archive", obj);
         this.onChangeApplicationAndOffersData(obj);
         this.onApplicationsAndOffersLoading(false);
       }
@@ -130,7 +130,7 @@ export default class ScreenApplicationsAndOffers extends React.Component {
           data: data[0].data,
           my: false
         };
-        console.log("archive", obj);
+        //console.log("archive", obj);
         this.onChangeApplicationAndOffersData(obj);
       }
       if (e.data.substring(0, 4) == '4312') {
@@ -143,7 +143,7 @@ export default class ScreenApplicationsAndOffers extends React.Component {
           data: data[0].data,
           my: true
         };
-        console.log("archive", obj);
+        //console.log("archive", obj);
         this.onChangeApplicationAndOffersData(obj);
       }
       if (e.data.substring(0, 4) == '4313') {
@@ -156,7 +156,7 @@ export default class ScreenApplicationsAndOffers extends React.Component {
           data: data[0].data,
           my: true
         };
-        console.log("archive", obj);
+        //console.log("archive", obj);
         this.onChangeApplicationAndOffersData(obj);
       }
     };
@@ -250,7 +250,7 @@ export default class ScreenApplicationsAndOffers extends React.Component {
         style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
         <NavigationEvents
           onDidFocus={() => {
-            console.log('I am triggered');
+            //console.log('I am triggered');
             this.componentDidMount();
           }}
         />

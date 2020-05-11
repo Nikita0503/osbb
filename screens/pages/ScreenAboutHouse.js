@@ -113,7 +113,9 @@ export default class ScreenAboutHouse extends React.Component {
   }
 
   getImage() {
+    //console.log("house", this.props.aboutHouseData);
     if (this.props.aboutHouseData == null) return;
+    if (this.props.aboutHouseData.image == null) return;
     return (
       <Image
         source={{
@@ -147,7 +149,7 @@ export default class ScreenAboutHouse extends React.Component {
           data={this.props.aboutHouseData.name}
         />
         <DataContainer
-          name="Адреса*"
+          name="Адреса"
           data={this.getAddress()}
         />
         <DataContainer name="Телефон" data={this.props.aboutHouseData.telephone} />
@@ -162,7 +164,7 @@ export default class ScreenAboutHouse extends React.Component {
       var type = this.props.aboutHouseSelectedFile.path.substring(this.props.aboutHouseSelectedFile.path.length - 3)
       var path = this.props.aboutHouseSelectedFile.path;
       //type = 'jpg'
-      console.log("TYPE", type)
+      //console.log("TYPE", type)
       switch(type){
         case 'jpg':
           return(

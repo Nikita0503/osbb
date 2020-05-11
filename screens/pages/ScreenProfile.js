@@ -238,13 +238,6 @@ export default class ScreenProfile extends React.Component {
                   style={styles.inputStyle}
                 />
               </View>
-              <View style={styles.buttonStyle}>
-                <Button
-                  title="Зберегти"
-                  color="#5682A3"
-                  onPress={() => Alert.alert('Simple Button pressed')}
-                />
-              </View>
             </View>
             <View style={styles.container}>
               <Text style={{ marginTop: 15, color: '#364A5F', fontSize: 18 }}>

@@ -47,7 +47,7 @@ function fetchDebtByAccountId(token, accountIds, index, osbbId, lastWorkPeriod, 
     .then(response => response.json())
     .then(responseJson => {
       var sum = getSumDebt(responseJson.chargesList);
-      console.log('onChargesDataChange', accountIds[index].id + " " + sum);
+      //console.log('onChargesDataChange', accountIds[index].id + " " + sum);
       var obj = {
         accountId: accountIds[index],
         debt: sum
@@ -55,7 +55,7 @@ function fetchDebtByAccountId(token, accountIds, index, osbbId, lastWorkPeriod, 
       onDebtDataChange(obj);
       index++;
       if(index != accountIds.length){
-        console.log("index", index)
+        //console.log("index", index)
         fetchDebtByAccountId(token, accountIds, index, osbbId, lastWorkPeriod, onDebtDataChange)
       }
     })
@@ -100,7 +100,7 @@ function fetchApartmentData(
         });
       }
       var uniqAccountIds = getUniqueAccountIds(osbbIds);
-      console.log("accountsStart", uniqAccountIds)
+      //console.log("accountsStart", uniqAccountIds)
       //onAccountIdsChange(uniqAccountIds);
       //onAccountIdChange(uniqAccountIds[0].id);
       //onNumberChange(uniqAccountIds[0].number);
@@ -583,7 +583,10 @@ export default class ScreenMyApartment extends React.Component {
     if(this.props.accountId == null) return null
     for(var i = 0; i < this.props.debtData.length; i++){
       if(this.props.accountId.id == this.props.debtData[i].accountId.id){
-        return (this.props.debtData[i].debt);
+        //console.log("debt", this.props.debtData[i].debt)
+        return this.props.debtData[i].debt
+      }else{
+        return "0.00"
       }
     }
   }
