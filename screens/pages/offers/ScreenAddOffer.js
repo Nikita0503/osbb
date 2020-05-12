@@ -32,15 +32,16 @@ const DATA_FILES = [
 export default class ScreenAddOffer extends React.Component {
   constructor(props) {
     super(props);
-    console.log('act', props);
     this.onTopicChange = this.onTopicChange.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
     this.onSystemChange = this.onSystemChange.bind(this);
     this.onPublicityChange = this.onPublicityChange.bind(this);
+    this.onSetButtonSendDisabledChange = this.onSetButtonSendDisabledChange.bind(this);
     this.onTopicChange(null);
     this.onTextChange(null);
     this.onSystemChange(null);
     this.onPublicityChange(null);
+    this.onSetButtonSendDisabledChange(false);
   }
 
   onTopicChange(topic) {
@@ -59,6 +60,10 @@ export default class ScreenAddOffer extends React.Component {
     this.props.setAddOfferPublicity(publicity);
   }
   
+  onSetButtonSendDisabledChange(isDisabled){
+    this.props.setAddOfferButtonSendIsDisabled(isDisabled);
+  }
+
   setStartSelected(){
     if(this.props.addOfferSystem == null){
       this.onSystemChange(1);
@@ -94,7 +99,6 @@ export default class ScreenAddOffer extends React.Component {
                 style={{ width: '45%', marginLeft: 15 }}
                 onValueChange={(itemValue, itemIndex) => {
                   this.onSystemChange(itemValue);
-                  console.log("1", itemValue)
                 }}>
                
                 <Picker.Item key={0} label={'вода'} value={1} />
@@ -128,7 +132,6 @@ export default class ScreenAddOffer extends React.Component {
               </Picker>
             </View>
             <TextInput
-              multiline
               style={{
                 width: '90%',
                 borderBottomWidth: 1,
@@ -144,6 +147,7 @@ export default class ScreenAddOffer extends React.Component {
         
           </ScrollView>
           <TouchableOpacity
+          disabled={this.props.addOfferIsDisabled}
             style={{
               width: '100%',
               backgroundColor: '#F9F9F9',
@@ -162,7 +166,9 @@ export default class ScreenAddOffer extends React.Component {
               if(this.props.addOfferTopic == null 
                 || this.props.addOfferText == null
                 || this.props.addOfferSystem == null
-                || this.props.addOfferPublicity == null){
+                || this.props.addOfferPublicity == null
+                || this.props.addOfferTopic.trim() == ''
+                || this.props.addOfferText.trim() == ''){
                   Alert.alert(
                     'Повідомлення',
                     'Заповнено некоректно',
@@ -173,6 +179,7 @@ export default class ScreenAddOffer extends React.Component {
                   )
                   return
                 }
+                this.onSetButtonSendDisabledChange(true);
               var ws = new WebSocket(
                 'wss://app.osbb365.com/socket.io/?auth_token=' +
                   this.props.token +
@@ -206,7 +213,7 @@ export default class ScreenAddOffer extends React.Component {
 
               ws.onmessage = e => {
                 // a message was received
-                console.log('123', e.data)
+                  console.log('qwerty', e.data)
                 if (e.data.substring(0, 4) == '4311') {
                   Alert.alert(
                     'Повідомлення',

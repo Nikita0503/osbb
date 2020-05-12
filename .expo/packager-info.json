@@ -1,10 +1,10 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 560,
+  "packagerPid": 635,
   "expoServerNgrokUrl": "https://7r-ck3.anonymous.osbb.exp.direct",
   "packagerNgrokUrl": "https://packager.7r-ck3.anonymous.osbb.exp.direct",
-  "ngrokPid": 575,
+  "ngrokPid": 659,
   "webpackServerPort": null,
   "devToolsPort": 19002
 }

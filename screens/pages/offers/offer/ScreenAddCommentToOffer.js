@@ -28,11 +28,18 @@ export default class ScreenAddCommentToOffer extends React.Component {
   constructor(props) {
     super(props);
     this.onAddCommentToOfferChange = this.onAddCommentToOfferChange.bind(this);
+    this.onIsDisabledButtonSendChange = this.onIsDisabledButtonSendChange.bind(this);
+    this.onAddCommentToOfferChange(null)
+    this.onIsDisabledButtonSendChange(false);
   }
 
   onAddCommentToOfferChange(comments) {
     console.log('comments2', comments);
     this.props.setAddCommentToOffer(comments);
+  }
+
+  onIsDisabledButtonSendChange(isDisabled){
+    this.props.setIsDisabledButtonSendChange(isDisabled);
   }
 
   render() {
@@ -51,7 +58,6 @@ export default class ScreenAddCommentToOffer extends React.Component {
         <View style={styles.container}>
           <ScrollView style={{width: '90%'}}>
             <TextInput
-              multiline
               style={{
                 width: '90%',
                 borderBottomWidth: 1,
@@ -66,12 +72,25 @@ export default class ScreenAddCommentToOffer extends React.Component {
             />
           </ScrollView>
           <TouchableOpacity
+            disabled={this.props.isDisabledButtonSend}
             style={{
               width: '100%',
               backgroundColor: '#F9F9F9',
               alignItems: 'center',
             }}
             onPress={() => {
+              if(this.props.addCommentToOfferComment == null || this.props.addCommentToOfferComment.trim() == ''){
+                Alert.alert(
+                  'Повідомлення',
+                  'Неможливо додати коментар. Введіть текст',
+                  [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                  ],
+                  { cancelable: true }
+                )
+                return
+              }
+              this.onIsDisabledButtonSendChange(true);
               var ws = new WebSocket(
                 'wss://app.osbb365.com/socket.io/?auth_token=' +
                   this.props.token +
@@ -94,6 +113,7 @@ export default class ScreenAddCommentToOffer extends React.Component {
               };
 
               ws.onmessage = e => {
+                
                 // a message was received
                 console.log('123', e.data);
                 if (e.data.substring(0, 4) == '4313') {

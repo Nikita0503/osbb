@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setAddOfferTopic, setAddOfferText, setAddOfferSystem, setAddOfferPublicity } from '../../../store/pages/offers/addOffer/actions';
+import { setAddOfferTopic, setAddOfferText, setAddOfferSystem, setAddOfferPublicity, setAddOfferButtonSendIsDisabled } from '../../../store/pages/offers/addOffer/actions';
 import ScreenAddOffer from './ScreenAddOffer';
 
 class AddOfferContainer extends React.Component {
@@ -16,10 +16,12 @@ class AddOfferContainer extends React.Component {
         addOfferText={this.props.addOfferText}
         addOfferSystem={this.props.addOfferSystem}
         addOfferPublicity={this.props.addOfferPublicity}
+        addOfferIsDisabled={this.props.addOfferIsDisabled}
         setAddOfferTopic={this.props.setAddOfferTopic}
         setAddOfferText={this.props.setAddOfferText}
         setAddOfferSystem={this.props.setAddOfferSystem}
         setAddOfferPublicity={this.props.setAddOfferPublicity}
+        setAddOfferButtonSendIsDisabled={this.props.setAddOfferButtonSendIsDisabled}
       />
     );
   }
@@ -34,7 +36,8 @@ const mapStateToProps = state => {
     addOfferTopic: state.addOffer.addOfferTopic,
     addOfferText: state.addOffer.addOfferText,
     addOfferSystem: state.addOffer.addOfferSystem,
-    addOfferPublicity: state.addOffer.addOfferPublicity
+    addOfferPublicity: state.addOffer.addOfferPublicity,
+    addOfferIsDisabled: state.addOffer.addOfferIsDisabled
   };
 };
 
@@ -42,7 +45,8 @@ const mapDispatchToProps = {
   setAddOfferTopic: setAddOfferTopic,
   setAddOfferText: setAddOfferText,
   setAddOfferSystem: setAddOfferSystem,
-  setAddOfferPublicity: setAddOfferPublicity
+  setAddOfferPublicity: setAddOfferPublicity,
+  setAddOfferButtonSendIsDisabled: setAddOfferButtonSendIsDisabled
 };
 
 export default connect(

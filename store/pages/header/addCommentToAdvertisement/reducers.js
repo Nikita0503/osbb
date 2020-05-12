@@ -1,9 +1,11 @@
 import {
   ADD_COMMENT_TO_ADVERTISEMENT_TEXT,
+  ADD_COMMENT_TO_ADVERTISEMENT_BUTTON_SEND
 } from './actions';
 
 const defaultState = {
-  addCommentToAdvertisementText: null
+  addCommentToAdvertisementText: null,
+  isDisabledButtonSend: false
 };
 
 export const addCommentToAdvertisementReducer = (state = defaultState, action) => {
@@ -13,6 +15,11 @@ export const addCommentToAdvertisementReducer = (state = defaultState, action) =
       return {
         ...state,
         addCommentToAdvertisementText: action.payload
+      }
+    case ADD_COMMENT_TO_ADVERTISEMENT_BUTTON_SEND:
+      return {
+        ...state,
+        isDisabledButtonSend: action.payload
       }
   }
 

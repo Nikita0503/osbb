@@ -66,9 +66,9 @@ export default class ScreenLogin extends React.Component {
         /*token: this.props.tokenDeviceId,
         id: Expo.Constants.installationId*/
         //token: 'f5573fd6e07c01f027dfe1c3d39b74ee', norm
-        token: 'e0dc8ed1e04dddeadf20f4e64134a81a', //empty
+        //token: 'e0dc8ed1e04dddeadf20f4e64134a81a', //empty
         //token: '77bad9fb781d61c745f968cd7950a0c4', yul
-        //token: '0e4b8b07dd0053b00d1939caf33c1a52',
+        token: '0e4b8b07dd0053b00d1939caf33c1a52',
         id: 'bde288e9-ab6d-44b1-9fa8-43c256ee4806'
       }),
     })

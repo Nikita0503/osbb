@@ -223,7 +223,7 @@ export default class ScreenOffer extends React.Component {
 
   getSelectedOffer() {
     
-    console.log('selectedOffer1', this.props.selectedOfferComments);
+    //console.log('selectedOffer1', this.props.selectedOfferComments);
   }
 
   componentDidMount() {
@@ -316,7 +316,7 @@ export default class ScreenOffer extends React.Component {
   }
 
   getCommentsList() {
-    console.log("helloMM", this.props.selectedOfferComments)
+    //console.log("helloMM", this.props.selectedOfferComments)
     if(this.props.selectedOfferComments == null || this.props.selectedOfferComments.length == 0){
       return(<Text style={{color: '#364A5F', fontSize: 16, marginVertical: 10, alignSelf: 'center'}}>Даних немає</Text>)
     }
@@ -345,7 +345,7 @@ export default class ScreenOffer extends React.Component {
         <PageHeader navigation={this.props.navigation} title="Заявка" />
         <NavigationEvents
           onDidFocus={() => {
-            console.log('I am triggered');
+            //console.log('I am triggered');
             this.componentDidMount();
           }}
         />

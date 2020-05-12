@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setAddCommentToOffer } from '../../../../store/pages/offers/addCommentToOffer/actions';
+import { setAddCommentToOffer, setIsDisabledButtonSendChange } from '../../../../store/pages/offers/addCommentToOffer/actions';
 import ScreenAddCommentToOffer from './ScreenAddCommentToOffer';
 
 class AddCommentToOfferContainer extends React.Component {
@@ -13,8 +13,10 @@ class AddCommentToOfferContainer extends React.Component {
         accountId={this.props.accountId}
         workPeriods={this.props.workPeriods}
         addCommentToOfferComment={this.props.addCommentToOfferComment}
+        isDisabledButtonSend={this.props.isDisabledButtonSend}
         setAddCommentToOffer={this.props.setAddCommentToOffer}
         selectedOfferData={this.props.selectedOfferData}
+        setIsDisabledButtonSendChange={this.props.setIsDisabledButtonSendChange}
       />
     );
   }
@@ -28,11 +30,13 @@ const mapStateToProps = state => {
     workPeriods: state.apartment.workPeriods,
     addCommentToOfferComment: state.addCommentToOffer.addCommentToOfferComment,
     selectedOfferData: state.applicationsAndOffers.selectedOfferData,
+    isDisabledButtonSend: state.addCommentToOffer.isDisabledButtonSend
   };
 };
 
 const mapDispatchToProps = {
-  setAddCommentToOffer: setAddCommentToOffer
+  setAddCommentToOffer: setAddCommentToOffer,
+  setIsDisabledButtonSendChange: setIsDisabledButtonSendChange
 };
 
 export default connect(

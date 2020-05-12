@@ -185,7 +185,7 @@ export default class ScreenActOfReconciliation extends React.Component {
           <View style={styles.container}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ marginTop: 15, marginLeft: 10, width: '10%' }}>
-                З
+                з
               </Text>
               <Picker
                 prompt="Рік"
@@ -217,7 +217,7 @@ export default class ScreenActOfReconciliation extends React.Component {
 
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ marginTop: 15, marginLeft: 10, width: '10%' }}>
-                По
+                по
               </Text>
               <Picker
                 prompt="Рік"

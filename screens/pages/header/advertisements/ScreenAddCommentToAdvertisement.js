@@ -4,6 +4,7 @@ import {
   View,
   StyleSheet,
   Image,
+  Alert,
   FlatList,
   Button,
   TouchableOpacity,
@@ -18,10 +19,17 @@ export default class ScreenAddCommentToAdvertisement extends React.Component {
     this.onAddCommentToAdvertisementTextChange = this.onAddCommentToAdvertisementTextChange.bind(
       this
     );
+    this.onAddCommentToAdvertisementButtonSendChange = this.onAddCommentToAdvertisementButtonSendChange.bind(this);
+    this.onAddCommentToAdvertisementTextChange(null);
+    this.onAddCommentToAdvertisementButtonSendChange(false);
   }
 
   onAddCommentToAdvertisementTextChange(text) {
     this.props.setAddCommentToAdvertisementText(text);
+  }
+
+  onAddCommentToAdvertisementButtonSendChange(isDisable){
+    this.props.setAddCommentToAdvertisementButtonSend(isDisable);
   }
 
   render() {
@@ -35,7 +43,6 @@ export default class ScreenAddCommentToAdvertisement extends React.Component {
         <View style={styles.container}>
           <ScrollView style={{width: '90%'}}>
             <TextInput
-              multiline
               style={{
                 width: '90%',
                 borderBottomWidth: 1,
@@ -50,12 +57,25 @@ export default class ScreenAddCommentToAdvertisement extends React.Component {
             />
           </ScrollView>
           <TouchableOpacity
+            disabled={this.props.isDisabledButtonSend}
             style={{
               width: '100%',
               backgroundColor: '#F9F9F9',
               alignItems: 'center',
             }}
             onPress={() => {
+              if(this.props.addCommentToAdvertisementText == null || this.props.addCommentToAdvertisementText.trim() == ''){
+                Alert.alert(
+                  'Повідомлення',
+                  'Неможливо додати коментар. Введіть текст',
+                  [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                  ],
+                  { cancelable: true }
+                )
+                return
+              }
+              this.onAddCommentToAdvertisementButtonSendChange(true)
               var ws = new WebSocket(
                 'wss://app.osbb365.com/socket.io/?auth_token=' +
                   this.props.token +
@@ -63,18 +83,30 @@ export default class ScreenAddCommentToAdvertisement extends React.Component {
               );
 
               ws.onopen = () => {
-                if(this.props.addCommentToAdvertisementText != null){
+                
                 // connection opened123
-                  ws.send('428["/comment/create",{"text":"' + this.props.addCommentToAdvertisementText + '","noticeId":' + this.props.selectedPost.id + '}]');
-                } // send a message
+                ws.send('428["/comment/create",{"text":"' + this.props.addCommentToAdvertisementText + '","noticeId":' + this.props.selectedPost.id + '}]');
+                 // send a message
               }; //428["/comment/create",{"text":"qwe","noticeId":53}]
 
               ws.onmessage = e => {
+                
+                if (e.data.substring(0, 2) == '42' && e.data.substring(4, 11) == 'message'){
                 // a message was received
+                //console.log("123", e.data);
+                Alert.alert(
+                  'Повідомлення',
+                  'Надіслано успішно!',
+                  [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                  ],
+                  { cancelable: true }
+                )
                 this.onAddCommentToAdvertisementTextChange(null);
                 this.props.navigation.goBack()
-                
+                }
               };
+            
             }}>
             <View>
               <Text
