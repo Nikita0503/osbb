@@ -79,7 +79,7 @@ export default class ScreenPaymentSelection extends React.Component {
     )
       .then(response => response.json())
       .then(responseJson => {
-        //console.log('onLiqpayDataChange', responseJson);
+        console.log('onLiqpayDataChange', responseJson);
         this.onLiqpayDataChange(responseJson);
       })
       .catch(error => {

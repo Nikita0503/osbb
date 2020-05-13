@@ -144,6 +144,7 @@ export default class ScreenSendIndications extends React.Component {
                 : this.props.selectedCounter.caption}
             </Dialog.Title>
             <Dialog.Input
+              keyboardType={'numeric'}
               onChangeText={text => this.onIndicationTextChange(text)}
               value={this.props.indicationText}
               label="Введіть поточний показник"
@@ -264,10 +265,10 @@ class ItemCounters extends React.Component {
             {this.props.counter.installIn}
           </Text>
           <Text style={styles.itemCountersStyle}>
-            {parseFloat(this.props.counter.prevTestimony).toFixed(2)}
+            {this.props.counter.prevTestimony == null ? "0.00" : parseFloat(this.props.counter.prevTestimony).toFixed(2)}
           </Text>
           <Text style={styles.itemCountersStyle}>
-            {parseFloat(this.props.counter.testimony).toFixed(2)}
+            {this.props.counter.testimony == null ? "0.00" : parseFloat(this.props.counter.testimony).toFixed(2)}
           </Text>
         </View>
       </TouchableOpacity>

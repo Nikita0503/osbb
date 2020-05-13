@@ -274,7 +274,7 @@ export default class ScreenChat extends React.Component {
               <TextInput
                 style={{
                   marginLeft: 10,
-                  width: '73%',
+                  width: '85%',
                   borderBottomWidth: 1,
                   borderBottomColor: 'gray',
                   alignSelf: 'center',
@@ -286,13 +286,7 @@ export default class ScreenChat extends React.Component {
                 }}
                 value={this.props.currentMessage}
               />
-              <TouchableOpacity
-                onPress={this._pickImage}>
-                <Image
-                  style={{ width: 35, height: 35, marginHorizontal: 5 }}
-                  source={require('../../../../images/ic_clip.png')}
-                />
-              </TouchableOpacity>
+
 
               <TouchableOpacity
                 onPress={() => {
@@ -322,6 +316,16 @@ export default class ScreenChat extends React.Component {
           </Dialog.Container>
       </KeyboardAvoidingView>
     );
+  }
+
+  getFilesClip(){
+    return(<TouchableOpacity
+      onPress={this._pickImage}>
+      <Image
+        style={{ width: 35, height: 35, marginHorizontal: 5 }}
+        source={require('../../../../images/ic_clip.png')}
+      />
+    </TouchableOpacity>)
   }
 
   getFileShowDialog(){

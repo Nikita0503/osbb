@@ -14,6 +14,7 @@ import DataContainer from '../../components/DataContainer';
 import DataComponent from '../../components/DataComponent';
 import { RadioButton } from 'react-native-paper';
 import { NavigationEvents } from 'react-navigation';
+import { bool } from 'prop-types';
 
 const DATA_INHABITANT = [
   {
@@ -320,14 +321,14 @@ export default class ScreenFlatInfo extends React.Component {
 
 
   componentDidMount() {
-    this.onFlatInfoGeneralDataClear();
+    /*this.onFlatInfoGeneralDataClear();
     this.onFlatInfoLodgerDataClear();
     this.onFlatInfoParametersClear();
     this.onFlatInfoContributionsClear();
     this.onFlatInfoIndividualContributionsClear();
-    this.onFlatInfoPrivilegesClear();
+    this.onFlatInfoPrivilegesClear();*/
     this.onFlatInfoCountersClear();
-    this.onFlatInfoContractsClear();
+    //this.onFlatInfoContractsClear();
 
     this.fetchFlatInfoGeneralData();
     this.fetchFlatInfoLodgerData(0);
@@ -561,6 +562,7 @@ export default class ScreenFlatInfo extends React.Component {
   }
 
   fetchFlatInfoContracts() {
+    
     var ws = new WebSocket(
       'wss://app.osbb365.com/socket.io/?auth_token=' +
         this.props.token +
@@ -569,6 +571,7 @@ export default class ScreenFlatInfo extends React.Component {
 
     ws.onmessage = e => {
       // a message was received
+      
       if (e.data.substring(0, 2) == '42') {
         const myObjStr = JSON.stringify(e.data.substring(2, e.data.length));
         var myObj = JSON.parse(myObjStr);
@@ -606,6 +609,7 @@ export default class ScreenFlatInfo extends React.Component {
                   data: responseJson[i],
                 };
                 this.onFlatInfoContractsChange(obj);
+                
               }
             }
           })
@@ -796,6 +800,7 @@ export default class ScreenFlatInfo extends React.Component {
         this.props.accountId.number ==
         this.props.flatInfoCounters[i].accountId.number
       ) {
+        console.log("count", this.props.flatInfoCounters[i].data)
         return this.props.flatInfoCounters[i].data;
       }
     }
@@ -814,8 +819,26 @@ export default class ScreenFlatInfo extends React.Component {
         contracts.push(this.props.flatInfoContracts[i].data);
       }
     }
-    return contracts;
+    var uniqueArr = this.getUnique(contracts);
+    //console.log(contracts)
+    return uniqueArr;
   }
+
+  getUnique(arr) {
+    var unique = new Array();
+    for (var i = 0; i < arr.length; i++) {
+      var bool = new Boolean(true);
+      for(var j = 0; j < unique.length; j++){
+        if(arr[i].id == unique[j].id){
+          bool = false;
+        }
+      }
+      if(bool){
+        unique.push(arr[i])
+      }
+    }
+    return unique;
+  };
 
   render() {
     return (
@@ -1052,7 +1075,7 @@ export default class ScreenFlatInfo extends React.Component {
                   <ItemIndividualContributions
                     name={item.caption}
                     unit={item.unit}
-                    isActive={item.isActive ? '+' : '-'}
+                    isActive={item.isActive ? 'Ні' : 'Так'}
                     rate={parseFloat(item.tariff).toFixed(2)}
                   />
                 )}
@@ -1097,10 +1120,10 @@ export default class ScreenFlatInfo extends React.Component {
                   <ItemCounters
                     name={item.caption}
                     place={item.installIn}
-                    previousIndicators={parseFloat(item.prevTestimony).toFixed(
+                    previousIndicators={item.prevTestimony == null ? "0.00" : parseFloat(item.prevTestimony).toFixed(
                       2
                     )}
-                    currentIndicators={parseFloat(item.testimony).toFixed(2)}
+                    currentIndicators= {item.testimony == null ? "0.00" : parseFloat(item.testimony).toFixed(2)}
                   />
                 )}
                 keyExtractor={item => item.name}
