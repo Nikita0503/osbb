@@ -4,6 +4,7 @@ import {
   View,
   StyleSheet,
   Image,
+  Alert,
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
@@ -61,7 +62,7 @@ export default class ScreenAdvertisement extends React.Component {
     this.onSelectedPostChange(null);
     this.onAllCommentsClear();
     this.fetchOsbbName();
-
+    console.log('I am triggered123');
     var ws = new WebSocket(
       'wss://app.osbb365.com/socket.io/?auth_token=' +
         this.props.token +
@@ -216,10 +217,9 @@ getFileShowDialog(){
     return (
       <View
         style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
-        <PageHeader navigation={this.props.navigation} title="Оголошення" />
         <NavigationEvents
           onDidFocus={() => {
-            console.log('I am triggered123');
+            
             this.componentDidMount();
             //if(this.props.advertisementData != null){
             //  this.fetchCommentsByAdvertisementId(0);
@@ -227,6 +227,7 @@ getFileShowDialog(){
             //this.componentDidMount();
           }}
         />
+        <PageHeader navigation={this.props.navigation} title="Оголошення" />
         <View style={styles.container}>
           {this.getLoadingView()}
           <FlatList
@@ -377,9 +378,7 @@ class Item extends React.Component {
             value="first"
             color="pink"
             status={variant.selected ? 'checked' : 'unchecked'}
-            onPress={() => {
-              //this.setState({ checked: 'first' });
-            }}
+            
           />
           <Text style={{ fontSize: 16, color: '#B2B2B2', marginTop: 6 }}>
             {variant.header}
@@ -425,7 +424,14 @@ class Item extends React.Component {
                 // a message was received
                 if (e.data.substring(0, 4) == '4310') {
                   var data = this.props.advertisementData;
-                  alert('Ваш голос було зараховано');
+                  Alert.alert(
+                    'Повідомлення',
+                    'Ваш голос було зараховано',
+                    [
+                      {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    { cancelable: true }
+                  )
                   for (var i = 0; i < data.length; i++) {
                     if (variant.id == data[i].id) {
                       for (var j = 0; j < data[i].variants.length; j++) {

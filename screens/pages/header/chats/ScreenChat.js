@@ -259,8 +259,10 @@ export default class ScreenChat extends React.Component {
                   renderItem={({ item }) => (
                     <Item
                       text={item.text}
+                      userId={item.userId}
                       me={this.getIsMe(item.userId)}
                       files={item.files}
+                      allUsers={this.props.allUsers}
                       onChatSelectedFileChange={this.onChatSelectedFileChange}
                     />
                   )}
@@ -390,7 +392,26 @@ class Item extends React.Component {
 
   getMessageText(){
     if(this.props.text != ""){
-      return(<Text style={styles.itemStyle}>{this.props.text}</Text>)
+      return(
+        <View>
+          <Text style={styles.itemStyle, {marginLeft: 10, fontSize: 12}}>{this.getUserName()}</Text>
+          <Text style={styles.itemStyle, {marginLeft: 10}}>{this.props.text}</Text>
+        </View>)
+    }
+  }
+
+  getUserName(){
+    console.log("userName1", this.props.userId)
+    for(var i = 0; i < this.props.allUsers.length; i++){
+      if(this.props.me){
+        if(this.props.allUsers[i].userId == this.props.userId){
+          return this.props.allUsers[i].fullName
+        }
+      }else{
+        if(this.props.allUsers[i].id == this.props.userId){
+          return this.props.allUsers[i].fullName
+        }
+      }
     }
   }
 }
@@ -548,6 +569,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#364A5F',
     alignContent: 'flex-end',
-    margin: 10,
+    margin: 7,
   },
 });

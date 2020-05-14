@@ -14,6 +14,7 @@ class ChatContainer extends React.Component {
         workPeriods={this.props.workPeriods}
         selectedChat={this.props.selectedChat}
         allMessages={this.props.allMessages}
+        allUsers={this.props.allUsers}
         currentMessage={this.props.currentMessage}
         currentImages={this.props.currentImages}
         chatSelectedFile={this.props.chatSelectedFile}
@@ -37,6 +38,7 @@ const mapStateToProps = state => {
     accountId: state.apartment.accountId,
     workPeriods: state.apartment.workPeriods,
     selectedChat: state.allChats.selectedChat,
+    allUsers: state.allChats.allUsers,
     allMessages: state.selectedChat.allMessages,
     currentMessage: state.selectedChat.currentMessage,
     currentImages: state.selectedChat.currentImages,

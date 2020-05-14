@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import PageHeader from '../../../../components/PageHeader';
+import { NavigationEvents } from 'react-navigation';
 
 const DATA_CHATS = [
   {
@@ -53,6 +54,7 @@ export default class ScreenChats extends React.Component {
   constructor(props) {
     super(props);
     this.onChatsAllChatsChange = this.onChatsAllChatsChange.bind(this);
+    this.onChatsAllChatsClear = this.onChatsAllChatsClear.bind(this);
     this.onChatsAllUsersChange = this.onChatsAllUsersChange.bind(this);
     this.onChatsAllSelectedChatChange = this.onChatsAllSelectedChatChange.bind(
       this
@@ -61,6 +63,10 @@ export default class ScreenChats extends React.Component {
 
   onChatsAllChatsChange(allChats) {
     this.props.setChatsAllChats(allChats);
+  }
+
+  onChatsAllChatsClear(){
+    this.props.setChatsAllChatsClear([])
   }
 
   onChatsAllUsersChange(allUsers) {
@@ -72,6 +78,7 @@ export default class ScreenChats extends React.Component {
   }
 
   componentDidMount() {
+    this.onChatsAllChatsClear();
     var ws = new WebSocket(
       'wss://app.osbb365.com/socket.io/?auth_token=' +
         this.props.token +
@@ -104,7 +111,7 @@ export default class ScreenChats extends React.Component {
           this.onChatsAllChatsChange(data[1]);
         }
         if (data[0] == 'userList') {
-          console.log('userList', data[1]);
+          //console.log('userList', data[1]);
           this.onChatsAllUsersChange(data[1]);
         }
       }
@@ -134,6 +141,12 @@ export default class ScreenChats extends React.Component {
     return (
       <View
         style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+        <NavigationEvents
+          onDidFocus={() => {
+            console.log('I am triggered');
+            this.componentDidMount();
+          }}
+        />
         <PageHeader navigation={this.props.navigation} title="Чати" />
         <View style={styles.container}>
           {this.getLoadingView()}
@@ -206,6 +219,7 @@ class Item extends React.Component {
         }}>
         <View style={styles.itemStyle}>
           {this.getAvatar()}
+          <Text style={{color: "red"}}>{this.props.data.unread != 0 ? this.props.data.unread : ""}</Text>
           <Text style={styles.itemTextStyle}>{this.props.data.alias == null ? this.props.data.title : this.props.data.alias}</Text>
         </View>
       </TouchableOpacity>
