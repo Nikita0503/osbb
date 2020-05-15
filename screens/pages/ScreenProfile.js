@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import PageHeader from '../../components/PageHeader';
 import * as ImagePicker from 'expo-image-picker';
+import ImageAvatar from 'react-native-image-progress';
 
 export default class ScreenProfile extends React.Component {
   constructor(props) {
@@ -88,11 +89,19 @@ export default class ScreenProfile extends React.Component {
     })
     .then(response => response.json())
     .then(responseJson => {
+      if(responseJson.filename == null){
+        Alert.alert(
+          'Помилка',
+          responseJson.message,
+          [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+          { cancelable: false }
+        );
+        return;
+      }
       var details = {
         photo: responseJson.filename,
       };
       
-
       var formBody = [];
       for (var property in details) {
         var encodedKey = encodeURIComponent(property);
@@ -111,17 +120,19 @@ export default class ScreenProfile extends React.Component {
       })
       .then(response => response.json())
       .then(responseJson1 => {
+        
         this.onAvatarImageChange(responseJson.filename)
+        this.render();
       }).catch(err => {
         console.log(err)
       });
-      //alert(responseJson.filename)
+      console.log("filename", responseJson.filename);
     })
     .catch(err => {
       console.log(err);
     });
 
-    console.log(result);
+    console.log("result", result);
 
     if (!result.cancelled) {
       this.setState({ image: result.uri });
@@ -129,8 +140,11 @@ export default class ScreenProfile extends React.Component {
   };
 
   getAvatar(){
+    
     if(this.props.imageAvatar != null){
-      return(<Image
+      console.log("imageAvatar", this.props.imageAvatar)
+      return(<ImageAvatar
+        indicator='bar' 
         source={
           this.props.userData.photo == null
             ? require('../../images/add.png')
@@ -146,7 +160,9 @@ export default class ScreenProfile extends React.Component {
     if(this.props.userData == null){
       return;
     }
-    return(<Image
+    console.log("userPhoto", this.props.userData.photo)
+    return(<ImageAvatar
+      indicator='bar' 
       source={
         this.props.userData.photo == null
           ? require('../../images/add.png')
@@ -165,6 +181,7 @@ export default class ScreenProfile extends React.Component {
       <KeyboardAvoidingView behavior="padding">
         <View
           style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+          
           <PageHeader
             style={{ flex: 1 }}
             navigation={this.props.navigation}
@@ -287,7 +304,7 @@ export default class ScreenProfile extends React.Component {
                   title="Зберегти"
                   color="#5682A3"
                   onPress={() => {
-                    sendNewPassword(this.props);
+                    sendNewPassword(this.props, this.onOldPasswordChange, this.onNewPasswordChange, this.onNewRepeatPasswordChange);
                   }}
                 />
               </View>
@@ -299,8 +316,7 @@ export default class ScreenProfile extends React.Component {
   }
 }
 
-function sendNewPassword(props) {
-  console.log(this.props);
+function sendNewPassword(props, onOldPasswordChange, onNewPasswordChange, onNewRepeatPasswordChange) {
   fetch('https://app.osbb365.com/api/user/me/password', {
     method: 'PUT',
     headers: {
@@ -330,6 +346,9 @@ function sendNewPassword(props) {
         [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
         { cancelable: false }
       );
+      onOldPasswordChange('');
+      onNewPasswordChange('');
+      onNewRepeatPasswordChange('');
       console.error(error);
     });
 }

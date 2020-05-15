@@ -26,11 +26,15 @@
 	  "ios": {
       "bundleIdentifier": "com.osbb365.osbb365",
       "buildNumber": "3.0.0",
-	    "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Для подальшої роботи осбб потрібна камера. Чи надаєте ви доступ ОСББ 365 до вашої камери?"
+      }
     },
 	  "android": {
       "package": "com.osbb365.osbb365",
       "versionCode": 1
     }
+    
   }
 }
