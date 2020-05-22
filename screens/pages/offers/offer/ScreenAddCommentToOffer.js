@@ -58,8 +58,11 @@ export default class ScreenAddCommentToOffer extends React.Component {
         <View style={styles.container}>
           <ScrollView style={{width: '90%'}}>
             <TextInput
+              multiline
               style={{
+                height: 35,
                 width: '90%',
+                fontSize: 16,
                 borderBottomWidth: 1,
                 borderBottomColor: 'gray',
                 alignSelf: 'center',
@@ -99,10 +102,12 @@ export default class ScreenAddCommentToOffer extends React.Component {
 
               ws.onopen = () => {
                 // connection opened
+                var text = this.props.addCommentToOfferComment;
+                text = text.replace(new RegExp('\n','g'), '\\n')
                 var message = '4213["/claim/comment/create",{"id":' +
                     this.props.selectedOfferData.id +
                     ',"text":"' +
-                    this.props.addCommentToOfferComment +
+                    text +
                     '","documents":[],"workPeriod":"' +
                     this.props.workPeriods[this.props.workPeriods.length - 1] +
                     '"}]';

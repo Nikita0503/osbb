@@ -43,8 +43,11 @@ export default class ScreenAddCommentToAdvertisement extends React.Component {
         <View style={styles.container}>
           <ScrollView style={{width: '90%'}}>
             <TextInput
+              multiline
               style={{
+                height: 35,
                 width: '90%',
+                fontSize: 16,
                 borderBottomWidth: 1,
                 borderBottomColor: 'gray',
                 alignSelf: 'center',
@@ -83,9 +86,10 @@ export default class ScreenAddCommentToAdvertisement extends React.Component {
               );
 
               ws.onopen = () => {
-                
+                var text = this.props.addCommentToAdvertisementText;
+                text = text.replace(new RegExp('\n','g'), '\\n')
                 // connection opened123
-                ws.send('428["/comment/create",{"text":"' + this.props.addCommentToAdvertisementText + '","noticeId":' + this.props.selectedPost.id + '}]');
+                ws.send('428["/comment/create",{"text":"' + text + '","noticeId":' + this.props.selectedPost.id + '}]');
                  // send a message
               }; //428["/comment/create",{"text":"qwe","noticeId":53}]
 
@@ -93,10 +97,13 @@ export default class ScreenAddCommentToAdvertisement extends React.Component {
                 
                 if (e.data.substring(0, 2) == '42' && e.data.substring(4, 11) == 'message'){
                 // a message was received
-                //console.log("123", e.data);
+                const myObjStr = JSON.stringify(e.data.substring(2, e.data.length));
+                var myObj = JSON.parse(myObjStr);
+                var data = JSON.parse(myObj);
                 Alert.alert(
                   'Повідомлення',
-                  'Надіслано успішно!',
+                  data[1].message,
+                  //myObj,                  
                   [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                   ],

@@ -141,9 +141,12 @@ export default class ScreenSupport extends React.Component {
 
             <View style={styles.messageContainer}>
               <TextInput
+                multiline
                 style={{
                   marginLeft: 10,
                   width: '85%',
+                  height: 50,
+                  fontSize: 16,
                   borderBottomWidth: 1,
                   borderBottomColor: 'gray',
                   alignSelf: 'center',
@@ -169,9 +172,11 @@ export default class ScreenSupport extends React.Component {
                     ws.onopen = () => {
                       // connection opened
                       if (this.props.consultant == null) {
+                        var text = this.props.helpChatMessage;
+                        text = text.replace(new RegExp('\n','g'), '\\n')
                         ws.send(
                           '425["/help/request",{"text":"' +
-                            this.props.helpChatMessage +
+                          text +
                             '"}]'
                         );
                       }
@@ -237,7 +242,7 @@ export default class ScreenSupport extends React.Component {
                   }
                 }}>
                 <Image
-                  style={{ width: 35, height: 35, marginHorizontal: 5 }}
+                  style={{ width: 35, height: 40, marginHorizontal: 5 }}
                   source={require('../../../images/ic_send.png')}
                 />
               </TouchableOpacity>
@@ -290,16 +295,15 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     width: '100%',
-    height: 50,
+    height: 55,
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: 'white',
-    padding: 3,
+    backgroundColor: 'white'
   },
   itemStyle: {
     fontSize: 16,
     color: '#364A5F',
     alignContent: 'flex-end',
-    margin: 10,
+    margin: 7,
   },
 });

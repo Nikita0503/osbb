@@ -585,7 +585,7 @@ class Item extends React.Component {
 
   render() {
     return (
-      <View style={{ margin: 5, backgroundColor: 'white' }}>
+      <View style={{ margin: 5, backgroundColor: 'white', width: '100%' }}>
         <Text
           style={{
             color: '#364A5F',

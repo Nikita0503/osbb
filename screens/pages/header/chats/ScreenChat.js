@@ -130,7 +130,7 @@ export default class ScreenChat extends React.Component {
   }
 
   componentDidMount() {
-    this.getPermissionAsync();
+    //this.getPermissionAsync();
     console.log('componentDid');
     this.ws.onopen = () => {
       this.onChatLoadingChange(true);
@@ -197,9 +197,11 @@ export default class ScreenChat extends React.Component {
   sendMessage() {
     // connection opened
     if (this.props.currentMessage != null) {
+      var text = this.props.currentMessage;
+      text = text.replace(new RegExp('\n','g'), '\\n')
       this.ws.send(
         '429["/chat/message/create",{"text":"' +
-          this.props.currentMessage +
+          text +
           '","documents":[' +
           this.getCurrentImages() +
           '],"conversationId":' +
@@ -274,12 +276,16 @@ export default class ScreenChat extends React.Component {
 
             <View style={styles.messageContainer}>
               <TextInput
+              multiline
                 style={{
                   marginLeft: 10,
                   width: '85%',
+                  height: 50,
+                  fontSize: 16,
                   borderBottomWidth: 1,
                   borderBottomColor: 'gray',
                   alignSelf: 'center',
+                  
                 }}
                 placeholder="Ваше повідомлення"
                 onChangeText={text => {
@@ -295,7 +301,7 @@ export default class ScreenChat extends React.Component {
                   this.sendMessage();
                 }}>
                 <Image
-                  style={{ width: 35, height: 35, marginHorizontal: 5 }}
+                  style={{ width: 35, height: 40, marginHorizontal: 5 }}
                   source={require('../../../../images/ic_send.png')}
                 />
               </TouchableOpacity>
@@ -559,11 +565,10 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     width: '100%',
-    height: 50,
+    height: 55,
     alignItems: 'center',
     flexDirection: 'row',
     backgroundColor: 'white',
-    padding: 3,
   },
   itemStyle: {
     fontSize: 16,

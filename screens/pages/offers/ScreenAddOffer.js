@@ -132,6 +132,7 @@ export default class ScreenAddOffer extends React.Component {
               </Picker>
             </View>
             <TextInput
+              multiline
               style={{
                 width: '90%',
                 borderBottomWidth: 1,
@@ -187,6 +188,8 @@ export default class ScreenAddOffer extends React.Component {
               );
 
               ws.onopen = () => {
+                var text = this.props.addOfferText;
+                text = text.replace(new RegExp('\n','g'), '\\n')
                 // connection opened
                 var bool = this.props.addOfferPublicity ==
                     1
@@ -195,7 +198,7 @@ export default class ScreenAddOffer extends React.Component {
                 var text = '4211["/claim/create",{"subject":"' +
                     this.props.addOfferTopic +
                     '","text":"' +
-                    this.props.addOfferText +
+                    text +
                     '","systemId":"' +
                     this.props.addOfferSystem +
                     '","isPublic":' + bool
