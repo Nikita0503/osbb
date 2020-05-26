@@ -2,6 +2,7 @@ import * as React from 'react';
 import { WebView } from 'react-native-webview';
 import { FlatList, ActivityIndicator, Text, View, Image } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class ScreenWebViewLiqpay extends React.Component {
   constructor(props) {
@@ -62,21 +63,28 @@ export default class ScreenWebViewLiqpay extends React.Component {
           this.state.data +
           '"/><input type="hidden" name="signature" value="' +
           this.state.signature +
-          '"/><input style="width: 700; margin-left: 13%; margin-top: 60%" type="image" src="https://static.liqpay.ua/buttons/p1ru.radius.png"/></form>',
+          '"/><input style="width: 500; margin-left: 24%; margin-top: 60%" type="image" src="https://static.liqpay.ua/buttons/p1ru.radius.png"/></form>',
       }}
-      style={{ marginTop: 30, width: '100%', height: '100%' }}
+      style={{ width: '100%'}}
     />);
   }
 
   render() {
     return (
-      <View style={{ marginTop: 30, width: '100%', height: '100%' }}>
+      <View style={{width: '100%', height: '100%', backgroundColor: '#54687D'}}>
         <NavigationEvents
           onDidFocus={() => {
             console.log('I am triggered');
             this.componentDidMount();
           }}
         />
+        <TouchableOpacity onPress={()=>{
+          this.props.navigation.goBack(null)
+        }}>
+        <View style={{width: '100%', height: 60, backgroundColor: '#54687D', marginTop: 25}}>
+          <Text style={{fontSize: 45, color: 'white', marginTop: 5, marginStart: 10}}>←</Text>
+        </View>
+        </TouchableOpacity>
         {this.getWebView()}
       </View>
     );
