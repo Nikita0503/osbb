@@ -11,7 +11,8 @@ import {
   setCurrentApartmentData,
   setAllCostsData,
   setCurrentCostsData,
-  setDebtData
+  setDebtData,
+  setLiqpayData
 } from '../../../../store/pages/home/myApartment/apartment/actions';
 import { setCurrentWorkPeriod } from '../../../../store/pages/home/monthPicker/actions';
 import ScreenMyApartment from './ScreenMyApartment';
@@ -33,6 +34,7 @@ class MyApartmentContainer extends React.Component {
         allCostsData={this.props.allCostsData}
         currentCostsData={this.props.currentCostsData}
         debtData={this.props.debtData}
+        liqpayData={this.props.liqpayData}
         setUserData={this.props.setUserData}
         setOsbbId={this.props.setOsbbId}
         setAccountId={this.props.setAccountId}
@@ -45,6 +47,7 @@ class MyApartmentContainer extends React.Component {
         setAllCostsData={this.props.setAllCostsData}
         setCurrentCostsData={this.props.setCurrentCostsData}
         setDebtData={this.props.setDebtData}
+        setLiqpayData={this.props.setLiqpayData}
       />
     );
   }
@@ -63,7 +66,8 @@ const mapStateToProps = state => {
     currentApartmentData: state.apartment.currentApartmentData,
     allCostsData: state.apartment.allCostsData,
     currentCostsData: state.apartment.currentCostsData,
-    debtData: state.apartment.debtData
+    debtData: state.apartment.debtData,
+    liqpayData: state.apartment.liqpayData,
   };
 };
 
@@ -79,7 +83,8 @@ const mapDispatchToProps = {
   setCurrentApartmentData: setCurrentApartmentData,
   setAllCostsData: setAllCostsData,
   setCurrentCostsData: setCurrentCostsData,
-  setDebtData: setDebtData
+  setDebtData: setDebtData,
+  setLiqpayData: setLiqpayData
 };
 
 export default connect(

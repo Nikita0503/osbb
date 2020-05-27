@@ -8,7 +8,8 @@
   APARTMENT_CHANGE_CURRENT_APARTMENT_DATA,
   APARTMENT_CHANGE_ALL_COSTS_DATA,
   APARTMENT_CHANGE_CURRENT_COSTS_DATA,
-  APARTMENT_CHANGE_DEBT_DATA
+  APARTMENT_CHANGE_DEBT_DATA,
+  APARTMENT_CHANGE_LIQPAY_DATA
 } from './actions';
 
 const defaultState = {
@@ -22,6 +23,7 @@ const defaultState = {
   currentApartmentData: null,
   allCostsData: [],
   debtData: [],
+  liqpayData: null
 };
 
 export const apartmentReducer = (state = defaultState, action) => {
@@ -75,6 +77,11 @@ export const apartmentReducer = (state = defaultState, action) => {
       return{
         ...state,
         debtData: [...state.debtData, action.payload]
+      }
+    case APARTMENT_CHANGE_LIQPAY_DATA:
+      return{
+        ...state,
+        liqpayData: action.payload
       }
   }
 

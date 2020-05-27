@@ -15,6 +15,7 @@ import Chart from '../../../../components/Chart';
 import DataComponent from '../../../../components/DataComponent';
 import DataClickableComponent from '../../../../components/DataClickableComponent';
 import { NavigationEvents } from 'react-navigation';
+import { Logs } from 'expo';
 
 function getSumDebt(data) { 
   let sum = 0;
@@ -76,7 +77,8 @@ function fetchApartmentData(
   onCurrentApartmentDataChange,
   onAllCostsDataChange,
   onCurrentCostsDataChange,
-  onDebtDataChange
+  onDebtDataChange,
+  onLiqpayDataChange
 ) {
   var ws = new WebSocket(
     'wss://app.osbb365.com/socket.io/?auth_token=' +
@@ -105,10 +107,11 @@ function fetchApartmentData(
       //onAccountIdChange(uniqAccountIds[0].id);
       //onNumberChange(uniqAccountIds[0].number);
       let workPeriods = new Array();
+      var period;
       fetchDebt(token, uniqAccountIds, data[1].OsbbData.OsbbId, data[1].OsbbData.Periods[data[1].OsbbData.Periods.length - 1].period, onDebtDataChange)
       for (i = 0; i < data[1].OsbbData.Periods.length; i++) {
         //workPeriods.push(data[1].OsbbData.Periods[i].period);
-        var period = data[1].OsbbData.Periods[i].period;
+        period = data[1].OsbbData.Periods[i].period;
         onWorkPeriodsChange(period);
         if (i == data[1].OsbbData.Periods.length - 1) {
           onCurrentWorkPeriodChange(period);
@@ -134,9 +137,37 @@ function fetchApartmentData(
         uniqAccountIds[0].id,
         data[1].OsbbData.OsbbId
       );
+      
+      fetchLiqpayData(uniqAccountIds[0].id, data[1].OsbbData.OsbbId, period, token, onLiqpayDataChange);
       ws.close();
     }
   };
+}
+
+function fetchLiqpayData(accountId, osbbId, workPeriod, token, onLiqpayDataChange){
+  fetch(
+    'https://app.osbb365.com/api/tenant/checkLiqPay?accountId=' +
+      accountId +
+      '&osbbId=' +
+      osbbId +
+      '&workPeriod=' +
+      workPeriod,
+    {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token + '',
+      },
+    }
+  )
+    .then(response => response.json())
+    .then(responseJson => {
+      console.log('onLiqpayDataChange', responseJson);
+      onLiqpayDataChange(responseJson);
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
 
 function getUniqueAccountIds(data) {
@@ -427,6 +458,7 @@ export default class ScreenMyApartment extends React.Component {
     this.onAllCostsDataChange = this.onAllCostsDataChange.bind(this);
     this.onCurrentCostsDataChange = this.onCurrentCostsDataChange.bind(this);
     this.onDebtDataChange = this.onDebtDataChange.bind(this);
+    this.onLiqpayDataChange = this.onLiqpayDataChange.bind(this);
   }
 
   onDebtDataChange(debtData){
@@ -481,6 +513,10 @@ export default class ScreenMyApartment extends React.Component {
     this.props.setAllHouseData(allHouseData);
   }
 
+  onLiqpayDataChange(liqpayData){
+    this.props.setLiqpayData(liqpayData);
+  }
+
   componentDidMount() {
     fetch('https://app.osbb365.com/api/user/me', {
       headers: {
@@ -505,7 +541,8 @@ export default class ScreenMyApartment extends React.Component {
           this.onCurrentApartmentDataChange,
           this.onAllCostsDataChange,
           this.onCurrentCostsDataChange,
-          this.onDebtDataChange
+          this.onDebtDataChange,
+          this.onLiqpayDataChange
         );
       })
       .catch(error => {
@@ -642,26 +679,14 @@ export default class ScreenMyApartment extends React.Component {
                 style={{
                   marginTop: 2,
                   fontWeight: 'bold',
-                  marginBottom: 2,
+                  marginBottom: 10,
                   color: '#364A5F',
                   fontSize: 18,
                 }}>
               {this.getDebtByCurrentAccountId()} грн.
               </Text>
               
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.navigate('PaymentSelection');
-                }}>
-                <View
-                  style={{
-                    backgroundColor: '#5682A3',
-                    padding: 10,
-                    margin: 5,
-                  }}>
-                  <Text style={{ color: 'white' }}>ОПЛАТИТИ</Text>
-                </View>
-              </TouchableOpacity>
+              {this.getPaymentButton()}
             </View>
           </View>
           {this.getGeneralData()}
@@ -669,6 +694,27 @@ export default class ScreenMyApartment extends React.Component {
         </ScrollView>
       </View>
     );
+  }
+
+  getPaymentButton(){
+    if(this.props.liqpayData == null) return;
+    if(this.props.liqpayData[0].liqPayPrivateKey != null){
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            this.props.navigation.navigate('PaymentSelection');
+          }}>
+          <View
+            style={{
+              backgroundColor: '#5682A3',
+              padding: 10,
+              margin: 5,
+            }}>
+            <Text style={{ color: 'white' }}>ОПЛАТИТИ</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    }
   }
 }
 

@@ -8,6 +8,7 @@ export const APARTMENT_CHANGE_CURRENT_APARTMENT_DATA = 'APARTMENT_CHANGE_CURRENT
 export const APARTMENT_CHANGE_ALL_COSTS_DATA = 'APARTMENT_CHANGE_ALL_COSTS_DATA';
 export const APARTMENT_CHANGE_CURRENT_COSTS_DATA = 'APARTMENT_CHANGE_CURRENT_COSTS_DATA';
 export const APARTMENT_CHANGE_DEBT_DATA = 'APARTMENT_CHANGE_DEBT_DATA';
+export const APARTMENT_CHANGE_LIQPAY_DATA = 'APARTMENT_CHANGE_LIQPAY_DATA';
 
 export const setUserData = userData => ({
   type: APARTMENT_CHANGE_USERDATA,
@@ -58,3 +59,8 @@ export const setDebtData = debtData => ({
   type: APARTMENT_CHANGE_DEBT_DATA,
   payload: debtData
 });
+
+export const setLiqpayData = liqpayData =>({
+  type: APARTMENT_CHANGE_LIQPAY_DATA,
+  payload: liqpayData
+})
