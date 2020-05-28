@@ -38,7 +38,6 @@ export default class ScreenQRScanner extends React.Component {
   };
 
   render() {
-    
     if (this.props.hasCameraPermission === null) {
       return <View style={{alignItems: 'center'}}><Text>Запит на доступ до камери</Text></View>;
     }
@@ -64,10 +63,70 @@ export default class ScreenQRScanner extends React.Component {
     );
   }
 
+  singUpApplication(token){
+    //Expo.Constants.installationId
+    fetch('https://app.osbb365.com/register/tenant/mobile', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: token,
+        id: Expo.Constants.installationId
+        //id: "19b612ac-3dcf-4436-96dc-c52",
+      }),
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      //console.log(response)
+      //alert(json.message)
+      //setTimeout(()=>{}, 2000);
+      console.log("signUp", json.message + ". Телефон вже зареєстрований.");
+      
+      Alert.alert(
+        json.message,
+        "Телефон вже зареєстрований",
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        { cancelable: true }
+      )
+    
+      //this.signInApplicaion();
+    })
+    .catch((error) => {
+      
+      console.log(error.message);
+      if(error.message == 'JSON Parse error: Unrecognized token \'<\''){
+        
+        Alert.alert(
+          'Неправильний токен',
+          "Спробуйте ще раз",
+          [
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+          ],
+          { cancelable: true }
+        )
+      }else if(error.message == 'JSON Parse error: Unexpected identifier "OK"'){
+        Alert.alert(
+          'Успішно зареєстровано',
+          "Активуйте ваш телефон у особистому кабінеті (розділ 'Мобільні додатки')",
+          [
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+          ],
+          { cancelable: true }
+        )
+      }
+
+    });;
+  }
+
   handleBarCodeScanned = ({ type, data }) => {
     this.setState({ scanned: true });
     this.onTokenDeviceIdChange(data);
     this.onIsScannedChange(true);
+    this.singUpApplication(data)
     console.log(data);
     //Alert.alert(data)
     //alert(data);

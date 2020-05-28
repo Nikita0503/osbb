@@ -31,29 +31,7 @@ export default class ScreenLogin extends React.Component {
     console.log(Expo.Constants.installationId)
   }
 
-  singUpApplication(){
-    fetch('https://app.osbb365.com/register/tenant/mobile', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        token: this.props.tokenDeviceId,
-        id: Expo.Constants.installationId,
-      }),
-    })
-    .then((response) => {
-      //console.log(response)
-      //alert(json.message)
-      //setTimeout(()=>{}, 2000);
-      this.signInApplicaion();
-    })
-    .catch((error) => {
-      Alert.alert("Неправильний токен. Спробуйте ще раз")
-      console.error(error);
-    });;
-  }
+  
 
   signInApplicaion(){
     fetch('https://app.osbb365.com/login/tenant/mobile', {
@@ -74,11 +52,11 @@ export default class ScreenLogin extends React.Component {
     })
     .then((response) => response.json())
     .then((json) => {
-      console.log(json)
+      //console.log(json)
       if(json.token == null){
-        Alert.alert(json.message)
+        Alert.alert("Помилка", json.message)
       }else{
-        //alert(json.token)
+        console.log("signIn", json.token)
         this.onTokenChange(json.token);
         this.props.navigation.navigate('App');
       }
@@ -92,11 +70,11 @@ export default class ScreenLogin extends React.Component {
   }
 
   checkToken(){
-    if(this.props.tokenDeviceId == '') {
+    /*if(this.props.tokenDeviceId == '') {
       return
     }else{
       this.singUpApplication();
-    }
+    }*/
     //this.singUpApplication();
   }
 
@@ -143,7 +121,8 @@ export default class ScreenLogin extends React.Component {
                 title="Підключити"
                 color="#5682A3"
                 onPress={() => {
-                    this.singUpApplication();
+                    this.signInApplicaion();
+                    //this.singUpApplication();
                     //this.props.navigation.navigate('App');
                     //fetchToken(this.props.navigation, this.onTokenChange);
                   }
