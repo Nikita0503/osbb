@@ -31,8 +31,6 @@ export default class ScreenLogin extends React.Component {
     console.log(Expo.Constants.installationId)
   }
 
-  
-
   signInApplicaion(){
     fetch('https://app.osbb365.com/login/tenant/mobile', {
       method: 'POST',
@@ -52,11 +50,11 @@ export default class ScreenLogin extends React.Component {
     })
     .then((response) => response.json())
     .then((json) => {
-      //console.log(json)
+      console.log(json)
       if(json.token == null){
-        Alert.alert("Помилка", json.message)
+        Alert.alert(json.message)
       }else{
-        console.log("signIn", json.token)
+        //alert(json.token)
         this.onTokenChange(json.token);
         this.props.navigation.navigate('App');
       }
@@ -70,11 +68,11 @@ export default class ScreenLogin extends React.Component {
   }
 
   checkToken(){
-    /*if(this.props.tokenDeviceId == '') {
+    if(this.props.tokenDeviceId == '') {
       return
     }else{
       this.singUpApplication();
-    }*/
+    }
     //this.singUpApplication();
   }
 
@@ -107,7 +105,7 @@ export default class ScreenLogin extends React.Component {
         <View style={{backgroundColor: '#36678D',}}>
           <Image resizeMode='contain' style={{alignSelf: 'center', marginTop: 60,  marginBottom: 30, height: 250}} source={require('../../images/logo_white.png')}/>  
         </View>
-        {this.checkToken()}
+     
         {this.getLoginPassword()}
 
         <View style={styles.container, {marginTop: 5}}>
@@ -122,7 +120,6 @@ export default class ScreenLogin extends React.Component {
                 color="#5682A3"
                 onPress={() => {
                     this.signInApplicaion();
-                    //this.singUpApplication();
                     //this.props.navigation.navigate('App');
                     //fetchToken(this.props.navigation, this.onTokenChange);
                   }

@@ -38,6 +38,7 @@ export default class ScreenQRScanner extends React.Component {
   };
 
   render() {
+    
     if (this.props.hasCameraPermission === null) {
       return <View style={{alignItems: 'center'}}><Text>Запит на доступ до камери</Text></View>;
     }
@@ -73,8 +74,7 @@ export default class ScreenQRScanner extends React.Component {
       },
       body: JSON.stringify({
         token: token,
-        id: Expo.Constants.installationId
-        //id: "19b612ac-3dcf-4436-96dc-c52",
+        id: "ada6a3d3-6df7-43cf-a406-83875a3dc042",
       }),
     })
     .then((response) => response.json())
@@ -126,7 +126,7 @@ export default class ScreenQRScanner extends React.Component {
     this.setState({ scanned: true });
     this.onTokenDeviceIdChange(data);
     this.onIsScannedChange(true);
-    this.singUpApplication(data)
+    this.singUpApplication(data);
     console.log(data);
     //Alert.alert(data)
     //alert(data);
