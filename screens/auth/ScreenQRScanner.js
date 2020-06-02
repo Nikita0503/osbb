@@ -74,7 +74,7 @@ export default class ScreenQRScanner extends React.Component {
       },
       body: JSON.stringify({
         token: token,
-        id: "ada6a3d3-6df7-43cf-a406-83875a3dc042",
+        id: Expo.Constants.installationId,
       }),
     })
     .then((response) => response.json())
