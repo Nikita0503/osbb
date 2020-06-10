@@ -57,7 +57,7 @@ export default class MonthPicker extends React.Component {
           textAlign: 'center',
           fontSize: 16, 
           marginHorizontal: 5 }}>
-            {this.getAccountIdNumber()}
+            О.р. {this.getAccountIdNumber()}
         </Text>
         <Button
           title=">"

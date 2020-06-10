@@ -697,12 +697,33 @@ export default class ScreenMyApartment extends React.Component {
   }
 
   getPaymentButton(){
-    if(this.props.liqpayData == null) return;
-    if(this.props.liqpayData[0].liqPayPrivateKey != null){
+    
       return (
         <TouchableOpacity
           onPress={() => {
-            this.props.navigation.navigate('PaymentSelection');
+            if(this.props.liqpayData == null) {
+              Alert.alert(
+                'Повідомлення',
+                'Немає підключених способів оплати. Зверніться до правління ОСББ',
+                [
+                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                { cancelable: true }
+              )
+            }else{
+              if(this.props.liqpayData[0].liqPayPrivateKey != null){
+                this.props.navigation.navigate('PaymentSelection');
+              }else{
+                Alert.alert(
+                  'Повідомлення',
+                  'Немає підключених способів оплати. Зверніться до правління ОСББ',
+                  [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                  ],
+                  { cancelable: true }
+                )
+              }
+            }
           }}>
           <View
             style={{
@@ -714,7 +735,6 @@ export default class ScreenMyApartment extends React.Component {
           </View>
         </TouchableOpacity>
       );
-    }
   }
 }
 
