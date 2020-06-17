@@ -71,7 +71,7 @@ export default class ScreenLogin extends React.Component {
     if(this.props.tokenDeviceId == '') {
       return
     }else{
-      this.singUpApplication();
+      this.signInApplicaion();
     }
     //this.singUpApplication();
   }
@@ -79,6 +79,7 @@ export default class ScreenLogin extends React.Component {
   getLoginPassword(){
     return(<View style={styles.container}>
       <TextInput 
+        keyboardType={Platform.OS === 'android' ? 'email-address' : 'ascii-capable'} 
         onChangeText={(text) => {this.onEmailChange(text)}}
         value={this.props.email} 
         style={{borderColor: '#36678D', textAlign: 'center', borderBottomWidth: 1, fontSize: 16, marginBottom: 10}}  placeholder="Email" />
@@ -102,6 +103,7 @@ export default class ScreenLogin extends React.Component {
   render() {
     return (
       <ScrollView>
+        {this.checkToken()}
         <View style={{backgroundColor: '#36678D',}}>
           <Image resizeMode='contain' style={{alignSelf: 'center', marginTop: 60,  marginBottom: 30, height: 250}} source={require('../../images/logo_white.png')}/>  
         </View>
@@ -154,7 +156,7 @@ function fetchTokenWithEmail(navigation, onTokenChange, email, password){
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    login: email,
+    login: email.toLowerCase().trim(),
     password: password
   }),
 }).then((response) => response.json())

@@ -84,30 +84,32 @@ export default class ScreenSendIndications extends React.Component {
 
   getCounters() {
     if (this.props.indicationsCounters.length != this.props.accountIds.length) {
-      console.log('counters2', 'null');
+      //console.log('counters2', 'null');
       return;
     }
-    console.log('hello3', this.props.indicationsCounters);
+    
     for (var i = 0; i < this.props.indicationsCounters.length; i++) {
       if (
         this.props.accountId.number ==
         this.props.indicationsCounters[i].accountId.number
       ) {
+        //console.log('counters2', this.props.indicationsCounters[i].data);
         return this.props.indicationsCounters[i].data;
       }
     }
   }
 
-  render() {
-    return (
-      <View
-        style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
-        <PageHeader
-          navigation={this.props.navigation}
-          title="Передати покази"
-        />
-        <MonthPickerContainer />
-        <View style={(styles.container, { marginTop: 10 })}>
+  getData(){
+      var counters = this.getCounters()
+      console.log("123", counters)
+      if(counters == undefined){
+        return(<View style={{alignItems: 'center'}}><Text style={{color: '#364A5F'}}>Прилади обліку відсутні</Text></View>)
+      }else{
+        if(counters.length == 0){
+          return(<View style={{alignItems: 'center'}}><Text style={{color: '#364A5F'}}>Прилади обліку відсутні</Text></View>)
+        }else{
+        return(
+          <View>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.dataColumnNameCountersStyle}>Назва</Text>
             <Text style={styles.dataColumnNameCountersStyle}>
@@ -121,12 +123,12 @@ export default class ScreenSendIndications extends React.Component {
             </Text>
           </View>
           <FlatList
-            data={this.getCounters()}
+            data={counters}
             renderItem={({ item }) => (
               <ItemCounters
                 accountId={this.props.accountId}
                 counter={item}
-                indicationsCounters={this.getCounters()}
+                indicationsCounters={counters}
                 onSelectedCounterChange={this.onSelectedCounterChange}
                 onUpdateIndicationsCountersChange={
                   this.onUpdateIndicationsCountersChange
@@ -135,7 +137,25 @@ export default class ScreenSendIndications extends React.Component {
             )}
             keyExtractor={item => item.name}
           />
+          </View>)
+        }
+      }
+    
+  }
 
+
+  render() {
+    return (
+      <View
+        style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+        <PageHeader
+          navigation={this.props.navigation}
+          title="Передати покази"
+        />
+        <MonthPickerContainer />
+        <View style={(styles.container, { marginTop: 10 })}>
+          
+          {this.getData()}
           <Dialog.Container
             visible={this.props.selectedCounter == null ? false : true}>
             <Dialog.Title>

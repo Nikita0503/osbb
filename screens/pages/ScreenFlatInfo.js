@@ -1063,7 +1063,7 @@ export default class ScreenFlatInfo extends React.Component {
                   Одиниця виміру
                 </Text>
                 <Text style={styles.dataColumnNameIndividualContributionsStyle}>
-                  Послуга активна
+                  Внесок активний
                 </Text>
                 <Text style={styles.dataColumnNameIndividualContributionsStyle}>
                   Тариф

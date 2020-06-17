@@ -174,6 +174,7 @@ export default class ScreenApplicationsAndOffers extends React.Component {
       if (!this.props.applicationsAndOffersData[i].archive ) {
         if(this.props.onlyMy == this.props.applicationsAndOffersData[i].my){
           data=this.props.applicationsAndOffersData[i].data
+          console.log("Sraka", data)
         }
       }
     }
@@ -186,7 +187,7 @@ export default class ScreenApplicationsAndOffers extends React.Component {
             name={item.subject}
             system={item.system}
             status={item.status}
-            condition={item.isPublic}
+            condition={item.isOpened}
             navigation={this.props.navigation}
             onChangeSelectedOfferData={this.onChangeSelectedOfferData}
           />
@@ -218,7 +219,7 @@ export default class ScreenApplicationsAndOffers extends React.Component {
             name={item.subject}
             system={item.system}
             status={item.status}
-            condition={item.isPublic}
+            condition={item.isOpened}
             navigation={this.props.navigation}
             onChangeSelectedOfferData={this.onChangeSelectedOfferData}
           />

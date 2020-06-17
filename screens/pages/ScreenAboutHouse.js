@@ -115,7 +115,7 @@ export default class ScreenAboutHouse extends React.Component {
   getImage() {
     //console.log("house", this.props.aboutHouseData);
     if (this.props.aboutHouseData == null) return;
-    if (this.props.aboutHouseData.image == null) return;
+    if (this.props.aboutHouseData.image == null) return (<View style={{alignItems: 'center', margin: 5}}><Text style={{color: '#364A5F'}}>Фото будинку відсутнє</Text></View>);
     return (
       <Image
         source={{

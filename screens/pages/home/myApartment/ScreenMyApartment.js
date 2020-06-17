@@ -697,7 +697,6 @@ export default class ScreenMyApartment extends React.Component {
   }
 
   getPaymentButton(){
-    
       return (
         <TouchableOpacity
           onPress={() => {

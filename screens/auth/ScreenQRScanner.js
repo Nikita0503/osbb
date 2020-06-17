@@ -66,6 +66,8 @@ export default class ScreenQRScanner extends React.Component {
 
   singUpApplication(token){
     //Expo.Constants.installationId
+    //var s = '26079c64-5dbe-42c4-84a9-8e3302c5a123'
+    //console.log("123", s)
     fetch('https://app.osbb365.com/register/tenant/mobile', {
       method: 'POST',
       headers: {
@@ -92,7 +94,7 @@ export default class ScreenQRScanner extends React.Component {
         ],
         { cancelable: true }
       )
-    
+      //this.props.navigation.goBack();
       //this.signInApplicaion();
     })
     .catch((error) => {
@@ -117,6 +119,7 @@ export default class ScreenQRScanner extends React.Component {
           ],
           { cancelable: true }
         )
+        this.props.navigation.goBack();
       }
 
     });;
