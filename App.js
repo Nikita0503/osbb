@@ -164,7 +164,7 @@ import LoadingContainer from './screens/loading/LoadingContainer'
 import SendIndicationsContainer from './screens/pages/SendIndicationsContainer'
 
 const DrawerNavigator = createDrawerNavigator({
-  WebViewLiqpay: {screen: WebViewLiqpayContainer, navigationOptions:{title: 'Відскануйте QR код'}}, 
+  WebViewLiqpay: {screen: WebViewLiqpayContainer, navigationOptions:{title: 'Оплата'}}, 
   PaymentSelection: {screen: PaymentSelectionContainer, navigationOptions: {header: null}},
   Loading: {screen: LoadingContainer},
   Profile: {screen: ProfileContainer},

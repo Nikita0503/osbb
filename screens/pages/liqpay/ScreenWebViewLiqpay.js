@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { WebView } from 'react-native-webview';
-import { FlatList, ActivityIndicator, Text, View, Image } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View, Image, BackHandler } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -10,7 +10,20 @@ export default class ScreenWebViewLiqpay extends React.Component {
     this.state = { isLoading: true };
   }
 
+  backAction = () => {
+    //this.props.navigation.goBack(null)
+    this.props.navigation.navigate('PaymentSelection');
+    BackHandler.removeEventListener("hardwareBackPress", this.backAction);
+    return true;
+  };
+
+
+
   componentDidMount() {
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.backAction
+    );
     console.log('liqpayData', this.props);
     var d = new Date();
     //var n = d.getTime();
@@ -78,14 +91,25 @@ export default class ScreenWebViewLiqpay extends React.Component {
             this.componentDidMount();
           }}
         />
-        <TouchableOpacity onPress={()=>{
-          this.props.navigation.goBack(null)
-        }}>
-        <View style={{width: '100%', height: 60, backgroundColor: '#54687D', marginTop: 25}}>
-          <Text style={{fontSize: 45, color: 'white', marginTop: 5, marginStart: 10}}>←</Text>
+        
+        <View
+          style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+          <View style={{width: '100%', height: 85, backgroundColor: '#54687D', flexDirection: 'row', justifyContent: 'space-between'}}>
+          <TouchableOpacity style={{marginTop: 45}} onPress={()=>{
+            this.props.navigation.goBack(null)
+            this.props.navigation.navigate('PaymentSelection');
+          }}>
+            <Image
+                  style={{ width: 20, height: 20, marginLeft: 20 }}
+                  source={require('../../../images/ic_left_row.png')}
+                />
+                
+          </TouchableOpacity>
+          <Text style={{marginTop: 45, marginEnd: 20, color: 'white'}}>Оплата</Text>
         </View>
-        </TouchableOpacity>
+        
         {this.getWebView()}
+      </View>
       </View>
     );
   }

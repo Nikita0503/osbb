@@ -108,7 +108,7 @@ export default class ScreenPaymentSelection extends React.Component {
       .then(responseJson => {
         var sum = getSum(responseJson.chargesList);
         responseJson.chargesList.push({
-          caption: "Сума",
+          caption: "Всього",
           finishBalance: sum
         })
         console.log('onChargesDataChange', responseJson);
@@ -138,7 +138,7 @@ export default class ScreenPaymentSelection extends React.Component {
           onChangeText={text => this.onSelectedChargeValueChange(text)}
           value={this.props.selectedChargeValue}
           label="Введіть суму"
-          keyboardType={'numeric'}
+          keyboardType={'decimal-pad'}
           wrapperStyle={{
             borderBottomColor: '#000000',
             borderBottomWidth: 1,
@@ -178,19 +178,38 @@ export default class ScreenPaymentSelection extends React.Component {
         />
         <View
           style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
-          <PageHeader
-            style={{ flex: 1 }}
-            navigation={this.props.navigation}
-            title="Вибір оплати"
-          />
+          <View style={{width: '100%', height: 85, backgroundColor: '#54687D', flexDirection: 'row', justifyContent: 'space-between'}}>
+          <TouchableOpacity style={{marginTop: 45}} onPress={()=>{
+            this.props.navigation.goBack(null)
+          }}>
+            <Image
+                  style={{ width: 20, height: 20, marginLeft: 20 }}
+                  source={require('../../../images/ic_left_row.png')}
+                />
+                
+          </TouchableOpacity>
+          <Text style={{marginTop: 45, marginEnd: 20, color: 'white'}}>Вибір оплати</Text>
+        </View>
           <ScrollView>
             <View style={styles.container}>
+            <View style={{width: '100%', backgroundColor: '#F9F9F9', alignItems: 'center'}}>
+              <Text
+                style={{
+                  marginTop: 10,
+                  marginBottom: 10,
+                  color: '#364A5F',
+                  fontSize: 14,
+                  textAlign: 'center'
+                }}>
+                Для оплати клікніть по назві внеску, або по підсумку
+              </Text>
+            </View>
               <View style={{ flexDirection: 'row', paddingTop: 10 }}>
-                <Text style={styles.dataColumnNameStyle}>Назва</Text>
-                <Text style={styles.dataColumnNameStyle}>Борг</Text>
+                <Text style={styles.dataColumnNameTitleStyle}>Назва</Text>
+                <Text style={styles.dataColumnNameDebtStyle}>Борг</Text>
               </View>
               <FlatList
-                style={{ marginTop: 10 }}
+                style={{ marginTop: 10, marginBottom: 15 }}
                 data={this.getChargesData()}
                 renderItem={({ item }) => (
                   <Item
@@ -245,16 +264,23 @@ class Item extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingStart: 10,
-    marginLeft: 15,
+    marginStart: 15,
     marginEnd: 15,
     marginTop: 7,
     marginBottom: 8,
     backgroundColor: 'white',
     alignItems: 'center',
   },
-  dataColumnNameStyle: {
-    width: '50%',
+  dataColumnNameTitleStyle: {
+    width: '60%',
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#364A5F',
+    alignContent: 'center',
+    textAlign: 'center',
+  },
+  dataColumnNameDebtStyle: {
+    width: '40%',
     fontSize: 14,
     fontWeight: 'bold',
     color: '#364A5F',
@@ -262,19 +288,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   itemStyle: {
-    width: '50%',
+    width: '60%',
+    paddingStart: 20,
     fontSize: 16,
     color: '#364A5F',
     alignContent: 'flex-end',
   },
   itemSumStyleBold: {
-    width: '50%',
+    width: '40%',
     fontWeight: 'bold',
     fontSize: 16,
     color: '#364A5F',
   },
   itemStyleBold: {
-    width: '50%',
+    width: '40%',
     fontWeight: 'bold',
     fontSize: 16,
     color: '#364A5F',
