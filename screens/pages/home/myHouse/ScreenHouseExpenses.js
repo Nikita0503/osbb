@@ -17,8 +17,11 @@ import PDFReader from 'rn-pdf-reader-js';
 
 function getDate(data) {
   var date = new Date(data);
-  var month;
-  switch (date.getMonth()) {
+  var day = date.getDate();
+  if(day < 10) day = "0" + day;
+  var month = date.getMonth() + 1;
+  if(month < 10) month = "0" + month
+  /*switch (date.getMonth()) {
     case 0:
       month = ' січ. ';
       break;
@@ -55,8 +58,8 @@ function getDate(data) {
     case 11:
       month = ' груд. ';
       break;
-  }
-  return date.getDate() + month + date.getFullYear();
+  }*/
+  return day + " " + month + " " + date.getFullYear();
 }
 
 export default class ScreenHouseExpenses extends React.Component {
@@ -94,7 +97,7 @@ export default class ScreenHouseExpenses extends React.Component {
       .then(response => response.json())
       .then(responseJson => {
         this.onExpensesDataChange(responseJson);
-        //console.log("exp1", responseJson);
+        //console.log("onExpensesDataChange", responseJson);
       })
       .catch(error => {
         console.error(error);
@@ -128,8 +131,8 @@ export default class ScreenHouseExpenses extends React.Component {
         />
         <DataComponent name="Одиниця виміру" number={data.units} />
         <DataComponent name="Обсяг" number={data.amount} />
-        <DataComponent name="Початкова дата" number={getDate(data.startDate)} />
-        <DataComponent name="Кінцева дата" number={getDate(data.endDate)} />
+        <DataComponent name="Початкова дата" number={data.startDate != null ? getDate(data.startDate) : ""} />
+        <DataComponent name="Кінцева дата" number={data.endDate != null ? getDate(data.endDate) : ""} />
       </View>
     );
   }
@@ -262,8 +265,8 @@ export default class ScreenHouseExpenses extends React.Component {
                     name={item.name}
                     cost={parseFloat(item.cost).toFixed(2)}
                     notes={item.note}
-                    startDate={getDate(item.startDate)}
-                    endDate={getDate(item.endDate)}
+                    startDate={item.startDate != null ? getDate(item.startDate) : ""}
+                    endDate={item.endDate != null ? getDate(item.endDate) : ""}
                   />
                 )}
                 keyExtractor={item => item.name}

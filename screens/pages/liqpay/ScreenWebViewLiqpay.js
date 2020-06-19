@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { WebView } from 'react-native-webview';
-import { FlatList, ActivityIndicator, Text, View, Image, BackHandler } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View, Image, BackHandler, Alert } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -39,7 +39,8 @@ export default class ScreenWebViewLiqpay extends React.Component {
         this.props.selectedChargeContribution +
         '","order_id":"' +
         d.getTime() +
-        '"}',
+        '","language":"uk"' +
+        '}',
     };
 
     var formBody = [];
@@ -67,9 +68,18 @@ export default class ScreenWebViewLiqpay extends React.Component {
       });
   }
 
+  _onNavigationStateChange(webViewState){
+    if(webViewState.url == 'https://osbb365.com/tenant#/home'){
+      //this.props.navigation.goBack(null)
+      //this.props.navigation.navigate('PaymentSelection');
+      this.backAction()
+    }
+  }
+
   getWebView(){
     return(<WebView
       originWhitelist={['*']}
+      onNavigationStateChange={this._onNavigationStateChange.bind(this)}
       source={{
         html:
           '<form method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8"> <input type="hidden" name="data" value="' +
@@ -78,7 +88,7 @@ export default class ScreenWebViewLiqpay extends React.Component {
           this.state.signature +
           '"/><input style="width: 500; margin-left: 24%; margin-top: 60%" type="image" src="https://static.liqpay.ua/buttons/p1ru.radius.png"/></form>',
       }}
-      style={{ width: '100%'}}
+      style={{borderWidth: 1, borderColor: 'green', width: '100%',}}
     />);
   }
 
@@ -109,6 +119,7 @@ export default class ScreenWebViewLiqpay extends React.Component {
         </View>
         
         {this.getWebView()}
+        <Text style={{backgroundColor: "white", padding: 10, textAlign: 'center', color: "#364A5F"}}>Оплата відобразиться у додатку після її обробки бухгалтером ОСББ</Text>
       </View>
       </View>
     );

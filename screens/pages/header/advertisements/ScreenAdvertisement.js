@@ -410,14 +410,31 @@ class Item extends React.Component {
               );
 
               ws.onopen = () => {
-                // connection opened
+                /*
                 ws.send(
                   '4210["/notice/vote/optionSelected",{"noticeId":' +
                     variant.id +
                     ',"voteVariantId":' +
                     variant.variantId +
                     '}]'
-                );
+                );*/
+                Alert.alert(
+                  'Підтвердження',
+                  'Ви впевненні у вашому варіанті?',
+                  [
+                    {text: 'Так', onPress: () => {
+                      ws.send(
+                        '4210["/notice/vote/optionSelected",{"noticeId":' +
+                          variant.id +
+                          ',"voteVariantId":' +
+                          variant.variantId +
+                          '}]'
+                      );
+                    }},
+                    {text: 'Ні', onPress: () => console.log('No pressed')}
+                  ],
+                  { cancelable: true }
+                )
               };
 
               ws.onmessage = e => {

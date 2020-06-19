@@ -70,12 +70,7 @@ export default class ScreenAccrualHistory extends React.Component {
           <View style={styles.container}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={styles.dataColumnNameStyle}>Внесок</Text>
-              <Text style={styles.dataColumnNameStyle}>Сальдо</Text>
               <Text style={styles.dataColumnNameStyle}>Нарахування</Text>
-              <Text style={styles.dataColumnNameStyle}>
-                До сплати за місяць
-              </Text>
-              <Text style={styles.dataColumnNameStyle}>Борг</Text>
             </View>
             <FlatList
               data={this.props.accrualHistoryCurrentData}
@@ -114,10 +109,7 @@ class Item extends React.Component {
         }>
         <View style={{ flexDirection: 'row', paddingTop: 5 }}>
           <Text style={styles.itemStyle}>{this.props.contribution}</Text>
-          <Text style={styles.itemStyle}>{this.props.balance}</Text>
           <Text style={styles.itemStyle}>{this.props.charges}</Text>
-          <Text style={styles.itemStyle}>{this.props.pendingPerMonth}</Text>
-          <Text style={styles.itemStyle}>{this.props.debt}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -263,16 +255,17 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   dataColumnNameStyle: {
-    width: '20%',
-    fontSize: 10,
+    marginVertical: 10,
+    width: '50%',
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#364A5F',
     alignContent: 'center',
     textAlign: 'center',
   },
   itemStyle: {
-    width: '20%',
-    fontSize: 12,
+    width: '50%',
+    fontSize: 14,
     paddingVertical: 4,
     color: '#364A5F',
     alignContent: 'center',

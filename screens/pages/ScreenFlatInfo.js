@@ -713,9 +713,9 @@ export default class ScreenFlatInfo extends React.Component {
         </View>
 
         <View style={(styles.container, { marginLeft: 2 })}>
-          <View style={{ alignItems: 'center', marginTop: 30 }}>
+          <View style={{ alignItems: 'center'}}>
             <DataComponent
-              name="Відповідальний наймач"
+              name="Власник/Співвласник"
               number={this.getName(currentFlatInfoGeneralData)}
             />
           </View>

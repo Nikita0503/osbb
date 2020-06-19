@@ -37,6 +37,7 @@
     "react-native-file-viewer": "^2.0.2",
     "react-native-gesture-handler": "^1.6.0",
     "react-native-image-progress": "^1.1.1",
+    "react-native-liqpay": "^0.4.0",
     "react-native-loading-spinner-overlay": "^1.1.0",
     "react-native-modal": "^11.5.5",
     "react-native-paper": "^3.6.0",
