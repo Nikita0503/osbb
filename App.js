@@ -96,7 +96,7 @@ const MyHouseNavigator = createStackNavigator({
 import ActOfReconciliationContainer from './screens/pages/home/ActOfReconciliationContainer'
 const TabNavigatorMainScreen = createBottomTabNavigator(
   {
-    "Моя квартира": MyApartmentNavigator,
+    "Нарахування": MyApartmentNavigator,
     "Мій будинок": MyHouseNavigator,
     "Акт звіряння": ActOfReconciliationContainer
   },

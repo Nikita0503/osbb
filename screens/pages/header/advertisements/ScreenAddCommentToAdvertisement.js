@@ -102,8 +102,8 @@ export default class ScreenAddCommentToAdvertisement extends React.Component {
                 var data = JSON.parse(myObj);
                 Alert.alert(
                   'Повідомлення',
-                  data[1].message,
-                  //myObj,                  
+                  'Коментар успішно створено',
+                  //myObj,
                   [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                   ],

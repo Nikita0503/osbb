@@ -174,11 +174,20 @@ export default class ScreenApplicationsAndOffers extends React.Component {
       if (!this.props.applicationsAndOffersData[i].archive ) {
         if(this.props.onlyMy == this.props.applicationsAndOffersData[i].my){
           data=this.props.applicationsAndOffersData[i].data
-          console.log("Sraka", data)
         }
       }
     }
     if(data != null && data.length != 0){
+      data.sort(function (a, b) {
+        if (new Date(a.createdAt) < new Date(b.createdAt)) {
+          return 1;
+        }
+        if (new Date(a.createdAt) > new Date(b.createdAt)) {
+          return -1;
+        }
+        // a должно быть равным b
+        return 0;
+      });
       return(<FlatList
         data={data}
         renderItem={({ item }) => (
@@ -211,6 +220,16 @@ export default class ScreenApplicationsAndOffers extends React.Component {
       }
     }
     if(data != null && data.length != 0){
+      data.sort(function (a, b) {
+        if (new Date(a.createdAt) < new Date(b.createdAt)) {
+          return 1;
+        }
+        if (new Date(a.createdAt) > new Date(b.createdAt)) {
+          return -1;
+        }
+        // a должно быть равным b
+        return 0;
+      });
       return(<FlatList
         data={data}
         renderItem={({ item }) => (

@@ -51,8 +51,8 @@ export default class ScreenAccrualHistory extends React.Component {
     )
       .then(response => response.json())
       .then(responseJson => {
-        console.log(responseJson);
-        this.onCurrentAccrualsDataChange(responseJson.chargesList);
+        const data = sortCurrentAccrualsData(responseJson.chargesList);
+        this.onCurrentAccrualsDataChange(data);
       })
       .catch(error => {
         console.error(error);
@@ -114,6 +114,19 @@ class Item extends React.Component {
       </TouchableOpacity>
     );
   }
+}
+
+function sortCurrentAccrualsData(data){
+  data.sort(function (a, b) {
+    if (a.caption > b.caption) {
+      return 1;
+    }
+    if (a.caption < b.caption) {
+      return -1;
+    }
+    return 0;
+  });
+  return data
 }
 
 function showAccrual(selectedAccrualsData, onSelectedAccrualsDataChange) {

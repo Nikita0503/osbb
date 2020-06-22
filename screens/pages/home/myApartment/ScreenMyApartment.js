@@ -577,13 +577,7 @@ export default class ScreenMyApartment extends React.Component {
             number={getAccruals(currentApartmentData)}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('AccrualHistory')}>
-          <DataClickableComponent
-            name="Перерахунки"
-            number={getReculc(currentApartmentData)}
-          />
-        </TouchableOpacity>
+        
         <DataComponent
           name="Пільги"
           number={getPrivileges(currentApartmentData)}
