@@ -12,6 +12,7 @@ import {
   TextInput,
 } from 'react-native';
 import PageHeader from '../../../../components/PageHeader';
+import Toast from 'react-native-tiny-toast'
 
 export default class ScreenAddCommentToAdvertisement extends React.Component {
   constructor(props) {
@@ -100,15 +101,25 @@ export default class ScreenAddCommentToAdvertisement extends React.Component {
                 const myObjStr = JSON.stringify(e.data.substring(2, e.data.length));
                 var myObj = JSON.parse(myObjStr);
                 var data = JSON.parse(myObj);
-                Alert.alert(
+                /*Alert.alert(
                   'Повідомлення',
                   'Коментар успішно створено',
-                  //myObj,
+                  //myObj,                  
                   [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                   ],
                   { cancelable: true }
-                )
+                )*/
+                //Toast.show('This is a default toast')
+                Toast.show('Коментар успішно створено',{
+                  position: Toast.position.TOP,
+                  containerStyle:{backgroundColor: 'green'},
+                  textStyle: {},
+                  imgStyle: {},
+                  mask: false,
+                  maskStyle:{},
+                  
+                })
                 this.onAddCommentToAdvertisementTextChange(null);
                 this.props.navigation.goBack()
                 }

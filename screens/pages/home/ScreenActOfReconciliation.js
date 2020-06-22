@@ -281,6 +281,7 @@ export default class ScreenActOfReconciliation extends React.Component {
                           data: responseJson.chargesList[keys[i]]
                         }
                         dataArray.push(data);
+                        console.log(dataArray)
                       }
                       this.onSelectedDataChange(dataArray)
                       this.onShowLoadingChange(false);
@@ -297,7 +298,7 @@ export default class ScreenActOfReconciliation extends React.Component {
               <Text style={styles.dataColumnNameStyle}>Сальдо</Text>
               <Text style={styles.dataColumnNameChargesStyle}>Нарахування</Text>
               <Text style={styles.dataColumnNameStyle}>
-                До сплати за місяць
+                Оплати
               </Text>
               <Text style={styles.dataColumnNameStyle}>Борг</Text>
             </View>
@@ -326,7 +327,7 @@ export default class ScreenActOfReconciliation extends React.Component {
             balance={getStartBalance(item)}
             charges={getAccruals(item)}
             pendingPerMonth={getSum(item)}
-            debt={getDebt(item  )}
+            debt={getDebt(item)}
           />
         )}
         keyExtractor={item => item.month}
@@ -357,7 +358,9 @@ function getSum(dataForCurrentPeriod) {
   if (dataForCurrentPeriod == null) return;
   var sum = 0;
   for (var i = 0; i < dataForCurrentPeriod.data.length; i++) {
-    sum += dataForCurrentPeriod.data[i].totalSum;
+    if(dataForCurrentPeriod.data[i].totalPayments != null){
+      sum += parseFloat(dataForCurrentPeriod.data[i].totalPayments);
+    }
   }
   return sum.toFixed(2);
 }

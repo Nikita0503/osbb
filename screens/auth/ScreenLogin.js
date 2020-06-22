@@ -130,7 +130,7 @@ export default class ScreenLogin extends React.Component {
             </View>
             <View style={{margin: 5}}>
               <Button
-                title="QR код сканер"
+                title="Сканувати QR-код"
                 color="#5682A3"
                 onPress={() => this.props.navigation.navigate('QRScanner')}
               /> 
