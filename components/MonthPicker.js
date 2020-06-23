@@ -52,6 +52,7 @@ export default class MonthPicker extends React.Component {
   }
 
   getButtonNextAccount(){
+    if(getUniqueAccountIds(this.props.accountIds).length != 1)
     return(<Button
       title=">"
       color="#364A5F"

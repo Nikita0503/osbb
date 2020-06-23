@@ -79,6 +79,7 @@ export default class ScreenLogin extends React.Component {
 
   getLoginPassword(){
     return(<View style={styles.container}>
+      
       <TextInput 
         keyboardType={Platform.OS === 'android' ? 'email-address' : 'ascii-capable'} 
         onChangeText={(text) => {this.onEmailChange(text)}}
@@ -97,6 +98,9 @@ export default class ScreenLogin extends React.Component {
         onPress={() => {fetchTokenWithEmail(this.props.navigation, this.onTokenChange, this.props.email, this.props.password)}}
         
       />  
+      </View>
+      <View style={{alignItems: 'center', margin: 5}}>
+          <Text>Авторизуйтеся через E-mail</Text>
       </View>
     </View>)
   }
@@ -125,16 +129,13 @@ export default class ScreenLogin extends React.Component {
         <View style={{backgroundColor: '#36678D',}}>
           <Image resizeMode='contain' style={{alignSelf: 'center', marginTop: 60,  marginBottom: 30, height: 250}} source={require('../../images/logo_white.png')}/>  
         </View>
-        <View style={{alignItems: 'center', margin: 10}}>
-          <Text>Авторизуйтеся через E-mail</Text>
-        </View>
+        
         {this.getLoginPassword()}
-        <View style={{alignItems: 'center', margin: 10}}>
-    <Text style={{textAlign: 'center'}}>Або через QR-код у Особистому кабінеті {"\n"}(розділ "Мобільні додатки")</Text>
-        </View>
+        
         <View style={styles.container, {marginTop: 5}}>
           {this.showUniqId()}
           <View style={styles.container}>
+          
             <TextInput 
             onChangeText={(text) => {this.onTokenDeviceIdChange(text)}}
             value={this.props.tokenDeviceId} style={{borderColor: '#36678D', textAlign: 'center', borderBottomWidth: 1, fontSize: 16, marginBottom: 10}} placeholder="Токен" editable={false} />
@@ -157,10 +158,10 @@ export default class ScreenLogin extends React.Component {
                 onPress={() => this.props.navigation.navigate('QRScanner')}
               /> 
             </View>
+            <View style={{alignItems: 'center', margin: 5}}>
+            <Text style={{textAlign: 'center'}}>Або через QR-код у Особистому кабінеті {"\n"}(розділ "Мобільні додатки")</Text>
           </View>
-
-          
-
+          </View>
         </View>
       </ScrollView>
       );
@@ -215,9 +216,9 @@ function fetchToken(navigation, onTokenChange){
 const styles = StyleSheet.create({
   container: {
     padding: 5,
+    marginTop: 12,
     marginLeft: 50,
     marginEnd: 50,
-    marginBottom: 8,
     backgroundColor: 'white', 
   },
 });

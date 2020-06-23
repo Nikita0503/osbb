@@ -37,6 +37,7 @@
     "react-native-file-opener": "^0.2.0",
     "react-native-file-viewer": "^2.0.2",
     "react-native-gesture-handler": "^1.6.0",
+    "react-native-image-pan-zoom": "^2.1.12",
     "react-native-image-progress": "^1.1.1",
     "react-native-liqpay": "^0.4.0",
     "react-native-loading-spinner-overlay": "^1.1.0",

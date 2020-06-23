@@ -10,7 +10,7 @@ import {
   Platform,
   TouchableOpacity,
   ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import PageHeader from '../../../../components/PageHeader';
 import { NavigationEvents } from 'react-navigation';
@@ -20,6 +20,7 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import Dialog from 'react-native-dialog';
 import PDFReader from 'rn-pdf-reader-js';
+import ImageZoom from 'react-native-image-pan-zoom';
 
 export default class ScreenChat extends React.Component {
   ws = new WebSocket(
@@ -345,22 +346,34 @@ export default class ScreenChat extends React.Component {
       switch(type){
         case 'jpg':
           return(
+            <ImageZoom cropWidth={320}
+                       cropHeight={300}
+                       imageWidth={320}
+                       imageHeight={300}>
           <Image
             style={{width: 320, height: 300, resizeMode: 'contain'}}
             source={{uri: 'https://app.osbb365.com' + path}}
-          />)
+          /></ImageZoom>)
         case 'png':
           return(
+            <ImageZoom cropWidth={320}
+                       cropHeight={300}
+                       imageWidth={320}
+                       imageHeight={300}>
           <Image
             style={{width: 320, height: 300, resizeMode: 'contain'}}
             source={{uri: 'https://app.osbb365.com' + path}}
-          />)
+          /></ImageZoom>)
         case 'svg':
           return(
+            <ImageZoom cropWidth={320}
+                       cropHeight={300}
+                       imageWidth={320}
+                       imageHeight={300}>
           <Image
             style={{width: 320, height: 300, resizeMode: 'contain'}}
             source={{uri: 'https://app.osbb365.com' + path}}
-          />)
+          /></ImageZoom>)
         case 'pdf':
           return(
           <PDFReader
