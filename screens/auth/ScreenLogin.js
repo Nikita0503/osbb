@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Image, FlatList, ScrollView, TouchableOpacity, Button, TextInput, Alert } from 'react-native';
 import { Constants } from 'expo-constants';
+import NetInfo from '@react-native-community/netinfo';
 
 export default class ScreenLogin extends React.Component {
   constructor(props){
@@ -100,6 +101,23 @@ export default class ScreenLogin extends React.Component {
     </View>)
   }
 
+  componentDidMount(){
+    NetInfo.fetch().then(state => {
+      //console.log('Connection type', state.type);
+      console.log('Is connected?', state.isConnected);
+      if(!state.isConnected){
+      Alert.alert(
+          'Помилка',
+          'Відсутнє інтернет з\'єднання!',
+          [
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+          ],
+          { cancelable: true }
+        )
+      }
+    });
+  }
+
   render() {
     return (
       <ScrollView>
@@ -107,9 +125,13 @@ export default class ScreenLogin extends React.Component {
         <View style={{backgroundColor: '#36678D',}}>
           <Image resizeMode='contain' style={{alignSelf: 'center', marginTop: 60,  marginBottom: 30, height: 250}} source={require('../../images/logo_white.png')}/>  
         </View>
-     
+        <View style={{alignItems: 'center', margin: 10}}>
+          <Text>Авторизуйтеся через E-mail</Text>
+        </View>
         {this.getLoginPassword()}
-
+        <View style={{alignItems: 'center', margin: 10}}>
+    <Text style={{textAlign: 'center'}}>Або через QR-код у Особистому кабінеті {"\n"}(розділ "Мобільні додатки")</Text>
+        </View>
         <View style={styles.container, {marginTop: 5}}>
           {this.showUniqId()}
           <View style={styles.container}>
@@ -195,9 +217,7 @@ const styles = StyleSheet.create({
     padding: 5,
     marginLeft: 50,
     marginEnd: 50,
-    marginTop: 15,
     marginBottom: 8,
     backgroundColor: 'white', 
   },
-    
 });

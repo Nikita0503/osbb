@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import PageHeader from '../../../../components/PageHeader';
+import PageHeaderClickable from '../../../../components/PageHeaderClickable';
 import MonthPickerContainer from '../../../../components/MonthPickerContainer';
 import Chart from '../../../../components/Chart';
 import DataComponent from '../../../../components/DataComponent';
@@ -162,7 +162,7 @@ function fetchLiqpayData(accountId, osbbId, workPeriod, token, onLiqpayDataChang
   )
     .then(response => response.json())
     .then(responseJson => {
-      console.log('onLiqpayDataChange', responseJson);
+      //console.log('onLiqpayDataChange', responseJson);
       onLiqpayDataChange(responseJson);
     })
     .catch(error => {
@@ -613,8 +613,9 @@ export default class ScreenMyApartment extends React.Component {
   getDebtByCurrentAccountId(){
     if(this.props.accountId == null) return null
     for(var i = 0; i < this.props.debtData.length; i++){
+      //console.log("debt", this.props.debtData[i])
       if(this.props.accountId.id == this.props.debtData[i].accountId.id){
-        //console.log("debt", this.props.debtData[i].debt)
+        
         return this.props.debtData[i].debt
       }else{
         return "0.00"
@@ -638,9 +639,11 @@ export default class ScreenMyApartment extends React.Component {
           }}
         />
         {this.getIsLoaded()}
-        <PageHeader
+        <PageHeaderClickable
           navigation={this.props.navigation}
           title="Поточний місяць"
+          workPeriods={this.props.workPeriods}
+          setCurrentWorkPeriod={this.props.setCurrentWorkPeriod}
         />
         <MonthPickerContainer />
         <ScrollView>

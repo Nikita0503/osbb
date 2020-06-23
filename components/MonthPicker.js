@@ -28,29 +28,55 @@ export default class MonthPicker extends React.Component {
     }
   }
 
+  getButtonPreviousAccount(){
+    if(getUniqueAccountIds(this.props.accountIds).length != 1)
+    return(<Button
+      title="<"
+      color="#364A5F"
+      onPress={() => {
+        var index;
+        for(var i = 0; i < this.props.accountIds.length; i++){
+          if(this.props.accountId.id == this.props.accountIds[i].id){
+            index = i;
+            break;
+          }
+        }
+        index--;
+        if(index < 0){
+          index = 0;
+        }
+        var accountId = this.props.accountIds[index];
+        this.onAccountIdChange(accountId);
+      }}
+    />);
+  }
+
+  getButtonNextAccount(){
+    return(<Button
+      title=">"
+      color="#364A5F"
+      onPress={() => {
+        var index;
+        for(var i = 0; i < this.props.accountIds.length; i++){
+          if(this.props.accountId.id == this.props.accountIds[i].id){
+            index = i;
+            break;
+          }
+        }
+        index++;
+        if(index > this.props.accountIds.length - 1){
+          index = this.props.accountIds.length - 1;
+        }
+        var accountId = this.props.accountIds[index];
+        this.onAccountIdChange(accountId);
+      }}
+    />);
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Button
-          title="<"
-          color="#364A5F"
-          onPress={() => {
-            var index;
-            console.log("bun", this.props.accountIds)
-            for(var i = 0; i < this.props.accountIds.length; i++){
-              if(this.props.accountId.id == this.props.accountIds[i].id){
-                index = i;
-                break;
-              }
-            }
-            index--;
-            if(index < 0){
-              index = 0;
-            }
-            var accountId = this.props.accountIds[index];
-            this.onAccountIdChange(accountId);
-          }}
-        />
+        {this.getButtonPreviousAccount()}
         <Text style={{ 
           width: 120,
           color: 'white', 
@@ -59,25 +85,8 @@ export default class MonthPicker extends React.Component {
           marginHorizontal: 5 }}>
             О.р. {this.getAccountIdNumber()}
         </Text>
-        <Button
-          title=">"
-          color="#364A5F"
-          onPress={() => {
-            var index;
-            for(var i = 0; i < this.props.accountIds.length; i++){
-              if(this.props.accountId.id == this.props.accountIds[i].id){
-                index = i;
-                break;
-              }
-            }
-            index++;
-            if(index > this.props.accountIds.length - 1){
-              index = this.props.accountIds.length - 1;
-            }
-            var accountId = this.props.accountIds[index];
-            this.onAccountIdChange(accountId);
-          }}
-        />
+        
+        {this.getButtonNextAccount()}
 
 
         <Button
@@ -147,6 +156,23 @@ export default class MonthPicker extends React.Component {
       </View>
     );
   }
+}
+
+function getUniqueAccountIds(data) {
+  var accountIds = new Array();
+  for (var i = data.length - 1; i >= 0; i--) {
+    var isUniq = true;
+    for (var j = 0; j < accountIds.length; j++) {
+      if (accountIds[j].number == data[i].number) {
+        isUniq = false;
+        break;
+      }
+    }
+    if (isUniq) {
+      accountIds.push(data[i]);
+    }
+  }
+  return accountIds;
 }
 
 function getCorrectName(workPeriod) {
