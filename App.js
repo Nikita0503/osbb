@@ -10,6 +10,7 @@ import {createBottomTabNavigator, BottomTabBar} from 'react-navigation-tabs';
 
 
 import DrawerContentComponents from './components/DrawerContentComponents';
+import DrawerContentContainer from './components/DrawerContentContainer';
 
 import ScreenProfile from './screens/pages/ScreenProfile';
 import ScreenFlatInfo from './screens/pages/ScreenFlatInfo';
@@ -190,7 +191,7 @@ const DrawerNavigator = createDrawerNavigator({
       activeBackgroundColor: '#2B3B4C',
       
   },
-  contentComponent: DrawerContentComponents,
+  contentComponent: DrawerContentContainer,
   initialRouteName: 'Home'
 });
 

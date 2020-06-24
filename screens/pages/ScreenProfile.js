@@ -160,7 +160,7 @@ export default class ScreenProfile extends React.Component {
     if(this.props.userData == null){
       return;
     }
-    console.log("userPhoto", this.props.userData.photo)
+    console.log("userPhoto", this.props.userData)
     return(<ImageAvatar
       indicator='bar' 
       source={

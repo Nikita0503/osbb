@@ -21,8 +21,16 @@ export default class DrawerContentComponents extends Component {
             this.props.navigation.navigate('Profile')
           }}> 
             <View style={[styles.headerContainer, (this.props.activeItemKey=='Profile') ? styles.activeBackgroundColor : null]}>
-              <Image style={styles.iconHeader} source={require('../images/ic_profile.png')} />
-              <Text style={styles.screenHeaderTextStyle}>Профіль</Text>
+              <Image style={styles.iconHeader} source={ this.props.userData == null ? require('../images/ic_profile.png') :
+                this.props.userData.photo == null
+                ? require('../images/ic_profile.png')
+                : {
+                    uri:
+                      'https://app.osbb365.com' +
+                      this.props.userData.photo,
+                  }
+              }/>
+              <Text style={styles.screenHeaderTextStyle}>{this.props.userData == null ? 'Профіль' : this.props.userData.firstName + " " + this.props.userData.lastName}</Text>
             </View>
           </TouchableOpacity>
             <View style={styles.screenContainer}>
@@ -115,6 +123,8 @@ const styles = StyleSheet.create({
       width: 100,
       height: 100,
       marginTop: 30,
+      marginBottom: 15,
+      borderRadius: 50
     },
     screenHeaderTextStyle:{
       fontSize: 16,

@@ -93,6 +93,7 @@ function fetchApartmentData(
       var myObj = JSON.parse(myObjStr);
       var data = JSON.parse(myObj);
       onOsbbIdChange(data[1].OsbbData.OsbbId);
+      console.log("photo", data)
 
       var osbbIds = new Array();
       for (var i = 0; i < data[1].UserAccounts.length; i++) {
@@ -214,7 +215,7 @@ function fetchGeneralDataApartment(
     .then(response => response.json())
     .then(responseJson => {
       var accountId = getMaxId(responseJson, userAccounts);
-      console.log("id", accountId)
+      //console.log("id", accountId)
       onAccountIdsChange(accountId);
       onAccountIdChange(accountId);
       for (var j = 0; j < workPeriods.length; j++) {
