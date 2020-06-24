@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./images/app_icon.png",
     "splash": {
@@ -25,7 +25,7 @@
     ],
 	  "ios": {
       "bundleIdentifier": "com.osbb365.osbb365",
-      "buildNumber": "6.0.0",
+      "buildNumber": "7.0.0",
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Для подальшої роботи осбб потрібна камера. Чи надаєте ви доступ ОСББ 365 до вашої камери?"
@@ -33,7 +33,7 @@
     },
 	  "android": {
       "package": "com.osbb365.osbb365",
-      "versionCode": 5
+      "versionCode": 6
     }
     
   }

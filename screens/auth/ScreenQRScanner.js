@@ -64,6 +64,53 @@ export default class ScreenQRScanner extends React.Component {
     );
   }
 
+  signInApplicaion(token){
+    fetch('https://app.osbb365.com/login/tenant/mobile', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: token,
+        id: Expo.Constants.installationId
+        //token: 'f5573fd6e07c01f027dfe1c3d39b74ee', norm
+        //token: 'e0dc8ed1e04dddeadf20f4e64134a81a', //empty
+        //token: '77bad9fb781d61c745f968cd7950a0c4', //yul
+        //token: '0e4b8b07dd0053b00d1939caf33c1a52',
+        //id: 'bde288e9-ab6d-44b1-9fa8-43c256ee4806'
+      }),
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json)
+      if(json.token == null){
+        //Alert.alert(json.message)
+        if(json.message == 'Пристрій заблокований'){
+          Alert.alert(
+            'Пристрій заблокований',
+            "Активуйте ваш пристрій у особистому кабінеті (розділ 'Мобільні додатки')",
+            [
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            { cancelable: true }
+          )
+        }
+      }else{
+        //alert(json.token)
+        //this.onTokenChange(json.token);
+        //this.props.navigation.navigate('App');
+        this.props.navigation.goBack()
+      }
+      
+      //this.props.navigation.navigate('App');
+    })
+    .catch((error) => {
+      Alert.alert("Неправильний токен. Спробуйте ще раз")
+      console.error(error);
+    });
+  }
+
   singUpApplication(token){
     //Expo.Constants.installationId
     //var s = '26079c64-5dbe-42c4-84a9-8e3302c5a123'
@@ -84,16 +131,16 @@ export default class ScreenQRScanner extends React.Component {
       //console.log(response)
       //alert(json.message)
       //setTimeout(()=>{}, 2000);
-      console.log("signUp", json.message + ". Телефон вже зареєстрований.");
-      
-      Alert.alert(
+      console.log("signUp", json.message + ". Прістрій вже зареєстрований.");
+      this.signInApplicaion(token)
+      /*Alert.alert(
         json.message,
         "Телефон вже зареєстрований",
         [
           {text: 'OK', onPress: () => console.log('OK Pressed')},
         ],
         { cancelable: true }
-      )
+      )*/
       //this.props.navigation.goBack();
       //this.signInApplicaion();
     })
@@ -113,7 +160,7 @@ export default class ScreenQRScanner extends React.Component {
       }else if(error.message == 'JSON Parse error: Unexpected identifier "OK"'){
         Alert.alert(
           'Успішно зареєстровано',
-          "Активуйте ваш телефон у особистому кабінеті (розділ 'Мобільні додатки')",
+          "Активуйте ваш пристрій у особистому кабінеті (розділ 'Мобільні додатки')",
           [
             {text: 'OK', onPress: () => console.log('OK Pressed')},
           ],

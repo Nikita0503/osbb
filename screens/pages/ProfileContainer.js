@@ -7,6 +7,9 @@ import {
   setNewRepeatPassword,
   setAvatarImage
 } from '../../store/pages/profile/actions';
+import {
+  setTokenDeviceId
+} from '../../store/auth/actions';
 import ScreenProfile from './ScreenProfile';
 
 class ProfileContainer extends React.Component {
@@ -31,6 +34,7 @@ class ProfileContainer extends React.Component {
         setNewPassword={this.props.setNewPassword}
         setNewRepeatPassword={this.props.setNewRepeatPassword}
         setAvatarImage={this.props.setAvatarImage}
+        setTokenDeviceId={this.props.setTokenDeviceId}
       />
     );
   }
@@ -58,7 +62,8 @@ const mapDispatchToProps = {
   setOldPassword: setOldPassword,
   setNewPassword: setNewPassword,
   setNewRepeatPassword: setNewRepeatPassword,
-  setAvatarImage: setAvatarImage
+  setAvatarImage: setAvatarImage,
+  setTokenDeviceId: setTokenDeviceId
 };
 
 export default connect(

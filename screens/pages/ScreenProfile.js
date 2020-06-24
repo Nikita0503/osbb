@@ -309,6 +309,18 @@ export default class ScreenProfile extends React.Component {
                 />
               </View>
             </View>
+            <View style={styles.container}>
+              <View style={{width: '80%', marginVertical: 15}}>
+                <Button
+                  title="Вийти з аккаунту"
+                  color="#5682A3"
+                  onPress={() => {
+                    this.props.setTokenDeviceId('')
+                    this.props.navigation.navigate('Auth')
+                  }}
+                />
+              </View>
+            </View>
           </ScrollView>
         </View>
       </KeyboardAvoidingView>

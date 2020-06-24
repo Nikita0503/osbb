@@ -53,7 +53,16 @@ export default class ScreenLogin extends React.Component {
     .then((json) => {
       console.log(json)
       if(json.token == null){
-        Alert.alert(json.message)
+        if(json.message == 'Пристрій заблокований'){
+          Alert.alert(
+            'Пристрій заблокований',
+            "Активуйте ваш пристрій у особистому кабінеті (розділ 'Мобільні додатки')",
+            [
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            { cancelable: true }
+          )
+        }
       }else{
         //alert(json.token)
         this.onTokenChange(json.token);

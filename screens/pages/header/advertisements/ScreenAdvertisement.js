@@ -15,6 +15,7 @@ import { RadioButton } from 'react-native-paper';
 import { NavigationEvents } from 'react-navigation';
 import Dialog from 'react-native-dialog';
 import PDFReader from 'rn-pdf-reader-js';
+import ImageZoom from 'react-native-image-pan-zoom';
 
 export default class ScreenAdvertisement extends React.Component {
   constructor(props) {
@@ -180,22 +181,34 @@ getFileShowDialog(){
     switch(type){
       case 'jpg':
         return(
+          <ImageZoom cropWidth={320}
+                       cropHeight={300}
+                       imageWidth={320}
+                       imageHeight={300}>
         <Image
           style={{width: 320, height: 300, resizeMode: 'contain'}}
           source={{uri: 'https://app.osbb365.com' + path}}
-        />)
+        /></ImageZoom>)
       case 'png':
         return(
+          <ImageZoom cropWidth={320}
+                       cropHeight={300}
+                       imageWidth={320}
+                       imageHeight={300}>
         <Image
           style={{width: 320, height: 300, resizeMode: 'contain'}}
           source={{uri: 'https://app.osbb365.com' + path}}
-        />)
+        /></ImageZoom>)
       case 'svg':
         return(
+          <ImageZoom cropWidth={320}
+                       cropHeight={300}
+                       imageWidth={320}
+                       imageHeight={300}>
         <Image
           style={{width: 320, height: 300, resizeMode: 'contain'}}
           source={{uri: 'https://app.osbb365.com' + path}}
-        />)
+        /></ImageZoom>)
       case 'pdf':
         return(
         <PDFReader
