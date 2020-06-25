@@ -164,7 +164,7 @@ export default class ScreenSendIndications extends React.Component {
                 : this.props.selectedCounter.caption}
             </Dialog.Title>
             <Dialog.Input
-              keyboardType={'numeric'}
+              keyboardType={'decimal-pad'}
               onChangeText={text => this.onIndicationTextChange(text)}
               value={this.props.indicationText}
               label="Введіть поточний показник"

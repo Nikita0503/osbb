@@ -15,6 +15,7 @@ import {
 import PageHeader from '../../components/PageHeader';
 import * as ImagePicker from 'expo-image-picker';
 import ImageAvatar from 'react-native-image-progress';
+import { TextInputMask } from 'react-native-masked-text'
 
 export default class ScreenProfile extends React.Component {
   constructor(props) {
@@ -69,7 +70,8 @@ export default class ScreenProfile extends React.Component {
       aspect: [4, 3],
       quality: 1,
     });
-
+    console.log("123", result)
+    if(result.cancelled == true) return
     let photo = { uri: result.uri };
     let formdata = new FormData();
 
@@ -140,7 +142,15 @@ export default class ScreenProfile extends React.Component {
   };
 
   getAvatar(){
-    
+    if(this.props.imageAvatar == 'deleted'){
+      return(<ImageAvatar
+        indicator='bar' 
+        source={   
+          require('../../images/add.png')
+        }
+        style={{ width: 300, height: 300, resizeMode: 'contain' }}
+      />);
+    }
     if(this.props.imageAvatar != null){
       console.log("imageAvatar", this.props.imageAvatar)
       return(<ImageAvatar
@@ -157,6 +167,7 @@ export default class ScreenProfile extends React.Component {
         style={{ width: 300, height: 300, resizeMode: 'contain' }}
       />);
     }
+    
     if(this.props.userData == null){
       return;
     }
@@ -195,6 +206,38 @@ export default class ScreenProfile extends React.Component {
               <TouchableOpacity onPress={this._pickImage}>
                 {this.getAvatar()}
               </TouchableOpacity>
+              <View style={styles.container}>
+              <View style={{width: '80%', marginVertical: 15}}>
+                <Button
+                  title="Видалити фото"
+                  color="#5682A3"
+                  onPress={() => {
+                    fetch(
+                      'https://app.osbb365.com/api/user/me/photo?accountId=' +
+                        this.props.accountIds[0].id +
+                        '&osbbId=' +
+                        this.props.osbbId +
+                        '&workPeriod=' +
+                        this.props.workPeriods[this.props.workPeriods.length - 1],
+                      {
+                        method: 'DELETE',
+                        headers: {
+                          Accept: 'application/json',
+                          'Content-Type': 'application/json',
+                          Authorization: 'Bearer ' + this.props.token + '',
+                        },
+                      }
+                    )
+                      .then(responseJson => {
+                        this.onAvatarImageChange('deleted')
+                      })
+                      .catch(error => {
+                        console.error(error);
+                      });
+                  }}
+                />
+              </View>
+            </View>
               <View style={styles.containerEmail}>
                 <Image
                   style={{ width: 40, height: 35, marginLeft: 20 }}
@@ -220,11 +263,29 @@ export default class ScreenProfile extends React.Component {
                   style={{ width: 40, height: 35, marginLeft: 20 }}
                   source={require('../../images/ic_phone.png')}
                 />
-                <TextInput
-                  editable={false}
-                  value={this.props.userData.phone}
-                  keyboardType="phone-pad"
+                
+                <TextInputMask
+                  maxLength={14}
+                  type={'cel-phone'}
                   placeholder="Номер телефону"
+                  options={{
+                    maskType: 'BRL',
+                    withDDD: true,
+                    dddMask: '(999) 999-9999'
+                  }}
+                  value={this.props.phoneNumber == null ? this.props.userData.phone : this.props.phoneNumber}
+                  onChangeText={text => {
+                    this.props.setPhoneNumber(text);
+                  }}
+                  onEndEditing={() => {
+                    if(this.props.phoneNumber == '') {
+                      this.props.setPhoneNumber(null)
+                    }else{
+                      var userData = this.props.userData;
+                      userData.phone = this.props.phoneNumber;
+                      this.props.setUserData(userData)
+                    }
+                  }}
                   style={{
                     width: 230,
                     height: 40,

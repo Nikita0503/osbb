@@ -44,11 +44,6 @@ export default class ScreenAddCommentToOffer extends React.Component {
 
   render() {
     return (
-      
-
-
-
-
       <View
         style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
         <PageHeader
@@ -60,7 +55,6 @@ export default class ScreenAddCommentToOffer extends React.Component {
             <TextInput
               multiline
               style={{
-                height: 35,
                 width: '90%',
                 fontSize: 16,
                 borderBottomWidth: 1,

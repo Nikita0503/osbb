@@ -19,6 +19,7 @@ class ChatContainer extends React.Component {
         currentImages={this.props.currentImages}
         chatSelectedFile={this.props.chatSelectedFile}
         loading={this.props.loading}
+        userData={this.props.userData}
         setChatAllMessages={this.props.setChatAllMessages}
         setChatNewMessage={this.props.setChatNewMessage}
         setChatCurrentMessage={this.props.setChatCurrentMessage}
@@ -43,7 +44,8 @@ const mapStateToProps = state => {
     currentMessage: state.selectedChat.currentMessage,
     currentImages: state.selectedChat.currentImages,
     chatSelectedFile: state.selectedChat.chatSelectedFile,
-    loading: state.selectedChat.loading
+    loading: state.selectedChat.loading,
+    userData: state.apartment.userData,
   };
 };
 

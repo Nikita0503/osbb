@@ -127,12 +127,12 @@ export default class ScreenChat extends React.Component {
 
   componentWillUnmount() {
     this.ws.close();
-    console.log('BackHandler');
+    //console.log('BackHandler');
   }
 
   componentDidMount() {
     //this.getPermissionAsync();
-    console.log('componentDid');
+    //console.log('componentDid');
     this.ws.onopen = () => {
       this.onChatLoadingChange(true);
       // connection opened
@@ -182,7 +182,7 @@ export default class ScreenChat extends React.Component {
       //console.log('messageList1', 'null');
       return;
     } else {
-      console.log('messageList1', this.props.allMessages);
+      //console.log('messageList1', this.props.allMessages);
       return this.props.allMessages;
     }
   }
@@ -261,6 +261,7 @@ export default class ScreenChat extends React.Component {
                   data={this.getMessages()}
                   renderItem={({ item }) => (
                     <Item
+                      userData={this.props.userData}
                       text={item.text}
                       userId={item.userId}
                       me={this.getIsMe(item.userId)}
@@ -281,7 +282,7 @@ export default class ScreenChat extends React.Component {
                 style={{
                   marginLeft: 10,
                   width: '85%',
-                  height: 50,
+                
                   fontSize: 16,
                   borderBottomWidth: 1,
                   borderBottomColor: 'gray',
@@ -413,19 +414,22 @@ class Item extends React.Component {
     if(this.props.text != ""){
       return(
         <View>
-          <Text style={styles.itemStyle, {marginLeft: 10, fontSize: 12}}>{this.getUserName()}</Text>
-          <Text style={styles.itemStyle, {marginLeft: 10}}>{this.props.text}</Text>
+          <Text style={styles.itemStyle, {marginLeft: 10, marginRight: 8, marginVertical: 3, fontWeight: 'bold', fontSize: 12}}>{this.getUserName()}</Text>
+          <Text style={styles.itemStyle, {marginLeft: 10, marginBottom: 5}}>{this.props.text}</Text>
         </View>)
     }
   }
 
   getUserName(){
+    console.log("userName2", this.props.userData)
     console.log("userName1", this.props.userId)
     for(var i = 0; i < this.props.allUsers.length; i++){
+      
       if(this.props.me){
-        if(this.props.allUsers[i].userId == this.props.userId){
+        /*if(this.props.allUsers[i].userId == this.props.userId){
           return this.props.allUsers[i].fullName
-        }
+        }*/
+        return this.props.userData.firstName + " " + this.props.userData.lastName
       }else{
         if(this.props.allUsers[i].id == this.props.userId){
           return this.props.allUsers[i].fullName
@@ -567,6 +571,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginHorizontal: 10,
     marginVertical: 5,
+    borderRadius: 10,
     backgroundColor: 'white',
   },
   myMessageStyle: {
@@ -574,11 +579,12 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginHorizontal: 10,
     marginVertical: 5,
+    borderRadius: 10,
     backgroundColor: '#ADD9FA',
   },
   messageContainer: {
     width: '100%',
-    height: 55,
+    
     alignItems: 'center',
     flexDirection: 'row',
     backgroundColor: 'white',

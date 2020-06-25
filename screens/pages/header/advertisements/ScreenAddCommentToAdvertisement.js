@@ -46,7 +46,7 @@ export default class ScreenAddCommentToAdvertisement extends React.Component {
             <TextInput
               multiline
               style={{
-                height: 35,
+                
                 width: '90%',
                 fontSize: 16,
                 borderBottomWidth: 1,

@@ -1,10 +1,10 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 2449,
+  "packagerPid": 4280,
   "expoServerNgrokUrl": "https://en-wnd.nikitashevtsiv.osbb.exp.direct",
   "packagerNgrokUrl": "https://packager.en-wnd.nikitashevtsiv.osbb.exp.direct",
-  "ngrokPid": 2468,
+  "ngrokPid": 4309,
   "webpackServerPort": null,
   "devToolsPort": 19002
 }

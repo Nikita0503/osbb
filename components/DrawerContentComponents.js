@@ -21,14 +21,30 @@ export default class DrawerContentComponents extends Component {
             this.props.navigation.navigate('Profile')
           }}> 
             <View style={[styles.headerContainer, (this.props.activeItemKey=='Profile') ? styles.activeBackgroundColor : null]}>
-              <Image style={styles.iconHeader} source={ this.props.userData == null ? require('../images/ic_profile.png') :
+              <Image style={styles.iconHeader} source={
+                this.props.imageAvatar == 'deleted' ?
+                require('../images/ic_profile.png') 
+                :
+                this.props.imageAvatar != null ?
+                {
+                  uri:
+                    'https://app.osbb365.com' +
+                    this.props.imageAvatar,
+                }
+                :
+                this.props.userData == null 
+                ? 
+                require('../images/ic_profile.png') 
+                :
                 this.props.userData.photo == null
-                ? require('../images/ic_profile.png')
-                : {
+                ? 
+                require('../images/ic_profile.png')
+                : 
+                {
                     uri:
                       'https://app.osbb365.com' +
                       this.props.userData.photo,
-                  }
+                }
               }/>
               <Text style={styles.screenHeaderTextStyle}>{this.props.userData == null ? 'Профіль' : this.props.userData.firstName + " " + this.props.userData.lastName}</Text>
             </View>

@@ -145,7 +145,6 @@ export default class ScreenSupport extends React.Component {
                 style={{
                   marginLeft: 10,
                   width: '85%',
-                  height: 50,
                   fontSize: 16,
                   borderBottomWidth: 1,
                   borderBottomColor: 'gray',
@@ -282,6 +281,7 @@ const styles = StyleSheet.create({
   supportMessageStyle: {
     maxWidth: '70%',
     alignSelf: 'flex-start',
+    borderRadius: 10,
     marginHorizontal: 10,
     marginVertical: 5,
     backgroundColor: 'white',
@@ -289,13 +289,13 @@ const styles = StyleSheet.create({
   myMessageStyle: {
     maxWidth: '70%',
     alignSelf: 'flex-end',
+    borderRadius: 10,
     marginHorizontal: 10,
     marginVertical: 5,
     backgroundColor: '#ADD9FA',
   },
   messageContainer: {
     width: '100%',
-    height: 55,
     alignItems: 'center',
     flexDirection: 'row',
     backgroundColor: 'white'

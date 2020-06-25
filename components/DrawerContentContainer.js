@@ -10,6 +10,7 @@ class DrawerContentContainer extends React.Component {
                 navigation={this.props.navigation}
                 userData={this.props.userData}
                 activeItemKey={this.props.activeItemKey}
+                imageAvatar={this.props.imageAvatar}
             />);
     }
 }
@@ -17,6 +18,7 @@ class DrawerContentContainer extends React.Component {
 const mapStateToProps = state => {
     return {
         userData: state.apartment.userData,
+        imageAvatar: state.profile.imageAvatar
     };
   };
 

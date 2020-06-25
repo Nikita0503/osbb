@@ -5,11 +5,18 @@ import {
   setOldPassword,
   setNewPassword,
   setNewRepeatPassword,
-  setAvatarImage
+  setAvatarImage,
+  setPhoneNumber
 } from '../../store/pages/profile/actions';
+
 import {
   setTokenDeviceId
 } from '../../store/auth/actions';
+
+import {
+  setUserData
+} from '../../store/pages/home/myApartment/apartment/actions';
+
 import ScreenProfile from './ScreenProfile';
 
 class ProfileContainer extends React.Component {
@@ -29,12 +36,15 @@ class ProfileContainer extends React.Component {
         newPassword={this.props.newPassword}
         userData={this.props.userData}
         imageAvatar={this.props.imageAvatar}
+        phoneNumber={this.props.phoneNumber}
         setShowPasswords={this.props.setShowPasswords}
         setOldPassword={this.props.setOldPassword}
         setNewPassword={this.props.setNewPassword}
         setNewRepeatPassword={this.props.setNewRepeatPassword}
         setAvatarImage={this.props.setAvatarImage}
         setTokenDeviceId={this.props.setTokenDeviceId}
+        setPhoneNumber={this.props.setPhoneNumber}
+        setUserData={this.props.setUserData}
       />
     );
   }
@@ -53,7 +63,8 @@ const mapStateToProps = state => {
     newPassword: state.profile.newPassword,
     newRepeatPassword: state.profile.newRepeatPassword,
     userData: state.apartment.userData,
-    imageAvatar: state.profile.imageAvatar
+    imageAvatar: state.profile.imageAvatar,
+    phoneNumber: state.profile.phoneNumber
   };
 };
 
@@ -63,7 +74,9 @@ const mapDispatchToProps = {
   setNewPassword: setNewPassword,
   setNewRepeatPassword: setNewRepeatPassword,
   setAvatarImage: setAvatarImage,
-  setTokenDeviceId: setTokenDeviceId
+  setTokenDeviceId: setTokenDeviceId,
+  setPhoneNumber: setPhoneNumber,
+  setUserData: setUserData
 };
 
 export default connect(
