@@ -156,9 +156,7 @@ export default class ScreenProfile extends React.Component {
       return(<ImageAvatar
         indicator='bar' 
         source={
-          this.props.userData.photo == null
-            ? require('../../images/add.png')
-            : {
+          {
                 uri:
                   'https://app.osbb365.com' +
                   this.props.imageAvatar,

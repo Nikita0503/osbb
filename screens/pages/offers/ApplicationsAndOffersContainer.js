@@ -23,6 +23,7 @@ class ApplicationsAndOffersContainer extends React.Component {
         applicationsAndOffersDataMy={this.props.applicationsAndOffersDataMy}
         selectedOfferData={this.props.selectedOfferData}
         onlyMy={this.props.onlyMy}
+        userData={this.props.userData}
         loading={this.props.loading}
         setApplicationsAndOffersData={this.props.setApplicationsAndOffersData}
         setApplicationsAndOffersDataClear={
@@ -45,6 +46,7 @@ const mapStateToProps = state => {
     currentWorkPeriod: state.apartmentHeader.currentWorkPeriod,
     applicationsAndOffersData: state.applicationsAndOffers.applicationsAndOffersData,
     onlyMy: state.applicationsAndOffers.onlyMy,
+    userData: state.apartment.userData,
     loading: state.applicationsAndOffers.loading
   };
 };

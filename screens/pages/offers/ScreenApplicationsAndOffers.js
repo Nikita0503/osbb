@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Switch,
-  ActivityIndicator
+  ActivityIndicator,
+  Alert
 } from 'react-native';
 import PageHeader from '../../../components/PageHeader';
 import ActionButton from 'react-native-action-button';
@@ -47,6 +48,11 @@ export default class ScreenApplicationsAndOffers extends React.Component {
     this.onChangeSelectedOfferData = this.onChangeSelectedOfferData.bind(this);
     this.onApplicationsAndOffersOnlyMy = this.onApplicationsAndOffersOnlyMy.bind(this);
     this.onApplicationsAndOffersLoading = this.onApplicationsAndOffersLoading.bind(this);
+    this.updateScreen = this.updateScreen.bind(this);
+  }
+
+  updateScreen(){
+    this.componentDidMount();
   }
 
   onChangeApplicationAndOffersData(applicationAndOffersData) {
@@ -70,7 +76,8 @@ export default class ScreenApplicationsAndOffers extends React.Component {
   }
 
   componentDidMount() {
-    this.onApplicationsAndOffersLoading(true);
+    //this.onApplicationsAndOffersLoading(true);
+    this.props.setApplicationsAndOffersLoading(true)
     this.onApplicationsAndOffersDataClear();
     var ws = new WebSocket(
       'wss://app.osbb365.com/socket.io/?auth_token=' +
@@ -192,13 +199,18 @@ export default class ScreenApplicationsAndOffers extends React.Component {
         data={data}
         renderItem={({ item }) => (
           <Item
+            token={this.props.token}
+            workPeriods={this.props.workPeriods}
+            archived={false}
             fullData={item}
             name={item.subject}
             system={item.system}
             status={item.status}
             condition={item.isOpened}
             navigation={this.props.navigation}
+            userData={this.props.userData}
             onChangeSelectedOfferData={this.onChangeSelectedOfferData}
+            componentDidMount={this.updateScreen}
           />
         )}
         keyExtractor={item => item.id}
@@ -227,20 +239,25 @@ export default class ScreenApplicationsAndOffers extends React.Component {
         if (new Date(a.createdAt) > new Date(b.createdAt)) {
           return -1;
         }
-        // a должно быть равным b
+        
         return 0;
       });
       return(<FlatList
         data={data}
         renderItem={({ item }) => (
           <Item
+            token={this.props.token}
+            workPeriods={this.props.workPeriods}
+            archived={true}
             fullData={item}
             name={item.subject}
             system={item.system}
             status={item.status}
             condition={item.isOpened}
             navigation={this.props.navigation}
+            userData={this.props.userData}
             onChangeSelectedOfferData={this.onChangeSelectedOfferData}
+            componentDidMount={this.updateScreen}
           />
         )}
         keyExtractor={item => item.id}
@@ -378,6 +395,64 @@ class Item extends React.Component {
   render() {
     return (
       <TouchableOpacity
+        onLongPress={() => {
+          console.log("ITEM", this.props.token)
+          
+          if(!this.props.archived){
+            if(this.props.fullData.isOpened){
+              if(this.props.fullData.fromUser.login == this.props.userData.login){
+                Alert.alert(
+                  'Підтвердження',
+                  'Ви впевненні що хочете відкликати заявку?',
+                  [
+                    {text: 'Так', onPress: () => {
+                      var ws = new WebSocket(
+                        'wss://app.osbb365.com/socket.io/?auth_token=' +
+                          this.props.token +
+                          '&EIO=3&transport=websocket'
+                      );
+                      console.log("ITEM", "click")
+                      ws.onopen = () => {
+                        console.log("ITEM", "open")
+                        ws.send(
+                          '4217["/claim/update",{"id":' + this.props.fullData.id + ',"statusId":8,"isOpened":false,"workPeriod":"'+ this.props.workPeriods[this.props.workPeriods.size - 1] +'"}]'
+                        );
+                      }
+
+                      ws.onmessage = e => {
+                        if(e.data.substring(0, 4) == '4317') {
+                          Alert.alert('Повідомлення','Відхилено успішно',[{text: 'OK'}])
+                          ws.close();
+                          this.props.componentDidMount();
+                        }
+                      }
+                    }},
+                    {text: 'Ні', onPress: () => {
+                      console.log("hide")
+                    }}
+                  ],
+                  { cancelable: true }
+                )
+              }else{
+                Alert.alert(
+                  '',
+                  'Ви обрали заявку іншого користувача. Будь ласка, оберіть одну із поданих вами',
+                  [
+                    {text: 'OK'}
+                  ]
+                )
+              }
+            }else{
+              Alert.alert(
+                '',
+                'Ви обрали закриту заявку. Будь ласка, оберіть заявку зі станом "Відкрита"',
+                [
+                  {text: 'OK'}
+                ]
+              )
+            }
+          }
+        }}
         onPress={() => {
           this.props.onChangeSelectedOfferData(this.props.fullData);
           this.props.navigation.navigate('Offer', { title: this.props.name });

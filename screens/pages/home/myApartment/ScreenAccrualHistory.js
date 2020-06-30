@@ -62,12 +62,17 @@ export default class ScreenAccrualHistory extends React.Component {
   render() {
     return (
       <View>
+        
+        <ScrollView ref={ref => {this.scrollView = ref}}>
         <PageHeader
           navigation={this.props.navigation}
           title="Історія нарахувань"
         />
-        <ScrollView>
           <View style={styles.container}>
+          {showAccrual(
+            this.props.accrualHistoryCurrentSelectedData,
+            this.onSelectedAccrualsDataChange
+          )}
             <View style={{ flexDirection: 'row' }}>
               <Text style={styles.dataColumnNameStyle}>Внесок</Text>
               <Text style={styles.dataColumnNameStyle}>Нарахування</Text>
@@ -76,6 +81,7 @@ export default class ScreenAccrualHistory extends React.Component {
               data={this.props.accrualHistoryCurrentData}
               renderItem={({ item }) => (
                 <Item
+                  scrollView={this.scrollView}
                   onSelectedAccrualsDataChange={
                     this.onSelectedAccrualsDataChange
                   }
@@ -89,11 +95,9 @@ export default class ScreenAccrualHistory extends React.Component {
               )}
               keyExtractor={item => item.contribution}
             />
+            
           </View>
-          {showAccrual(
-            this.props.accrualHistoryCurrentSelectedData,
-            this.onSelectedAccrualsDataChange
-          )}
+          
         </ScrollView>
       </View>
     );
@@ -104,9 +108,10 @@ class Item extends React.Component {
   render() {
     return (
       <TouchableOpacity
-        onPress={() =>
+        onPress={() => {
           this.props.onSelectedAccrualsDataChange(this.props.accrualData)
-        }>
+          this.props.scrollView.scrollTo(0)
+        }}>
         <View style={{ flexDirection: 'row', paddingTop: 5 }}>
           <Text style={styles.itemStyle}>{this.props.contribution}</Text>
           <Text style={styles.itemStyle}>{this.props.charges}</Text>
@@ -126,6 +131,7 @@ function sortCurrentAccrualsData(data){
     }
     return 0;
   });
+  
   return data
 }
 
