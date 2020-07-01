@@ -238,6 +238,12 @@ export default class ScreenChat extends React.Component {
     }
   }
 
+  getTitle(){
+    var str = JSON.stringify(this.props.navigation.getParam('title', 'Розмова'))
+    
+    return str.substring(1, str.length - 1);
+  }
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding">
@@ -245,9 +251,8 @@ export default class ScreenChat extends React.Component {
           style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
           <PageHeader
             navigation={this.props.navigation}
-            title={JSON.stringify(
-              this.props.navigation.getParam('title', 'Розмова')
-            )}
+            title={this.getTitle()}
+            
           />
           <View style={styles.container}>
             <ScrollView

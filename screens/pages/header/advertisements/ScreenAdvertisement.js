@@ -59,6 +59,10 @@ export default class ScreenAdvertisement extends React.Component {
     this.props.setAdvertisementSelectedFile(selectedFile)
   }
 
+  onSelectedPostAllComentsChange(comments){
+    this.props.setSelectedPostAllComents(comments)
+  }
+
   componentDidMount() {
     this.onSelectedPostChange(null);
     this.onAllCommentsClear();
@@ -122,7 +126,7 @@ export default class ScreenAdvertisement extends React.Component {
           data: data[0],
         };
         this.onAllCommentsChange(obj);
-        //console.log('comments', obj);
+        //console.log('comments123', obj);
         ws.close();
         index++;
         if (index != this.props.advertisementData.length) {
@@ -263,8 +267,10 @@ getFileShowDialog(){
                 onSelectedPostCommentsChange={this.onSelectedPostCommentsChange}
                 navigation={this.props.navigation}
                 advertisementData={this.props.advertisementData}
+                selectedPostAllComents={this.props.selectedPostAllComents}
                 onAdvertisementDataChange={this.onAdvertisementDataChange}
                 onAdvertisementSelectedFileChange={this.onAdvertisementSelectedFileChange}
+                onSelectedPostAllComentsChange={this.onSelectedPostAllComentsChange}
               />
             )}
             keyExtractor={item => item.header}
@@ -513,6 +519,39 @@ class Item extends React.Component {
     }
   }
 
+  fetchSelectedPostComments() {
+    var ws = new WebSocket(
+      'wss://app.osbb365.com/socket.io/?auth_token=' +
+        this.props.token +
+        '&EIO=3&transport=websocket'
+    );
+
+    ws.onopen = () => {
+      // connection opened123
+      ws.send(
+        '4210["/notice/one/comments",{"id":' +
+          this.props.selectedPostComments.id +
+          ',"page":1,"limit":10}]'
+      ); // send a message
+    }; //428["/comment/create",{"text":"qwe","noticeId":53}]
+
+    ws.onmessage = e => {
+      // a message was received
+      if (e.data.substring(0, 4) == '4310') {
+        const myObjStr = JSON.stringify(e.data.substring(4, e.data.length));
+        var myObj = JSON.parse(myObjStr);
+        var data = JSON.parse(myObj);
+        var obj = {
+          id: this.props.advertisementData[index].id,
+          data: data[0],
+        };
+        this.onAllCommentsChange(data[0]);
+        console.log('comments123', data[0]);
+        ws.close();
+      }
+    };
+  }
+
   showComments() {
     if (this.props.selectedPostComments == null) {
       return (
@@ -566,7 +605,35 @@ class Item extends React.Component {
       );
     } else {
       return (
-        <View>
+        <Dialog.Container
+            visible={this.props.selectedPostComments.id == this.props.data.id}>
+              {this.getNoCommentsView()}
+            <FlatList
+            style={{height: '70%' }}
+            data={this.getCommentsListData()}
+            renderItem={({ item }) => (
+              <ItemComment
+                author={item.User.lastName + ' ' + item.User.firstName}
+                text={item.text}
+                time={getDate(item.updatedAt)}
+                photo={item.User.photo}
+              />
+            )}
+            keyExtractor={item => item.id}
+          />
+            
+            <Dialog.Button
+              label="OK"
+              onPress={() => {
+                this.props.onSelectedPostCommentsChange(null);
+              }}
+            />
+          </Dialog.Container>
+        
+      );
+    }
+  }
+      /*<View>
           <TouchableOpacity
             onPress={() => {
               this.props.onSelectedPostCommentsChange(null);
@@ -602,14 +669,16 @@ class Item extends React.Component {
             )}
             keyExtractor={item => item.id}
           />
-        </View>
-      );
-    }
-  }
-
+        </View> */
   getNoCommentsView(){
-    if(this.getCommentsListData() == null || this.getCommentsListData().length == 0){
-      return(<Text style={{color: '#364A5F', fontSize: 16, marginTop: 10, alignSelf: 'center'}}>Даних немає</Text>)
+    if(this.getCommentsListData() != null){
+      if(this.getCommentsListData().length == 0){
+        return(<Text style={{color: '#364A5F', fontSize: 16, marginTop: 10, alignSelf: 'center'}}>Даних немає</Text>)
+      }
+    }else{
+      return(
+          <ActivityIndicator size="large" style={styles.loader} color="#36678D" />
+          )
     }
   }
 

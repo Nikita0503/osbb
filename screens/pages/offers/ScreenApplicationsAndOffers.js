@@ -314,14 +314,14 @@ export default class ScreenApplicationsAndOffers extends React.Component {
               </Text>
             </View>
             <View style={styles.containerSwitch}>
+                <Text style={{ marginTop: 16, marginRight: 10, color: '#364A5F' }}>
+                  Тільки мої
+                </Text>
                 <Switch
                   style={{ marginTop: 10 }}
                   onValueChange={this.toggleSwitch}
                   value={this.props.onlyMy}
                 />
-                <Text style={{ marginTop: 15, color: '#364A5F' }}>
-                  Тільки мої: {this.props.onlyMy ? 'Так' : 'Ні'}
-                </Text>
               </View>
             <View
               style={{
@@ -377,9 +377,9 @@ export default class ScreenApplicationsAndOffers extends React.Component {
           </View>
           <ActionButton
             verticalOrientation="down"
-            size={42}
+            size={40}
             offsetX={20}
-            offsetY={93}
+            offsetY={57}
             buttonColor="#54687D"
             onPress={() => {
               this.props.navigation.navigate('AddOffer');
@@ -481,8 +481,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   containerSwitch: {
+    width: '100%',
     marginLeft: 10,
-    marginEnd: 120,
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },

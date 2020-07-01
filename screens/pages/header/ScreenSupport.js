@@ -68,7 +68,7 @@ export default class ScreenSupport extends React.Component {
           this.onHelpChatConsultant(null);
           Alert.alert(
                             'Повідомлення',
-                            'Нажаль вільних консультантів немає',
+                            'На жаль, усі консультанти зараз зайняті',
                             [
                               {text: 'OK', onPress: () => console.log('OK Pressed')},
                             ],

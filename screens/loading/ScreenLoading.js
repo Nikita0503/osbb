@@ -24,11 +24,13 @@ export default class ScreenLoading extends React.Component {
     return (
       <View
         style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
-        <View style={{backgroundColor: '#36678D',}}>
+        <View style={{backgroundColor: '#36678D', flexDirection: 'column'}}>
           <Image resizeMode='contain' style={{alignSelf: 'center', marginTop: 60,  marginBottom: 30, height: 250}} source={require('../../images/logo_white.png')}/>  
         </View>
-        <ActivityIndicator size="large" style={styles.loader} color="#36678D" />
-        <Text style={{color: '#36678D', fontSize: 16, marginTop: 100, alignSelf: 'center'}}>Зачекайте, дані завантажуються</Text>
+        <View style={{flexDirection: 'column'}}>
+          <ActivityIndicator style={{marginTop: 30}} size="large" color="#36678D" />
+          <Text style={{color: '#36678D', fontSize: 16, marginTop: 20, alignSelf: 'center'}}>Зачекайте, дані завантажуються</Text>
+        </View>
         {this.isLoaded()}
       </View>
     );
@@ -36,13 +38,5 @@ export default class ScreenLoading extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  loader: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 100,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+  
 });
