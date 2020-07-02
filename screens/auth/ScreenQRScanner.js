@@ -106,7 +106,7 @@ export default class ScreenQRScanner extends React.Component {
       //this.props.navigation.navigate('App');
     })
     .catch((error) => {
-      Alert.alert("Неправильний токен. Спробуйте ще раз")
+      Alert.alert("Невірний токен. Спробуйте ще раз")
       console.error(error);
     });
   }
@@ -150,7 +150,7 @@ export default class ScreenQRScanner extends React.Component {
       if(error.message == 'JSON Parse error: Unrecognized token \'<\''){
         this.onTokenDeviceIdChange('');
         Alert.alert(
-          'Неправильний токен',
+          'Невірний токен',
           "Спробуйте ще раз",
           [
             {text: 'OK', onPress: () => console.log('OK Pressed')},

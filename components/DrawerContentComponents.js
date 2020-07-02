@@ -18,6 +18,7 @@ export default class DrawerContentComponents extends Component {
       <ScrollView>
         <View style={styles.container}>
           <TouchableOpacity activeOpacity={1} onPress={() => {
+            this.props.navigation.toggleDrawer()
             this.props.navigation.navigate('Profile')
           }}> 
             <View style={[styles.headerContainer, (this.props.activeItemKey=='Profile') ? styles.activeBackgroundColor : null]}>
@@ -51,7 +52,9 @@ export default class DrawerContentComponents extends Component {
           </TouchableOpacity>
             <View style={styles.screenContainer}>
               <TouchableOpacity activeOpacity={1} onPress={() => {
+                this.props.navigation.toggleDrawer()
                 this.props.navigation.navigate('Home')
+                
               }}> 
                 <View style={[styles.screenStyle, (this.props.activeItemKey=='Home') ? styles.activeBackgroundColor : null]}>
                     <Image style={styles.icon} source={require('../images/ic_home.png')} />
@@ -59,6 +62,7 @@ export default class DrawerContentComponents extends Component {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity activeOpacity={1} onPress={() => {
+                this.props.navigation.toggleDrawer()
                 this.props.navigation.navigate('FlatInfo')
               }}> 
                 <View style={[styles.screenStyle, (this.props.activeItemKey=='FlatInfo') ? styles.activeBackgroundColor : null]}>
@@ -67,6 +71,7 @@ export default class DrawerContentComponents extends Component {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity activeOpacity={1} onPress={() => {
+                this.props.navigation.toggleDrawer()
                 this.props.navigation.navigate('SendIndications')
               }}> 
                 <View style={[styles.screenStyle, (this.props.activeItemKey=='SendIndications') ? styles.activeBackgroundColor : null]}>
@@ -75,6 +80,7 @@ export default class DrawerContentComponents extends Component {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity activeOpacity={1} onPress={() => {
+                this.props.navigation.toggleDrawer()
                 this.props.navigation.navigate('ApplicationsAndOffers')
               }}> 
                 <View style={[styles.screenStyle, (this.props.activeItemKey=='ApplicationsAndOffers') ? styles.activeBackgroundColor : null]}>
@@ -83,6 +89,7 @@ export default class DrawerContentComponents extends Component {
                 </View>  
               </TouchableOpacity>
               <TouchableOpacity activeOpacity={1} onPress={() => {
+                this.props.navigation.toggleDrawer()
                 this.props.navigation.navigate('AboutHouse')
               }}>             
                 <View style={[styles.screenStyle, (this.props.activeItemKey=='AboutHouse') ? styles.activeBackgroundColor : null]}>

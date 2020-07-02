@@ -4,6 +4,7 @@ export const AUTH_CHANGE_IS_SCANNED = 'AUTH_CHANGE_IS_SCANNED';
 export const AUTH_CHANGE_HAS_CAMERA_PERMISSION = 'AUTH_CHANGE_HAS_CAMERA_PERMISSION';
 export const AUTH_CHANGE_EMAIL = 'AUTH_CHANGE_EMAIL';
 export const AUTH_CHANGE_PASSWORD = 'AUTH_CHANGE_PASSWORD';
+export const AUTH_CHANGE_SHOW_PASSWORD = 'AUTH_CHANGE_SHOW_PASSWORD';
 
 export const setToken = token => ({
   type: AUTH_CHANGE_TOKEN,
@@ -33,4 +34,9 @@ export const setEmail = email => ({
 export const setPassword = password => ({
   type: AUTH_CHANGE_PASSWORD,
   payload: password
+});
+
+export const setShowPassword = () => ({
+  type: AUTH_CHANGE_SHOW_PASSWORD,
+  password: true
 });

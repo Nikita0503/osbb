@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, View, StyleSheet, Image, FlatList, ScrollView, TouchableOpacity, Button, TextInput, Alert } from 'react-native';
 import { Constants } from 'expo-constants';
 import NetInfo from '@react-native-community/netinfo';
+import { Checkbox } from 'react-native-paper';
 
 export default class ScreenLogin extends React.Component {
   constructor(props){
@@ -10,6 +11,7 @@ export default class ScreenLogin extends React.Component {
     this.onTokenDeviceIdChange = this.onTokenDeviceIdChange.bind(this);
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.onShowPasswordChange = this.onShowPasswordChange.bind(this);
   }
 
   onTokenChange(token){
@@ -26,6 +28,10 @@ export default class ScreenLogin extends React.Component {
 
   onPasswordChange(password){
     this.props.setPassword(password)
+  }
+
+  onShowPasswordChange(){
+    this.props.setShowPassword()
   }
 
   showUniqId(){
@@ -72,7 +78,7 @@ export default class ScreenLogin extends React.Component {
       //this.props.navigation.navigate('App');
     })
     .catch((error) => {
-      Alert.alert("Неправильний токен. Спробуйте ще раз")
+      Alert.alert("Невірний токен. Спробуйте ще раз")
       console.error(error);
     });;
   }
@@ -88,24 +94,33 @@ export default class ScreenLogin extends React.Component {
 
   getLoginPassword(){
     return(<View style={styles.container}>
-      
-      <TextInput 
+      <TextInput
         keyboardType={Platform.OS === 'android' ? 'email-address' : 'ascii-capable'} 
         onChangeText={(text) => {this.onEmailChange(text)}}
         value={this.props.email} 
         style={{borderColor: '#36678D', textAlign: 'center', borderBottomWidth: 1, fontSize: 16, marginBottom: 10}}  placeholder="Email" />
-      <TextInput 
+      <TextInput
         onChangeText={(text) => {this.onPasswordChange(text)}}
         value={this.props.password}
-        secureTextEntry={true}
+        secureTextEntry={!this.props.shownPassword}
         autoCapitalize = 'none' 
         style={{borderColor: '#36678D', textAlign: 'center', borderBottomWidth: 1, fontSize: 16, marginBottom: 10}} placeholder="Пароль" /> 
+     <View style={{flexDirection: 'row'}}>
+        <Checkbox
+          status={this.props.shownPassword ? 'checked' : 'unchecked'}
+          
+          onPress={() => {
+            console.log(this.props)
+            this.onShowPasswordChange()
+          }}
+        />
+        <Text style={{marginTop: 8, marginLeft: 5}}>Показати пароль</Text>
+      </View>
       <View style={{margin: 5}}>
       <Button
         title="Увійти"
         color="#5682A3"
-        onPress={() => {fetchTokenWithEmail(this.props.navigation, this.onTokenChange, this.props.email, this.props.password)}}
-        
+        onPress={() => {fetchTokenWithEmail(this.props.navigation, this.onTokenChange, this.props.email, this.props.password)}}    
       />  
       </View>
       <View style={{alignItems: 'center', margin: 5}}>
@@ -194,7 +209,7 @@ function fetchTokenWithEmail(navigation, onTokenChange, email, password){
 }).then((response) => response.json())
     .then((responseJson) => {
       if(responseJson.token == null){
-        Alert.alert("Користувач не знайдений")
+        Alert.alert("Невірний пароль")
         return
       }
       onTokenChange(responseJson.token);

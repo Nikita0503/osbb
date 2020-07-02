@@ -1,4 +1,4 @@
-import {AUTH_CHANGE_TOKEN, AUTH_CHANGE_TOKEN_DEVICE_ID, AUTH_CHANGE_IS_SCANNED, AUTH_CHANGE_HAS_CAMERA_PERMISSION, AUTH_CHANGE_EMAIL, AUTH_CHANGE_PASSWORD} from "./actions";
+import {AUTH_CHANGE_TOKEN, AUTH_CHANGE_TOKEN_DEVICE_ID, AUTH_CHANGE_IS_SCANNED, AUTH_CHANGE_HAS_CAMERA_PERMISSION, AUTH_CHANGE_EMAIL, AUTH_CHANGE_PASSWORD, AUTH_CHANGE_SHOW_PASSWORD} from "./actions";
 
 const defaultState = {
   token: '',
@@ -6,7 +6,8 @@ const defaultState = {
   isScanned: false,
   hasCameraPermission: null,
   email: null,
-  password: null
+  password: null,
+  shownPassword: false
 }
 
 export const authReducer = (state = defaultState, action) => {
@@ -41,6 +42,11 @@ export const authReducer = (state = defaultState, action) => {
       return {
         ...state,
         password: action.payload
+      }
+    case AUTH_CHANGE_SHOW_PASSWORD:
+      return {
+        ...state,
+        shownPassword: !state.shownPassword
       }
   } 
   

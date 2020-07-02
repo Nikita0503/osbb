@@ -205,7 +205,7 @@ export default class ScreenAboutHouse extends React.Component {
     return (
       <View
         style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
-        <PageHeader navigation={this.props.navigation} title="Про будинок" />
+        <PageHeader navigation={this.props.navigation} title="Про ОСББ" />
         <ScrollView>
           <View style={styles.container}>
             {this.getImage()}

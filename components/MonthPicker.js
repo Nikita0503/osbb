@@ -31,6 +31,7 @@ export default class MonthPicker extends React.Component {
   getButtonPreviousAccount(){
     if(getUniqueAccountIds(this.props.accountIds).length != 1)
     return(<Button
+      style={{width: '15%'}}
       title="<"
       color="#364A5F"
       onPress={() => {
@@ -54,6 +55,7 @@ export default class MonthPicker extends React.Component {
   getButtonNextAccount(){
     if(getUniqueAccountIds(this.props.accountIds).length != 1)
     return(<Button
+      style={{width: '15%'}}
       title=">"
       color="#364A5F"
       onPress={() => {
@@ -77,20 +79,22 @@ export default class MonthPicker extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.getButtonPreviousAccount()}
-        <Text style={{ 
-          width: 120,
-          color: 'white', 
-          textAlign: 'center',
-          fontSize: 16, 
-          marginHorizontal: 5 }}>
-            О.р. {this.getAccountIdNumber()}
-        </Text>
-        
-        {this.getButtonNextAccount()}
-
-
+        <View style={{flexDirection: 'row', justifyContent: 'center', flex: 1, alignItems: 'center',width: '50%'}}>
+          {this.getButtonPreviousAccount()}
+          <Text style={{ 
+            width: '70%',
+            color: 'white', 
+            textAlign: 'center',
+            fontSize: 16, 
+            marginHorizontal: 5 }}>
+              О.р. {this.getAccountIdNumber()}
+          </Text>
+          
+          {this.getButtonNextAccount()}
+        </View>
+        <View style={{flexDirection: 'row',  justifyContent: 'flex-start', flex: 1, alignItems: 'center',width: '50%'}}>
         <Button
+          style={{width: '15%'}}
           title="<"
           color="#364A5F"
           onPress={() => {
@@ -118,7 +122,7 @@ export default class MonthPicker extends React.Component {
           }}
         />
         <Text style={{ 
-          width: 120,
+          width: '70%',
           color: 'white', 
           textAlign: 'center',
           fontSize: 16, 
@@ -127,37 +131,46 @@ export default class MonthPicker extends React.Component {
               getCorrectName(this.props.currentWorkPeriod)
             }
         </Text>
-        <Button
-          title=">"
-          color="#364A5F"
-          onPress={() => {
-            var index;
-            for(var i = 0; i < this.props.workPeriods.length; i++){
-              if(this.props.currentWorkPeriod == this.props.workPeriods[i]){
-                index = i;
-                break;
-              }
-            }
-            index++;
-            if(index > this.props.workPeriods.length - 1){
-              index = this.props.workPeriods.length - 1;
-            }
-            var currentWorkPeriod = this.props.workPeriods[index];
-            this.onCurrentWorkPeriodChange(currentWorkPeriod);
-            var costsData = null;
-            for(i = 0; i < this.props.allCostsData.length; i++){
-              if(this.props.allCostsData[i].workPeriod == currentWorkPeriod){
-                costsData = this.props.allCostsData[i];
-                break;
-              }
-            }
-            this.onCurrentCostsDataChange(costsData);
-          }}
-        />   
+        {this.getButtonNextPeriod()}
+        </View>
       </View>
     );
   }
+
+  getButtonNextPeriod(){
+    if(this.props.currentWorkPeriod != this.props.workPeriods[this.props.workPeriods.length - 1]){
+      return(<Button
+        style={{width: '15%'}}
+        title=">"
+        color="#364A5F"
+        onPress={() => {
+          var index;
+          for(var i = 0; i < this.props.workPeriods.length; i++){
+            if(this.props.currentWorkPeriod == this.props.workPeriods[i]){
+              index = i;
+              break;
+            }
+          }
+          index++;
+          if(index > this.props.workPeriods.length - 1){
+            index = this.props.workPeriods.length - 1;
+          }
+          var currentWorkPeriod = this.props.workPeriods[index];
+          this.onCurrentWorkPeriodChange(currentWorkPeriod);
+          var costsData = null;
+          for(i = 0; i < this.props.allCostsData.length; i++){
+            if(this.props.allCostsData[i].workPeriod == currentWorkPeriod){
+              costsData = this.props.allCostsData[i];
+              break;
+            }
+          }
+          this.onCurrentCostsDataChange(costsData);
+        }}
+      />   )
+    }
+  }
 }
+
 
 function getUniqueAccountIds(data) {
   var accountIds = new Array();
@@ -227,6 +240,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#5A6E83',
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'space-between'
   },
 });

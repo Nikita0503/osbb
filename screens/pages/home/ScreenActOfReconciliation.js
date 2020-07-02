@@ -12,6 +12,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import PageHeader from '../../../components/PageHeader';
+import MonthPickerContainer from '../../../components/MonthPickerContainer';
 
 function getMonthsItems(year, workPeriods) {
   var months = new Array();
@@ -182,6 +183,7 @@ export default class ScreenActOfReconciliation extends React.Component {
       <View>
         <ScrollView>
           <PageHeader navigation={this.props.navigation} title="Акт звіряння" />
+          <MonthPickerContainer />
           <View style={styles.container}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ marginTop: 15, marginLeft: 10, width: '10%' }}>
