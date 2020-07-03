@@ -195,6 +195,14 @@ export default class ScreenApplicationsAndOffers extends React.Component {
         // a должно быть равным b
         return 0;
       });
+      if(this.props.firstlyOpened){
+        data.sort(function(x, y) {
+          // true values first
+          return (x.isOpened === y.isOpened)? 0 : x.isOpened? -1 : 1;
+          // false values first
+          // return (x === y)? 0 : x? 1 : -1;
+        });
+      }
       return(<FlatList
         data={data}
         renderItem={({ item }) => (
@@ -270,16 +278,16 @@ export default class ScreenApplicationsAndOffers extends React.Component {
   }
   
   toggleSwitch = value => {
-    //onValueChange of the switch this function will be called
-
-    //this.setState({ showPassword: value,
-    //                image: null });
-
     this.onApplicationsAndOffersOnlyMy(value);
-
-    //state changes according to switch
-    //which will result in re-render the text
   };
+
+  toggleSwitchFirstly = () => {
+    this.props.setApplicationsAndOffersFirstlyOpened();
+  }
+
+  toggleSwitchArchived = () => {
+    this.props.setApplicationsAndOffersDisplayAcrhived();
+  }
 
   render() {
     return (
@@ -323,6 +331,26 @@ export default class ScreenApplicationsAndOffers extends React.Component {
                   value={this.props.onlyMy}
                 />
               </View>
+              <View style={styles.containerSwitch}>
+                <Text style={{ marginTop: 16, marginRight: 10, color: '#364A5F' }}>
+                  Спочатку відкриті
+                </Text>
+                <Switch
+                  style={{ marginTop: 10 }}
+                  onValueChange={this.toggleSwitchFirstly}
+                  value={this.props.firstlyOpened}
+                />
+              </View>
+              <View style={styles.containerSwitch}>
+                <Text style={{ marginTop: 16, marginRight: 10, color: '#364A5F' }}>
+                  Відображати архів
+                </Text>
+                <Switch
+                  style={{ marginTop: 10 }}
+                  onValueChange={this.toggleSwitchArchived}
+                  value={this.props.displayArchived}
+                />
+              </View>
             <View
               style={{
                 width: '100%',
@@ -349,7 +377,31 @@ export default class ScreenApplicationsAndOffers extends React.Component {
             {this.getLoading()}
             {this.getActiveApplicationsAndOffers()}
 
-            <View
+            {this.getArchieved()}
+          </View>
+          <ActionButton
+            verticalOrientation="down"
+            size={40}
+            offsetX={20}
+            offsetY={57}
+            buttonColor="#54687D"
+            onPress={() => {
+              this.props.navigation.navigate('AddOffer');
+            }}
+          />
+        </ScrollView>
+      </View>
+    );
+  }
+
+  getArchieved(){
+    if(this.props.displayArchived)
+    return(
+      <View style={{
+        width: '100%',
+        alignItems: 'center',
+      }}>
+        <View
               style={{
                 width: '100%',
                 backgroundColor: '#F9F9F9',
@@ -374,20 +426,8 @@ export default class ScreenApplicationsAndOffers extends React.Component {
             </View>
             {this.getLoading()}
             {this.getArchivedApplicationsAndOffers()}
-          </View>
-          <ActionButton
-            verticalOrientation="down"
-            size={40}
-            offsetX={20}
-            offsetY={57}
-            buttonColor="#54687D"
-            onPress={() => {
-              this.props.navigation.navigate('AddOffer');
-            }}
-          />
-        </ScrollView>
       </View>
-    );
+    )
   }
 }
 

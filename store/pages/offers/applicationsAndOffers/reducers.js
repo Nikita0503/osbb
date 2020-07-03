@@ -3,7 +3,9 @@ import {
   APPLICATIONS_AND_OFFERS_SELECTED_OFFER_DATA,
   APPLICATIONS_AND_OFFERS_DATA_CLEAR,
   APPLICATIONS_AND_OFFERS_ONLY_MY,
-  APPLICATIONS_AND_OFFERS_LOADING
+  APPLICATIONS_AND_OFFERS_LOADING,
+  APPLICATIONS_AND_OFFERS_FIRSTLY_OPENED,
+  APPLICATIONS_AND_OFFERS_DISPLAY_ARCHIVED
 } from './actions';
 
 const defaultState = {
@@ -11,7 +13,9 @@ const defaultState = {
   applicationsAndOffersDataMy: [],
   selectedOfferData: null,
   onlyMy: false,
-  loading: false
+  loading: false,
+  firstlyOpened: false,
+  displayArchived: false
 };
 
 export const applicationsAndOffersReducer = (state = defaultState, action) => {
@@ -43,6 +47,16 @@ export const applicationsAndOffersReducer = (state = defaultState, action) => {
       return {
         ...state,
         loading: action.payload
+      }
+    case APPLICATIONS_AND_OFFERS_FIRSTLY_OPENED:
+      return {
+        ...state,
+        firstlyOpened: !state.firstlyOpened
+      }
+    case APPLICATIONS_AND_OFFERS_DISPLAY_ARCHIVED:
+      return {
+        ...state,
+        displayArchived: !state.displayArchived
       }
   }
 

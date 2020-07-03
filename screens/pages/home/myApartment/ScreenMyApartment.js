@@ -93,7 +93,6 @@ function fetchApartmentData(
       var myObj = JSON.parse(myObjStr);
       var data = JSON.parse(myObj);
       onOsbbIdChange(data[1].OsbbData.OsbbId);
-      console.log("photo", data)
 
       var osbbIds = new Array();
       for (var i = 0; i < data[1].UserAccounts.length; i++) {
@@ -614,12 +613,13 @@ export default class ScreenMyApartment extends React.Component {
   getDebtByCurrentAccountId(){
     if(this.props.accountId == null) return null
     for(var i = 0; i < this.props.debtData.length; i++){
-      //console.log("debt", this.props.debtData[i])
-      if(this.props.accountId.id == this.props.debtData[i].accountId.id){
+      console.log("debtsraka", this.props.debtData)
+      console.log("debt2", this.props.accountId.number)
+      if(this.props.accountId.number == this.props.debtData[i].accountId.number){
         
         return this.props.debtData[i].debt
       }else{
-        return "0.00"
+        
       }
     }
   }

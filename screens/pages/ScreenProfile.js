@@ -16,6 +16,7 @@ import PageHeader from '../../components/PageHeader';
 import * as ImagePicker from 'expo-image-picker';
 import ImageAvatar from 'react-native-image-progress';
 import { TextInputMask } from 'react-native-masked-text'
+import {Linking} from 'react-native'
 
 export default class ScreenProfile extends React.Component {
   constructor(props) {
@@ -257,11 +258,14 @@ export default class ScreenProfile extends React.Component {
                 />
               </View>
               <View style={styles.containerEmail}>
-                <Image
-                  style={{ width: 40, height: 35, marginLeft: 20 }}
-                  source={require('../../images/ic_phone.png')}
-                />
-                
+                <TouchableOpacity style={{ width: 40, height: 35, marginLeft: 20 }} onPress={() => {
+                  Linking.openURL(`tel:${this.props.phoneNumber == null ? this.props.userData.phone : this.props.phoneNumber}`)
+                }}>
+                  <Image
+                    style={{ width: 40, height: 35}}
+                    source={require('../../images/ic_phone.png')}
+                  />
+                </TouchableOpacity>
                 <TextInputMask
                   maxLength={14}
                   type={'cel-phone'}

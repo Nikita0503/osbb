@@ -5,7 +5,9 @@ import {
   setApplicationsAndOffersDataClear,
   setSelectedOfferData,
   setApplicationsAndOffersOnlyMy,
-  setApplicationsAndOffersLoading
+  setApplicationsAndOffersLoading,
+  setApplicationsAndOffersFirstlyOpened,
+  setApplicationsAndOffersDisplayAcrhived
 } from '../../../store/pages/offers/applicationsAndOffers/actions';
 import ScreenApplicationsAndOffers from './ScreenApplicationsAndOffers';
 
@@ -25,6 +27,8 @@ class ApplicationsAndOffersContainer extends React.Component {
         onlyMy={this.props.onlyMy}
         userData={this.props.userData}
         loading={this.props.loading}
+        firstlyOpened={this.props.firstlyOpened}
+        displayArchived={this.props.displayArchived}
         setApplicationsAndOffersData={this.props.setApplicationsAndOffersData}
         setApplicationsAndOffersDataClear={
           this.props.setApplicationsAndOffersDataClear
@@ -32,6 +36,8 @@ class ApplicationsAndOffersContainer extends React.Component {
         setSelectedOfferData={this.props.setSelectedOfferData}
         setApplicationsAndOffersOnlyMy={this.props.setApplicationsAndOffersOnlyMy}
         setApplicationsAndOffersLoading={this.props.setApplicationsAndOffersLoading}
+        setApplicationsAndOffersFirstlyOpened={this.props.setApplicationsAndOffersFirstlyOpened}
+        setApplicationsAndOffersDisplayAcrhived={this.props.setApplicationsAndOffersDisplayAcrhived}
       />
     );
   }
@@ -47,7 +53,9 @@ const mapStateToProps = state => {
     applicationsAndOffersData: state.applicationsAndOffers.applicationsAndOffersData,
     onlyMy: state.applicationsAndOffers.onlyMy,
     userData: state.apartment.userData,
-    loading: state.applicationsAndOffers.loading
+    loading: state.applicationsAndOffers.loading,
+    firstlyOpened: state.applicationsAndOffers.firstlyOpened,
+    displayArchived: state.applicationsAndOffers.displayArchived
   };
 };
 
@@ -56,7 +64,9 @@ const mapDispatchToProps = {
   setApplicationsAndOffersDataClear: setApplicationsAndOffersDataClear,
   setSelectedOfferData: setSelectedOfferData,
   setApplicationsAndOffersOnlyMy: setApplicationsAndOffersOnlyMy,
-  setApplicationsAndOffersLoading: setApplicationsAndOffersLoading
+  setApplicationsAndOffersLoading: setApplicationsAndOffersLoading,
+  setApplicationsAndOffersFirstlyOpened: setApplicationsAndOffersFirstlyOpened,
+  setApplicationsAndOffersDisplayAcrhived: setApplicationsAndOffersDisplayAcrhived
 };
 
 export default connect(
