@@ -136,7 +136,7 @@ export default class ScreenPaymentSelection extends React.Component {
         <Dialog.Title>{this.props.selectedCharge.contribution}</Dialog.Title>
         <Dialog.Input
           onChangeText={text => this.onSelectedChargeValueChange(text)}
-          value={this.props.selectedChargeValue}
+          value={this.props.selectedChargeValue > 0 ? this.props.selectedChargeValue : ""}
           label="Введіть суму"
           keyboardType={'decimal-pad'}
           wrapperStyle={{

@@ -88,7 +88,7 @@ export default class ScreenWebViewLiqpay extends React.Component {
           this.state.signature +
           '"/><input style="width: 500; margin-left: 24%; margin-top: 60%" type="image" src="https://static.liqpay.ua/buttons/p1ru.radius.png"/></form>',
       }}
-      style={{borderWidth: 1, borderColor: 'green', width: '100%',}}
+      style={{width: '100%', alignSelf: 'center'}}
     />);
   }
 
@@ -103,7 +103,7 @@ export default class ScreenWebViewLiqpay extends React.Component {
         />
         
         <View
-          style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+          style={{ width: '100%', height: '100%', backgroundColor: 'white', justifyContent: 'space-between'}}>
           <View style={{width: '100%', height: 85, backgroundColor: '#54687D', flexDirection: 'row', justifyContent: 'space-between'}}>
           <TouchableOpacity style={{marginTop: 45}} onPress={()=>{
             this.props.navigation.goBack(null)
@@ -117,8 +117,9 @@ export default class ScreenWebViewLiqpay extends React.Component {
           </TouchableOpacity>
           <Text style={{marginTop: 45, marginEnd: 20, color: 'white'}}>Оплата</Text>
         </View>
-        
+        <View style={{width: '90%', height: '80%', justifyContent: 'center', alignSelf: 'center', borderBottomWidth: 1, borderStartWidth: 1, borderRightWidth: 1, borderTopWidth: 1, borderColor: 'green'}}>
         {this.getWebView()}
+        </View>
         <Text style={{backgroundColor: "white", padding: 10, textAlign: 'center', color: "#364A5F"}}>Оплата відобразиться у додатку після її обробки бухгалтером ОСББ</Text>
       </View>
       </View>

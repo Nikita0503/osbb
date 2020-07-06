@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {setFromMonth, setFromYear, setToMonth, setToYear, setSelectedData, setFromMonths, setToMonths, setShowLoading } from '../../../store/pages/home/actOfReconciliation/actions';
+import {setFromMonth, setFromYear, setToMonth, setToYear, setSelectedData, setFromMonths, setToMonths, setShowLoading, setFromMonthShow, setFromYearShow, setToMonthShow, setToYearShow } from '../../../store/pages/home/actOfReconciliation/actions';
 import ScreenActOfReconciliation from './ScreenActOfReconciliation';
 
 class ActOfReconciliationContainer extends React.Component {
@@ -20,6 +20,10 @@ class ActOfReconciliationContainer extends React.Component {
         toMonths={this.props.toMonths}
         selectedData={this.props.selectedData}
         showLoading={this.props.showLoading}
+        fromMonthShow={this.props.fromMonthShow}
+        fromYearShow={this.props.fromYearShow}
+        toMonthShow={this.props.toMonthShow}
+        toYearShow={this.props.toYearShow}
         setFromMonth={this.props.setFromMonth}
         setFromYear={this.props.setFromYear}
         setToMonth={this.props.setToMonth}
@@ -28,6 +32,10 @@ class ActOfReconciliationContainer extends React.Component {
         setFromMonths={this.props.setFromMonths}
         setToMonths={this.props.setToMonths}
         setShowLoading={this.props.setShowLoading}
+        setFromMonthShow={this.props.setFromMonthShow}
+        setFromYearShow={this.props.setFromYearShow}
+        setToMonthShow={this.props.setToMonthShow}
+        setToYearShow={this.props.setToYearShow}
       />
     );
   }
@@ -47,6 +55,10 @@ const mapStateToProps = state => {
     fromMonths: state.actOfReconciliation.fromMonths,
     toMonths: state.actOfReconciliation.toMonths,
     showLoading: state.actOfReconciliation.showLoading,
+    fromMonthShow: state.actOfReconciliation.fromMonthShow,
+    fromYearShow: state.actOfReconciliation.fromYearShow,
+    toMonthShow: state.actOfReconciliation.toMonthShow,
+    toYearShow: state.actOfReconciliation.toYearShow
   };
 };
 
@@ -59,6 +71,10 @@ const mapDispatchToProps = {
   setFromMonths: setFromMonths,
   setToMonths: setToMonths,
   setShowLoading: setShowLoading,
+  setFromMonthShow: setFromMonthShow,
+  setFromYearShow: setFromYearShow,
+  setToMonthShow: setToMonthShow,
+  setToYearShow: setToYearShow
 };
 
 export default connect(
