@@ -166,12 +166,13 @@ export default class ScreenAdvertisement extends React.Component {
 
   getLoadingView(){
     if(this.props.advertisementData == null){
-      return(<View style={styles.container, {marginTop: '50%'}}>
+      return(
+      <View style={styles.container, {marginTop: '50%'}}>
         <ActivityIndicator size="large" style={styles.loader} color="#36678D" />
         <Text style={{color: '#36678D', fontSize: 16, marginTop: 20, alignSelf: 'center'}}>
           Зачекайте, дані завантажуються
         </Text>
-        </View>);
+      </View>);
     }
   }
 

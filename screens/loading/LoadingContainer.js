@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ScreenLoading from './ScreenLoading';
+import {
+  setIsActivated
+} from '../../store/pages/home/myApartment/apartment/actions';
 
 class LoadingContainer extends React.Component {
   render() {
@@ -11,6 +14,8 @@ class LoadingContainer extends React.Component {
         workPeriods={this.props.workPeriods}
         allApartmentData={this.props.allApartmentData}
         currentWorkPeriod={this.props.currentWorkPeriod}
+        isActivated={this.props.isActivated}
+        setIsActivated={this.props.setIsActivated}
       />
     );
   }
@@ -22,11 +27,12 @@ const mapStateToProps = state => {
     workPeriods: state.apartment.workPeriods,
     allApartmentData: state.apartment.allApartmentData,
     currentWorkPeriod: state.apartmentHeader.currentWorkPeriod,
+    isActivated: state.apartment.isActivated
   };
 };
 
 const mapDispatchToProps = {
-  
+  setIsActivated: setIsActivated
 };
 
 export default connect(

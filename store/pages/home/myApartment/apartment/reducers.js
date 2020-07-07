@@ -9,7 +9,8 @@
   APARTMENT_CHANGE_ALL_COSTS_DATA,
   APARTMENT_CHANGE_CURRENT_COSTS_DATA,
   APARTMENT_CHANGE_DEBT_DATA,
-  APARTMENT_CHANGE_LIQPAY_DATA
+  APARTMENT_CHANGE_LIQPAY_DATA,
+  APARTMENT_CHANGE_IS_ACTIVATED
 } from './actions';
 
 const defaultState = {
@@ -23,11 +24,17 @@ const defaultState = {
   currentApartmentData: null,
   allCostsData: [],
   debtData: [],
-  liqpayData: null
+  liqpayData: null,
+  isActivated: null
 };
 
 export const apartmentReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case APARTMENT_CHANGE_IS_ACTIVATED:
+      return {
+        ...state,
+        isActivated: action.payload
+      }
     case APARTMENT_CHANGE_USERDATA:
       return {
         ...state,

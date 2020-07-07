@@ -67,6 +67,7 @@ function fetchDebtByAccountId(token, accountIds, index, osbbId, lastWorkPeriod, 
 
 function fetchApartmentData(
   token,
+  navigation,
   onOsbbIdChange,
   onAccountIdChange,
   onAccountIdsChange,
@@ -78,7 +79,8 @@ function fetchApartmentData(
   onAllCostsDataChange,
   onCurrentCostsDataChange,
   onDebtDataChange,
-  onLiqpayDataChange
+  onLiqpayDataChange,
+  onSetIsActivatedChange
 ) {
   var ws = new WebSocket(
     'wss://app.osbb365.com/socket.io/?auth_token=' +
@@ -92,6 +94,13 @@ function fetchApartmentData(
       const myObjStr = JSON.stringify(e.data.substring(2, e.data.length));
       var myObj = JSON.parse(myObjStr);
       var data = JSON.parse(myObj);
+      //console.log("START", data[1].UserData.isActivated)
+      onSetIsActivatedChange(data[1].UserData.isActivated)
+      if(!data[1].UserData.isActivated){
+        Alert.alert('Повідомлення', 'Аккаунт не було активовано головою ОСББ')
+        navigation.navigate('Auth')
+        return
+      } 
       onOsbbIdChange(data[1].OsbbData.OsbbId);
 
       var osbbIds = new Array();
@@ -459,6 +468,7 @@ export default class ScreenMyApartment extends React.Component {
     this.onCurrentCostsDataChange = this.onCurrentCostsDataChange.bind(this);
     this.onDebtDataChange = this.onDebtDataChange.bind(this);
     this.onLiqpayDataChange = this.onLiqpayDataChange.bind(this);
+    this.onSetIsActivatedChange = this.onSetIsActivatedChange.bind(this);
   }
 
   onDebtDataChange(debtData){
@@ -517,6 +527,10 @@ export default class ScreenMyApartment extends React.Component {
     this.props.setLiqpayData(liqpayData);
   }
 
+  onSetIsActivatedChange(isActivated){
+    this.props.setIsActivated(isActivated)
+  }
+
   componentDidMount() {
     fetch('https://app.osbb365.com/api/user/me', {
       headers: {
@@ -531,6 +545,7 @@ export default class ScreenMyApartment extends React.Component {
         this.onUserDataChange(responseJson);
         fetchApartmentData(
           this.props.token,
+          this.props.navigation,
           this.onOsbbIdChange,
           this.onAccountIdChange,
           this.onAccountIdsChange,
@@ -542,7 +557,8 @@ export default class ScreenMyApartment extends React.Component {
           this.onAllCostsDataChange,
           this.onCurrentCostsDataChange,
           this.onDebtDataChange,
-          this.onLiqpayDataChange
+          this.onLiqpayDataChange,
+          this.onSetIsActivatedChange
         );
       })
       .catch(error => {
@@ -613,8 +629,6 @@ export default class ScreenMyApartment extends React.Component {
   getDebtByCurrentAccountId(){
     if(this.props.accountId == null) return null
     for(var i = 0; i < this.props.debtData.length; i++){
-      console.log("debtsraka", this.props.debtData)
-      console.log("debt2", this.props.accountId.number)
       if(this.props.accountId.number == this.props.debtData[i].accountId.number){
         
         return this.props.debtData[i].debt
@@ -816,49 +830,51 @@ function getFinishBalance(dataForCurrentPeriod) {
 }
 
 function getPieChart(currentCostsData) {
-  if (currentCostsData == null) return;
-  let arr = new Array();
-  let series = new Array();
-  let sliceColor = new Array();
-  const randomColor = () =>
-    ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(
-      0,
-      7
-    );
+  if(Platform.OS == 'android'){
+    if (currentCostsData == null) return;
+    let arr = new Array();
+    let series = new Array();
+    let sliceColor = new Array();
+    const randomColor = () =>
+      ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(
+        0,
+        7
+      );
 
-  var sum = countSum(currentCostsData);
+    var sum = countSum(currentCostsData);
 
-  for (var i = 0; i < currentCostsData.data.length; i++) {
-    var val = parseFloat(currentCostsData.data[i].cost).toFixed(2);
-    var per = ((parseFloat(currentCostsData.data[i].cost) / sum) * 100).toFixed(
-      2
-    );
-	var color = randomColor();
-    let data = {
-      name: currentCostsData.data[i].name,
-      value: parseFloat(val),
-      svg: { fill: color },
-	  key: i,
-      percent: per,
-    };
-	
-	series.push(parseFloat(val));
-	sliceColor.push(color);
-    arr.push(data);
+    for (var i = 0; i < currentCostsData.data.length; i++) {
+      var val = parseFloat(currentCostsData.data[i].cost).toFixed(2);
+      var per = ((parseFloat(currentCostsData.data[i].cost) / sum) * 100).toFixed(
+        2
+      );
+    var color = randomColor();
+      let data = {
+        name: currentCostsData.data[i].name,
+        value: parseFloat(val),
+        svg: { fill: color },
+      key: i,
+        percent: per,
+      };
+    
+    series.push(parseFloat(val));
+    sliceColor.push(color);
+      arr.push(data);
+    }
+
+    return (
+    <View
+      style={{
+        padding: 5,
+        marginLeft: 15,
+        marginEnd: 15,
+        marginTop: 7,
+        marginBottom: 8,
+        backgroundColor: 'white',
+      }}>
+        <Chart data={arr} series={series} sliceColor={sliceColor} sum={sum} />
+    </View>) 
   }
-
-  return (
-  <View
-    style={{
-      padding: 5,
-      marginLeft: 15,
-      marginEnd: 15,
-      marginTop: 7,
-      marginBottom: 8,
-      backgroundColor: 'white',
-    }}>
-      <Chart data={arr} series={series} sliceColor={sliceColor} sum={sum} />
-  </View>) 
 }
 
 function countSum(currentCostsData) {

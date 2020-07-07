@@ -347,15 +347,19 @@ export default class ScreenActOfReconciliation extends React.Component {
             <Text style={{marginTop: 20, marginLeft: 10, width: '10%' }}>
               з
             </Text>
-            <Text
-              style={{ width: '40%', marginTop: 15, marginLeft: 15, borderWidth: 1, padding: 5, borderColor: '#5682A3', color: '#5682A3', backgroundColor: '#F9F9F9', }}>
-              {this.props.fromYear}
-            </Text>
+            <View style={{width: '40%', marginTop: 15, marginLeft: 15, borderWidth: 1, padding: 5, borderColor: '#5682A3',  backgroundColor: '#F9F9F9', borderRadius: 3}}>
+              <TouchableOpacity onPress={() => {this.onFromYearShowChange()}}>
+                <Text
+                  style={{ color: '#5682A3'}}>
+                  {this.props.fromYear}
+                </Text>
+              </TouchableOpacity>
+            </View>
   
-            <View style={{width: '40%', marginTop: 15, marginLeft: 15, borderWidth: 1, padding: 5, borderColor: '#5682A3',  backgroundColor: '#F9F9F9'}}>
+            <View style={{width: '40%', marginTop: 15, marginLeft: 15, borderWidth: 1, padding: 5, borderColor: '#5682A3',  backgroundColor: '#F9F9F9', borderRadius: 3}}>
               <TouchableOpacity onPress={() => {this.onFromMonthShowChange()}}>
               <Text
-                style={{ color: '#5682A3',}}>
+                style={{ color: '#5682A3'}}>
                 {getMonthByPeriod(this.props.fromMonth)}
               </Text>
               </TouchableOpacity>
@@ -365,22 +369,70 @@ export default class ScreenActOfReconciliation extends React.Component {
             <Text style={{marginTop: 20, marginLeft: 10, width: '10%' }}>
               по
             </Text>
-            <Text
-              style={{ width: '40%', marginTop: 15, marginLeft: 15, borderWidth: 1, padding: 5, borderColor: '#5682A3', color: '#5682A3', backgroundColor: '#F9F9F9', }}>
-              {this.props.toYear}
-            </Text>
-            <Text
-              style={{ width: '40%', marginTop: 15, marginLeft: 15, borderWidth: 1, padding: 5, borderColor: '#5682A3', color: '#5682A3', backgroundColor: '#F9F9F9',}}>
-              {getMonthByPeriod(this.props.toMonth)}
-            </Text>
+            <View style={{width: '40%', marginTop: 15, marginLeft: 15, borderWidth: 1, padding: 5, borderColor: '#5682A3',  backgroundColor: '#F9F9F9', borderRadius: 3}}>
+              <TouchableOpacity onPress={() => {this.onToYearShowChange()}}>
+              <Text
+                style={{ color: '#5682A3'}}>
+                {this.props.toYear}
+              </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{width: '40%', marginTop: 15, marginLeft: 15, borderWidth: 1, padding: 5, borderColor: '#5682A3',  backgroundColor: '#F9F9F9', borderRadius: 3}}>
+              <TouchableOpacity onPress={() => {this.onToMonthShowChange()}}>
+              <Text
+                style={{ color: '#5682A3'}}>
+                {getMonthByPeriod(this.props.toMonth)}
+              </Text>
+              </TouchableOpacity>
+            </View>
           </View>
+          <Dialog.Container
+            visible={this.props.fromYearShow}>
+              <Dialog.Title>
+                Рік
+              </Dialog.Title>
+            <View style={{alignItems: 'center'}}>
+              <Picker
+                prompt="Рік"
+                selectedValue={this.props.fromYear}
+                style={{ width: '40%', marginLeft: 15 }}
+                onValueChange={(itemValue, itemIndex) => {
+                  this.onFromYearChange(itemValue);
+                  for(var i = 0; i < this.props.workPeriods.length; i++){
+                    if(itemValue == this.props.workPeriods[i].substring(2, 6)){
+                      this.onFromMonthChange(this.props.workPeriods[i])
+                      break;
+                    }
+                  }
+                }}>
+                
+                {getYearsItems(this.props.workPeriods)}
+                {this.setStartFromAndTo()}
+              </Picker>
+            </View>
+            
+            <Dialog.Button
+              label="OK"
+              onPress={() => {
+                this.onFromYearShowChange();
+              }}
+            />
+          </Dialog.Container>
           <Dialog.Container
             visible={this.props.fromMonthShow}>
             <Dialog.Title>
-              "hello"
+              "Місяць"
             </Dialog.Title>
-            <View style={{alignSelf: 'center'}}>
-              
+            <View style={{alignItems: 'center'}}>
+            <Picker
+              prompt="Місяць"
+              selectedValue={this.props.fromMonth}
+              style={{ width: '40%', marginLeft: 20 }}
+              onValueChange={(itemValue, itemIndex) =>
+                this.onFromMonthChange(itemValue)
+              }>
+              {getMonthsItems(this.props.fromYear, this.props.workPeriods)}
+            </Picker>
             </View>
             
             <Dialog.Button
@@ -390,6 +442,64 @@ export default class ScreenActOfReconciliation extends React.Component {
               }}
             />
           </Dialog.Container>
+
+          <Dialog.Container
+            visible={this.props.toYearShow}>
+            <Dialog.Title>
+              Рік
+            </Dialog.Title>
+            <View style={{alignItems: 'center'}}>
+              <Picker
+                prompt="Рік"
+                selectedValue={this.props.toYear}
+                style={{ width: '40%', marginLeft: 15 }}
+                onValueChange={(itemValue, itemIndex) => {
+                  this.onToYearChange(itemValue)
+                  for(var i = 0; i < this.props.workPeriods.length; i++){
+                    if(itemValue == this.props.workPeriods[i].substring(2, 6)){
+                      this.onToMonthChange(this.props.workPeriods[i])
+                      break;
+                    }
+                  }
+                }}>
+                {getYearsItems(this.props.workPeriods)}
+              </Picker>
+            </View>
+            
+            <Dialog.Button
+              label="OK"
+              onPress={() => {
+                this.onToYearShowChange();
+              }}
+            />
+          </Dialog.Container>
+
+          <Dialog.Container
+            visible={this.props.toMonthShow}>
+            <Dialog.Title>
+              Місяць
+            </Dialog.Title>
+            <View style={{alignItems: 'center'}}>
+              <Picker
+                prompt="Місяць"
+                selectedValue={this.props.toMonth}
+                style={{ width: '40%', marginLeft: 20 }}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.onToMonthChange(itemValue)
+                }>
+                {getMonthsItems(this.props.toYear, this.props.workPeriods)}
+              </Picker>
+            </View>
+            
+            <Dialog.Button
+              label="OK"
+              onPress={() => {
+                this.onToMonthShowChange();
+              }}
+            />
+          </Dialog.Container>
+          
+          {this.setStartFromAndTo()}
         </View>
       )
     }
