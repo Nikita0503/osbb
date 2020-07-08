@@ -14,7 +14,7 @@ const PageHeaderClickable = props => {
       rightComponent={
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity onPress={() => props.navigation.navigate('Advertisement')}>           
-            <Image style={styles.icon} source={require('../images/ic_advertisement.png')} />
+            <Image style={{width: 32, height: 32, marginTop: 5 }} source={require('../images/ic_advertisement.png')} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => props.navigation.navigate('Chats')}>         
             <Image style={styles.icon} source={require('../images/ic_chat.png')} />
