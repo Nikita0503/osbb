@@ -28,6 +28,8 @@ export default class ScreenProfile extends React.Component {
     this.onAvatarImageChange = this.onAvatarImageChange.bind(this);
   }
 
+  
+
   onChangeShowPasswords(showPasswords) {
     this.props.setShowPasswords(showPasswords);
   }
@@ -435,7 +437,7 @@ const styles = StyleSheet.create({
     marginTop: 7,
     marginBottom: 8,
     backgroundColor: 'white',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   containerEmail: {
     width: '100%',

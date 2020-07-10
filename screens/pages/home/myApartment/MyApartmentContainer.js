@@ -13,7 +13,8 @@ import {
   setCurrentCostsData,
   setDebtData,
   setLiqpayData,
-  setIsActivated
+  setIsActivated,
+  clearState
 } from '../../../../store/pages/home/myApartment/apartment/actions';
 import { setCurrentWorkPeriod } from '../../../../store/pages/home/monthPicker/actions';
 import ScreenMyApartment from './ScreenMyApartment';
@@ -51,6 +52,7 @@ class MyApartmentContainer extends React.Component {
         setDebtData={this.props.setDebtData}
         setLiqpayData={this.props.setLiqpayData}
         setIsActivated={this.props.setIsActivated}
+        clearState={this.props.clearState}
       />
     );
   }
@@ -89,7 +91,8 @@ const mapDispatchToProps = {
   setCurrentCostsData: setCurrentCostsData,
   setDebtData: setDebtData,
   setLiqpayData: setLiqpayData,
-  setIsActivated: setIsActivated
+  setIsActivated: setIsActivated,
+  clearState: clearState
 };
 
 export default connect(

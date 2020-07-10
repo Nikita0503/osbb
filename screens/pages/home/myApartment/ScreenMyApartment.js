@@ -469,6 +469,7 @@ export default class ScreenMyApartment extends React.Component {
     this.onDebtDataChange = this.onDebtDataChange.bind(this);
     this.onLiqpayDataChange = this.onLiqpayDataChange.bind(this);
     this.onSetIsActivatedChange = this.onSetIsActivatedChange.bind(this);
+    this.onClearState = this.onClearState.bind(this);
   }
 
   onDebtDataChange(debtData){
@@ -531,7 +532,12 @@ export default class ScreenMyApartment extends React.Component {
     this.props.setIsActivated(isActivated)
   }
 
+  onClearState() {
+    this.props.clearState()
+  }
+
   componentDidMount() {
+    this.onClearState()
     fetch('https://app.osbb365.com/api/user/me', {
       headers: {
         Accept: 'application/json',

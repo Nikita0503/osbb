@@ -10,7 +10,8 @@
   APARTMENT_CHANGE_CURRENT_COSTS_DATA,
   APARTMENT_CHANGE_DEBT_DATA,
   APARTMENT_CHANGE_LIQPAY_DATA,
-  APARTMENT_CHANGE_IS_ACTIVATED
+  APARTMENT_CHANGE_IS_ACTIVATED,
+  APARTMENT_CLEAR_DATA
 } from './actions';
 
 const defaultState = {
@@ -30,6 +31,22 @@ const defaultState = {
 
 export const apartmentReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case APARTMENT_CLEAR_DATA:
+      return {
+        ...state,
+        userData: null,
+        osbbId: null,
+        accountId: null,
+        accountIds: [],
+        number: null,
+        workPeriods: [],
+        allApartmentData: [],
+        currentApartmentData: null,
+        allCostsData: [],
+        debtData: [],
+        liqpayData: null,
+        isActivated: null
+      }
     case APARTMENT_CHANGE_IS_ACTIVATED:
       return {
         ...state,

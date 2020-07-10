@@ -94,17 +94,21 @@ export default class ScreenLogin extends React.Component {
 
   getLoginPassword(){
     return(<View style={styles.container}>
-      <TextInput
-        keyboardType={Platform.OS === 'android' ? 'email-address' : 'ascii-capable'} 
-        onChangeText={(text) => {this.onEmailChange(text)}}
-        value={this.props.email} 
-        style={{borderColor: '#36678D', textAlign: 'center', borderBottomWidth: 1, fontSize: 16, marginBottom: 10}}  placeholder="Email" />
+      <View style={{backgroundColor: '#F7F7F7', borderRadius: 12, paddingTop: 6, paddingBottom: 0, paddingHorizontal: 15, marginHorizontal: 5, }}>
+        <TextInput
+          keyboardType={Platform.OS === 'android' ? 'email-address' : 'ascii-capable'} 
+          onChangeText={(text) => {this.onEmailChange(text)}}
+          value={this.props.email} 
+          style={{borderColor: '#36678D', textAlign: 'center', borderBottomWidth: 1, fontSize: 16, marginBottom: 7, paddingBottom: 2}}  placeholder="Email" />
+      </View>
+      <View style={{backgroundColor: '#F7F7F7', marginTop: 10, marginBottom: 5, borderRadius: 12, paddingTop: 6, paddingBottom: 0, paddingHorizontal: 15, marginHorizontal: 5, }}>
       <TextInput
         onChangeText={(text) => {this.onPasswordChange(text)}}
         value={this.props.password}
         secureTextEntry={!this.props.shownPassword}
         autoCapitalize = 'none' 
-        style={{borderColor: '#36678D', textAlign: 'center', borderBottomWidth: 1, fontSize: 16, marginBottom: 10}} placeholder="Пароль" /> 
+        style={{borderColor: '#36678D', textAlign: 'center', borderBottomWidth: 1, fontSize: 16, marginBottom: 7, paddingBottom: 2}} placeholder="Пароль" /> 
+      </View>
      <View style={{flexDirection: 'row'}}>
         <Checkbox
           status={this.props.shownPassword ? 'checked' : 'unchecked'}
@@ -117,11 +121,12 @@ export default class ScreenLogin extends React.Component {
         <Text style={{marginTop: 8, marginLeft: 5}}>Показати пароль</Text>
       </View>
       <View style={{margin: 5}}>
-      <Button
-        title="Увійти"
-        color="#5682A3"
-        onPress={() => {fetchTokenWithEmail(this.props.navigation, this.onTokenChange, this.props.email, this.props.password)}}    
-      />  
+      <TouchableOpacity
+        onPress={() => {fetchTokenWithEmail(this.props.navigation, this.onTokenChange, this.props.email, this.props.password)}}
+        style={{backgroundColor: "#5682A3", alignItems: 'center', justifyContent: 'center', height: 35, borderRadius: 12}}
+      >
+      <Text style={{color: 'white', fontSize: 15}}>Увійти</Text>
+      </TouchableOpacity>
       </View>
       <View style={{alignItems: 'center', margin: 5}}>
           <Text>Авторизуйтеся через E-mail</Text>
@@ -159,28 +164,28 @@ export default class ScreenLogin extends React.Component {
         <View style={styles.container, {marginTop: 5}}>
           {this.showUniqId()}
           <View style={styles.container}>
-          
-            <TextInput 
-            onChangeText={(text) => {this.onTokenDeviceIdChange(text)}}
-            value={this.props.tokenDeviceId} style={{borderColor: '#36678D', textAlign: 'center', borderBottomWidth: 1, fontSize: 16, marginBottom: 10}} placeholder="Токен" editable={false} />
-            <View style={{margin: 5}}>
-            <Button
-                title="Підключити"
-                color="#5682A3"
-                onPress={() => {
-                    this.signInApplicaion();
-                    //this.props.navigation.navigate('App');
-                    //fetchToken(this.props.navigation, this.onTokenChange);
-                  }
-                }
-              />
+            <View style={{backgroundColor: '#F7F7F7', marginBottom: 5, borderRadius: 12, paddingTop: 6, paddingBottom: 0, paddingHorizontal: 15, marginHorizontal: 5, }}>
+              <TextInput 
+                onChangeText={(text) => {this.onTokenDeviceIdChange(text)}}
+                value={this.props.tokenDeviceId} 
+                style={{borderColor: '#36678D', textAlign: 'center', borderBottomWidth: 1, paddingBottom: 2, fontSize: 16, marginBottom: 7}} placeholder="Токен" editable={false} />
             </View>
             <View style={{margin: 5}}>
-              <Button
-                title="Сканувати QR-код"
-                color="#5682A3"
-                onPress={() => this.props.navigation.navigate('QRScanner')}
-              /> 
+            <TouchableOpacity
+                onPress={() => {this.signInApplicaion()}}
+                style={{backgroundColor: "#5682A3", alignItems: 'center', justifyContent: 'center', height: 35, borderRadius: 12}}
+              >
+              <Text style={{color: 'white', fontSize: 15}}>Підключити</Text>
+            </TouchableOpacity>
+            </View>
+            <View style={{margin: 5}}>
+              <TouchableOpacity
+                  onPress={() => {this.props.navigation.navigate('QRScanner')}}
+                  style={{backgroundColor: "#5682A3", alignItems: 'center', justifyContent: 'center', height: 35, borderRadius: 12}}
+                >
+                <Text style={{color: 'white', fontSize: 15}}>Сканувати QR-код</Text>
+              </TouchableOpacity>
+              
             </View>
             <View style={{alignItems: 'center', margin: 5}}>
             <Text style={{textAlign: 'center'}}>Або через QR-код у Особистому кабінеті {"\n"}(розділ "Мобільні додатки")</Text>
@@ -239,7 +244,9 @@ function fetchToken(navigation, onTokenChange){
 
 const styles = StyleSheet.create({
   container: {
-    padding: 5,
+    borderRadius: 10,
+    padding: 10,
+    paddingBottom: 20,
     marginTop: 12,
     marginLeft: 50,
     marginEnd: 50,
