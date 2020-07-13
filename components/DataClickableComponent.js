@@ -8,9 +8,10 @@ export default class DataClickableComponent extends React.Component {
         style={{
           flexDirection: 'row',
           margin: 5,
-          marginVertical: 10,
+          marginVertical: 8,
           width: '100%',
           justifyContent: 'space-between',
+          paddingHorizontal: 8
         }}>
         <Text style={styles.dataNameComponentStyle}>{this.props.name}</Text>
         <Text style={styles.dataNumberComponentStyle}>{this.props.number}</Text>
@@ -20,14 +21,14 @@ export default class DataClickableComponent extends React.Component {
 }
 const styles = StyleSheet.create({
 dataNameComponentStyle: {
-    width: '50%', 
-    fontSize: 18,
+    width: '60%', 
+    fontSize: 17,
     color: '#364A5F',
     fontWeight: 'bold',
   },
   dataNumberComponentStyle: {
-    width: '50%', 
-    fontSize: 18,
+    width: '40%', 
+    fontSize: 17,
     color: '#364A5F',
     fontWeight: 'bold',
     textAlign: 'right',
