@@ -262,6 +262,7 @@ function getMonthByNumber(number) {
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 12,
     marginTop: 7,
     marginBottom: 8,
     backgroundColor: 'white',

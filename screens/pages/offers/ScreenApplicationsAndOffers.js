@@ -310,6 +310,7 @@ export default class ScreenApplicationsAndOffers extends React.Component {
                 width: '100%',
                 backgroundColor: '#F9F9F9',
                 alignItems: 'center',
+                borderRadius: 15
               }}>
               <Text
                 style={{
@@ -357,6 +358,7 @@ export default class ScreenApplicationsAndOffers extends React.Component {
                 backgroundColor: '#F9F9F9',
                 alignItems: 'center',
                 marginTop: 10,
+                borderRadius: 15
               }}>
               <Text
                 style={{
@@ -407,6 +409,7 @@ export default class ScreenApplicationsAndOffers extends React.Component {
                 backgroundColor: '#F9F9F9',
                 alignItems: 'center',
                 marginTop: 10,
+                borderRadius: 15
               }}>
               <Text
                 style={{
@@ -512,6 +515,7 @@ class Item extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 15,
     padding: 5,
     marginLeft: 15,
     marginEnd: 15,

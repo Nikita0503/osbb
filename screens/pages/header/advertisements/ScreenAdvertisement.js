@@ -234,7 +234,7 @@ getFileShowDialog(){
   render() {
     return (
       <View
-        style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+        style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE',  }}>
         <NavigationEvents
           onDidFocus={() => {
             
@@ -566,6 +566,7 @@ class Item extends React.Component {
               width: '100%',
               backgroundColor: '#F9F9F9',
               alignItems: 'center',
+              borderRadius: 15
             }}>
             <Text
               style={{
@@ -685,7 +686,7 @@ class Item extends React.Component {
 
   render() {
     return (
-      <View style={{ margin: 5, backgroundColor: 'white', width: '100%' }}>
+      <View style={{ margin: 5, backgroundColor: 'white', width: '95%', borderRadius: 15 }}>
         <Text
           style={{
             color: '#364A5F',
@@ -726,6 +727,7 @@ class Item extends React.Component {
               backgroundColor: '#F9F9F9',
               alignItems: 'center',
               margin: 10,
+              borderRadius: 15
             }}>
             <Text
               style={{
@@ -757,6 +759,7 @@ class ItemComment extends React.Component {
           height: 50,
           resizeMode: 'contain',
           alignSelf: 'center',
+          borderRadius: 25
         }}
       />
     );
@@ -764,7 +767,7 @@ class ItemComment extends React.Component {
 
   render() {
     return (
-      <View style={{ backgroundColor: '#F9F9F9', margin: 10 }}>
+      <View style={{ backgroundColor: '#F9F9F9', margin: 10, borderRadius: 15 }}>
         <View style={{ flexDirection: 'row' }}>
           {this.getAvatar()}
           <View>
@@ -850,8 +853,8 @@ function getImage(type) {
 const styles = StyleSheet.create({
   container: {
     padding: 5,
-    marginLeft: 15,
-    marginEnd: 15,
+    marginLeft: 5,
+    marginEnd: 5,
     alignItems: 'center',
   },
 });

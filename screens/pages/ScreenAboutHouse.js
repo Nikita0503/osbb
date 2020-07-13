@@ -168,22 +168,34 @@ export default class ScreenAboutHouse extends React.Component {
       switch(type){
         case 'jpg':
           return(
+            <ImageZoom cropWidth={320}
+                       cropHeight={300}
+                       imageWidth={320}
+                       imageHeight={300}>
           <Image
             style={{width: 320, height: 300, resizeMode: 'contain'}}
             source={{uri: 'https://app.osbb365.com' + path}}
-          />)
+          />
+          </ImageZoom>)
         case 'png':
-          return(
+          return(<ImageZoom cropWidth={320}
+            cropHeight={300}
+            imageWidth={320}
+            imageHeight={300}>
           <Image
             style={{width: 320, height: 300, resizeMode: 'contain'}}
             source={{uri: 'https://app.osbb365.com' + path}}
-          />)
+          />
+          </ImageZoom>)
         case 'svg':
-          return(
+          return(<ImageZoom cropWidth={320}
+            cropHeight={300}
+            imageWidth={320}
+            imageHeight={300}>
           <Image
             style={{width: 320, height: 300, resizeMode: 'contain'}}
             source={{uri: 'https://app.osbb365.com' + path}}
-          />)
+          /></ImageZoom>)
         case 'pdf':
           return(
           <PDFReader
@@ -193,9 +205,9 @@ export default class ScreenAboutHouse extends React.Component {
             }}
           />
           ) 
-        default: 
+        /*default: 
           //download('https://app.osbb365.com' + path)
-          return(<Text>У розробці...</Text>)
+          return(<Text>У розробці...</Text>)*/
           
       }
     }
@@ -214,6 +226,7 @@ export default class ScreenAboutHouse extends React.Component {
                 width: '100%',
                 backgroundColor: '#F9F9F9',
                 alignItems: 'center',
+                borderRadius: 15
               }}>
               <Text
                 style={{
@@ -234,6 +247,7 @@ export default class ScreenAboutHouse extends React.Component {
                 width: '100%',
                 backgroundColor: '#F9F9F9',
                 alignItems: 'center',
+                borderRadius: 15
               }}>
               <Text
                 style={{
@@ -396,6 +410,7 @@ function getImage(type, name) {
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 15,
     padding: 5,
     marginLeft: 10,
     marginEnd: 10,

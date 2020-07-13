@@ -74,6 +74,7 @@ export default class ScreenAddCommentToOffer extends React.Component {
               width: '100%',
               backgroundColor: '#F9F9F9',
               alignItems: 'center',
+              borderRadius: 15
             }}
             onPress={() => {
               if(this.props.addCommentToOfferComment == null || this.props.addCommentToOfferComment.trim() == ''){
@@ -224,5 +225,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'space-between',
+    borderRadius: 15,
+    paddingTop: 5
   },
 });

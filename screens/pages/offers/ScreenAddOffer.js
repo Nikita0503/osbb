@@ -84,6 +84,7 @@ export default class ScreenAddOffer extends React.Component {
                 borderBottomWidth: 1,
                 borderBottomColor: 'gray',
                 alignSelf: 'center',
+                marginTop: 10
               }}
               placeholder="Тема"
               onChangeText={text => {
@@ -153,6 +154,7 @@ export default class ScreenAddOffer extends React.Component {
               width: '100%',
               backgroundColor: '#F9F9F9',
               alignItems: 'center',
+              borderRadius: 15
             }}
             onPress={() => {
               /*alert(
@@ -316,6 +318,7 @@ function getImage(type) {
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 15,
     padding: 5,
     marginLeft: 15,
     marginEnd: 15,

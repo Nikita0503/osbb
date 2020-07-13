@@ -10,7 +10,7 @@ export default class Chart extends Component
     
         return (
           <View style={{alignItems: 'center',}}>
-            <View style={{marginBottom: 20, width: '100%', backgroundColor: '#F9F9F9', alignItems: 'center'}}>
+            <View style={{marginBottom: 20, width: '100%', backgroundColor: '#F9F9F9', alignItems: 'center', borderRadius: 15}}>
               <Text style={{ marginTop: 10, marginBottom: 10, color: '#364A5F', fontSize: 20, fontWeight: 'bold' }}>
                 Витрати за місяць
               </Text>

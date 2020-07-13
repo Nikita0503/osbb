@@ -276,6 +276,7 @@ export default class ScreenOffer extends React.Component {
                 width: '100%',
                 backgroundColor: '#F9F9F9',
                 alignItems: 'center',
+                borderRadius: 15
               }}>
               <Text
                 style={{
@@ -299,6 +300,7 @@ export default class ScreenOffer extends React.Component {
               width: '100%',
               backgroundColor: '#F9F9F9',
               alignItems: 'center',
+              borderRadius: 15
             }}>
             <Text
               style={{
@@ -351,7 +353,7 @@ export default class ScreenOffer extends React.Component {
         />
         <ScrollView>
           <View style={styles.container}>
-            <View style={{ width: '100%', backgroundColor: '#F9F9F9' }}>
+            <View style={{ width: '100%', backgroundColor: '#F9F9F9', borderRadius: 15 }}>
               <View style={{ flexDirection: 'row' }}>
                 
                 {this.getSelectedOffer()}
@@ -402,6 +404,7 @@ export default class ScreenOffer extends React.Component {
                   backgroundColor: '#F9F9F9',
                   alignItems: 'center',
                   margin: 10,
+                  borderRadius: 15
                 }}>
                 <Text
                   style={{
@@ -485,7 +488,7 @@ export default class ScreenOffer extends React.Component {
 class ItemComment extends React.Component {
   render() {
     return (
-      <View style={{ backgroundColor: '#F9F9F9', margin: 10 }}>
+      <View style={{ backgroundColor: '#F9F9F9', margin: 10, borderRadius: 15 }}>
         <View style={{ flexDirection: 'row' }}>
           <Image
             style={{
@@ -493,7 +496,8 @@ class ItemComment extends React.Component {
               height: 50,
               resizeMode: 'contain',
               marginLeft: 5,
-              marginRight: 1,
+              marginRight: 5,
+              borderRadius: 25
             }}
             source={{
               uri: 'https://app.osbb365.com' + this.props.user.photo,
@@ -664,6 +668,7 @@ function getImageWithText(type, name) {
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 15,
     padding: 5,
     marginLeft: 15,
     marginEnd: 15,

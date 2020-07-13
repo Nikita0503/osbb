@@ -674,6 +674,7 @@ export default class ScreenMyApartment extends React.Component {
                 width: '100%',
                 backgroundColor: '#F9F9F9',
                 alignItems: 'center',
+                borderRadius: 15
               }}>
               <Text
                 style={{
@@ -747,6 +748,7 @@ export default class ScreenMyApartment extends React.Component {
               backgroundColor: '#5682A3',
               padding: 10,
               margin: 5,
+              borderRadius: 12
             }}>
             <Text style={{ color: 'white' }}>ОПЛАТИТИ</Text>
           </View>
@@ -877,6 +879,7 @@ function getPieChart(currentCostsData) {
         marginTop: 7,
         marginBottom: 8,
         backgroundColor: 'white',
+        borderRadius: 15
       }}>
         <Chart data={arr} series={series} sliceColor={sliceColor} sum={sum} />
     </View>) 
@@ -893,6 +896,7 @@ function countSum(currentCostsData) {
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 15,
     padding: 5,
     marginLeft: 15,
     marginEnd: 15,

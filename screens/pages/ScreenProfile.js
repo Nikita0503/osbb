@@ -209,9 +209,8 @@ export default class ScreenProfile extends React.Component {
               </TouchableOpacity>
               <View style={styles.container}>
               <View style={{width: '80%', marginVertical: 15}}>
-                <Button
-                  title="Видалити фото"
-                  color="#5682A3"
+                
+                <TouchableOpacity
                   onPress={() => {
                     fetch(
                       'https://app.osbb365.com/api/user/me/photo?accountId=' +
@@ -236,7 +235,10 @@ export default class ScreenProfile extends React.Component {
                         console.error(error);
                       });
                   }}
-                />
+                  style={{backgroundColor: "#5682A3", alignItems: 'center', justifyContent: 'center', height: 35, borderRadius: 12, paddingHorizontal: 10}}
+                >
+                  <Text style={{color: 'white', fontSize: 15}}>ВИДАЛИТИ ФОТО</Text>
+                </TouchableOpacity>
               </View>
             </View>
               <View style={styles.containerEmail}>
@@ -365,25 +367,27 @@ export default class ScreenProfile extends React.Component {
                 />
               </View>
               <View style={styles.buttonStyle}>
-                <Button
-                  title="Зберегти"
-                  color="#5682A3"
-                  onPress={() => {
-                    sendNewPassword(this.props, this.onOldPasswordChange, this.onNewPasswordChange, this.onNewRepeatPasswordChange);
-                  }}
-                />
+              <TouchableOpacity
+                onPress={() => {sendNewPassword(this.props, this.onOldPasswordChange, this.onNewPasswordChange, this.onNewRepeatPasswordChange)}}
+                style={{backgroundColor: "#5682A3", alignItems: 'center', justifyContent: 'center', height: 35, borderRadius: 12}}
+              >
+                <Text style={{color: 'white', fontSize: 15}}>ЗБЕРЕГТИ</Text>
+              </TouchableOpacity>
+                
               </View>
             </View>
             <View style={styles.container}>
               <View style={{width: '80%', marginVertical: 15}}>
-                <Button
-                  title="Вийти з аккаунту"
-                  color="#5682A3"
+                
+              <TouchableOpacity
                   onPress={() => {
                     this.props.setTokenDeviceId('')
                     this.props.navigation.navigate('Auth')
                   }}
-                />
+                  style={{backgroundColor: "#5682A3", alignItems: 'center', justifyContent: 'center', height: 35, borderRadius: 12}}
+                >
+                <Text style={{color: 'white', fontSize: 15}}>ВИЙТИ З АККАУНТУ</Text>
+              </TouchableOpacity>
               </View>
             </View>
           </ScrollView>
@@ -432,6 +436,7 @@ function sendNewPassword(props, onOldPasswordChange, onNewPasswordChange, onNewR
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 15,
     marginLeft: 15,
     marginEnd: 15,
     marginTop: 7,

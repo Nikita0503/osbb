@@ -192,7 +192,7 @@ export default class ScreenPaymentSelection extends React.Component {
         </View>
           <ScrollView>
             <View style={styles.container}>
-            <View style={{width: '100%', backgroundColor: '#F9F9F9', alignItems: 'center'}}>
+            <View style={{width: '100%', backgroundColor: '#F9F9F9', alignItems: 'center', borderRadius: 15}}>
               <Text
                 style={{
                   marginTop: 10,
@@ -264,6 +264,7 @@ class Item extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 15,
     marginStart: 15,
     marginEnd: 15,
     marginTop: 7,

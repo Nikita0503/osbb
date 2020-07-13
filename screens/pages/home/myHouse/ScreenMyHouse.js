@@ -191,6 +191,7 @@ export default class ScreenMyHouse extends React.Component {
                 width: '100%',
                 backgroundColor: '#F9F9F9',
                 alignItems: 'center',
+                borderRadius: 15
               }}>
               <Text
                 style={{
@@ -213,6 +214,7 @@ export default class ScreenMyHouse extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 15,
     padding: 5,
     marginLeft: 15,
     marginEnd: 15,

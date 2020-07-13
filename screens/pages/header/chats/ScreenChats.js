@@ -229,6 +229,7 @@ class Item extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 15,
     paddingHorizontal: 5,
     paddingBottom: 5,
     marginLeft: 10,
@@ -237,6 +238,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   itemStyle: {
+    borderRadius: 20,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',

@@ -14,6 +14,7 @@ import PageHeader from '../../../../components/PageHeader';
 import DataComponent from '../../../../components/DataComponent';
 import Dialog from 'react-native-dialog';
 import PDFReader from 'rn-pdf-reader-js';
+import ImageZoom from 'react-native-image-pan-zoom';
 
 function getDate(data) {
   var date = new Date(data);
@@ -113,6 +114,7 @@ export default class ScreenHouseExpenses extends React.Component {
                 width: '100%',
                 backgroundColor: '#F9F9F9',
                 alignItems: 'center',
+                borderRadius: 15
               }}>
               <Text
                 style={{
@@ -181,22 +183,33 @@ export default class ScreenHouseExpenses extends React.Component {
       switch(type){
         case 'jpg':
           return(
+            <ImageZoom cropWidth={320}
+                       cropHeight={300}
+                       imageWidth={320}
+                       imageHeight={300}>
           <Image
             style={{width: 320, height: 300, resizeMode: 'contain'}}
             source={{uri: 'https://app.osbb365.com' + path}}
-          />)
+          /></ImageZoom>)
         case 'png':
           return(
+            <ImageZoom cropWidth={320}
+                       cropHeight={300}
+                       imageWidth={320}
+                       imageHeight={300}>
           <Image
             style={{width: 320, height: 300, resizeMode: 'contain'}}
             source={{uri: 'https://app.osbb365.com' + path}}
-          />)
+          /></ImageZoom>)
         case 'svg':
-          return(
+          return(<ImageZoom cropWidth={320}
+            cropHeight={300}
+            imageWidth={320}
+            imageHeight={300}>
           <Image
             style={{width: 320, height: 300, resizeMode: 'contain'}}
             source={{uri: 'https://app.osbb365.com' + path}}
-          />)
+          /></ImageZoom>)
         case 'pdf':
           return(
           <PDFReader
@@ -229,6 +242,7 @@ export default class ScreenHouseExpenses extends React.Component {
                 width: '100%',
                 backgroundColor: '#F9F9F9',
                 alignItems: 'center',
+                borderRadius: 15
               }}>
               <Text
                 style={{
@@ -280,6 +294,7 @@ export default class ScreenHouseExpenses extends React.Component {
                 width: '100%',
                 backgroundColor: '#F9F9F9',
                 alignItems: 'center',
+                borderRadius: 15
               }}>
               <Text
                 style={{
@@ -343,7 +358,7 @@ class ItemFile extends React.Component {
 
 function getImage(type) {
   switch (type) {
-    case 'lsx':
+    /*case 'lsx':
       return (
         <Image
           style={{ width: 40, height: 50 }}
@@ -356,7 +371,7 @@ function getImage(type) {
           style={{ width: 40, height: 50 }}
           source={require('../../../../images/ic_xls.png')}
         />
-      );
+      );*/
 
     case 'pdf':
       return (
@@ -365,7 +380,7 @@ function getImage(type) {
           source={require('../../../../images/ic_pdf.png')}
         />
       );
-    case 'ocx':
+    /*case 'ocx':
       return (
           <Image
             style={{ width: 40, height: 50 }}
@@ -385,9 +400,25 @@ function getImage(type) {
           style={{ width: 40, height: 50 }}
           source={require('../../../../images/ic_txt.png')}
         />
-      );
+      );*/
 
-    default:
+    case 'jpg':
+      return (
+        <Image
+          resizeMode="contain"
+          style={{ width: 50, height: 50 }}
+          source={require('../../../../images/ic_jpg.png')}
+        />
+      );
+    case 'png':
+      return (
+        <Image
+          resizeMode="contain"
+          style={{ width: 50, height: 50 }}
+          source={require('../../../../images/ic_jpg.png')}
+        />
+      );
+    case 'svg':
       return (
         <Image
           resizeMode="contain"
@@ -414,6 +445,7 @@ class ItemHouseCosts extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 15,
     padding: 5,
     marginLeft: 10,
     marginEnd: 10,

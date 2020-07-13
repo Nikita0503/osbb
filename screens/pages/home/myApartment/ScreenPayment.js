@@ -140,6 +140,7 @@ class Item extends React.Component {
 
 const styles = StyleSheet.create({
    container: {
+    borderRadius: 15,
     padding: 5,
     marginLeft: 10,
     marginEnd: 10,
