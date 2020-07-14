@@ -201,7 +201,7 @@ export default class ScreenProfile extends React.Component {
           />
           <ScrollView>
             <View style={styles.container}>
-              <Text style={{ marginTop: 15, color: '#364A5F', fontSize: 18 }}>
+              <Text style={{ marginTop: 15, marginBottom: 10, color: '#364A5F', fontSize: 18 }}>
                 Загальне
               </Text>
               <TouchableOpacity onPress={this._pickImage}>
