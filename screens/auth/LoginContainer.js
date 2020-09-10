@@ -1,6 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setToken, setTokenDeviceId, setEmail, setPassword, setShowPassword} from '../../store/auth/actions'
+import {
+  setToken, 
+  setTokenDeviceId, 
+  setEmail, 
+  setPassword, 
+  setShowPassword,
+  fetchTokenByEmailPassword,
+  signInDevice,
+  setAuthMethod
+} from '../../store/auth/actions'
 import ScreenLogin from './ScreenLogin';
 
 class LoginContainer extends React.Component {
@@ -13,11 +22,16 @@ class LoginContainer extends React.Component {
       email={this.props.email}
       password={this.props.password}
       shownPassword={this.props.shownPassword}
+      authMethod={this.props.authMethod}
       setToken={this.props.setToken} 
       setTokenDeviceId={this.props.setTokenDeviceId}
       setEmail={this.props.setEmail}
       setPassword={this.props.setPassword}
-      setShowPassword={this.props.setShowPassword} />)
+      setShowPassword={this.props.setShowPassword}
+      fetchTokenByEmailPassword={this.props.fetchTokenByEmailPassword}
+      signInDevice={this.props.signInDevice}
+      setAuthMethod={this.props.setAuthMethod}
+    />)
   }
 }
 
@@ -27,16 +41,20 @@ const mapStateToProps = state => {
     tokenDeviceId: state.auth.tokenDeviceId,
     email: state.auth.email,
     password: state.auth.password,
-    shownPassword: state.auth.shownPassword
+    shownPassword: state.auth.shownPassword,
+    authMethod: state.auth.authMethod
   };
 }
 
 const mapDispatchToProps = {
-  setToken: setToken,
-  setTokenDeviceId: setTokenDeviceId,
-  setEmail: setEmail,
-  setPassword: setPassword,
-  setShowPassword: setShowPassword
+  setToken,
+  setTokenDeviceId,
+  setEmail,
+  setPassword,
+  setShowPassword,
+  fetchTokenByEmailPassword,
+  signInDevice,
+  setAuthMethod
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

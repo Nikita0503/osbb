@@ -10,7 +10,8 @@ import {
 } from '../../store/pages/profile/actions';
 
 import {
-  setTokenDeviceId
+  setTokenDeviceId,
+  setAuthMethod
 } from '../../store/auth/actions';
 
 import {
@@ -45,6 +46,7 @@ class ProfileContainer extends React.Component {
         setTokenDeviceId={this.props.setTokenDeviceId}
         setPhoneNumber={this.props.setPhoneNumber}
         setUserData={this.props.setUserData}
+        setAuthMethod={this.props.setAuthMethod}
       />
     );
   }
@@ -76,7 +78,8 @@ const mapDispatchToProps = {
   setAvatarImage: setAvatarImage,
   setTokenDeviceId: setTokenDeviceId,
   setPhoneNumber: setPhoneNumber,
-  setUserData: setUserData
+  setUserData: setUserData,
+  setAuthMethod: setAuthMethod
 };
 
 export default connect(

@@ -381,7 +381,8 @@ export default class ScreenProfile extends React.Component {
                 
               <TouchableOpacity
                   onPress={() => {
-                    this.props.setTokenDeviceId('')
+                    //this.props.setTokenDeviceId('')
+                    this.props.setAuthMethod(null)
                     this.props.navigation.navigate('Auth')
                   }}
                   style={{backgroundColor: "#5682A3", alignItems: 'center', justifyContent: 'center', height: 35, borderRadius: 12}}
