@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  setCurrentPaymentsData
+  setCurrentPaymentsData,
+  fetchPayment
 } from '../../../../store/pages/home/myApartment/payments/actions';
 import ScreenPayment from './ScreenPayment';
 
@@ -16,6 +17,7 @@ class PaymentContainer extends React.Component {
         currentWorkPeriod={this.props.currentWorkPeriod}
         currentPaymentsData={this.props.currentPaymentsData}
         setCurrentPaymentsData={this.props.setCurrentPaymentsData}
+        fetchPayment={this.props.fetchPayment}
       />
     );
   }
@@ -32,7 +34,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setCurrentPaymentsData: setCurrentPaymentsData
+  setCurrentPaymentsData,
+  fetchPayment
 }
 
 export default connect(

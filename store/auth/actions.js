@@ -93,7 +93,15 @@ export const signUpDevice = (token, navigation) => {
             }),
         });
         const json = await tokenPromise.json();
-        console.log("signUp", json.message + ". Прістрій вже зареєстрований.");
+        Alert.alert(
+          json.message,
+          "Прістрій вже зареєстрований.",
+          [
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+          ],
+          { cancelable: true }
+        )
+        console.log("signUp", );
     } catch (error) {
         if(error.message == 'JSON Parse error: Unrecognized token \'<\''){
             dispatch(setTokenDeviceId(''));

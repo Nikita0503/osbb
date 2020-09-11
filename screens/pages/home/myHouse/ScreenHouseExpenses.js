@@ -22,87 +22,21 @@ function getDate(data) {
   if(day < 10) day = "0" + day;
   var month = date.getMonth() + 1;
   if(month < 10) month = "0" + month
-  /*switch (date.getMonth()) {
-    case 0:
-      month = ' січ. ';
-      break;
-    case 1:
-      month = ' лют. ';
-      break;
-    case 2:
-      month = ' бер. ';
-      break;
-    case 3:
-      month = ' квіт. ';
-      break;
-    case 4:
-      month = ' трав. ';
-      break;
-    case 5:
-      month = ' черв. ';
-      break;
-    case 6:
-      month = ' лип. ';
-      break;
-    case 7:
-      month = ' серп. ';
-      break;
-    case 8:
-      month = ' вер. ';
-      break;
-    case 9:
-      month = ' жовт. ';
-      break;
-    case 10:
-      month = ' лист. ';
-      break;
-    case 11:
-      month = ' груд. ';
-      break;
-  }*/
   return day + " " + month + " " + date.getFullYear();
 }
 
 export default class ScreenHouseExpenses extends React.Component {
   constructor(props) {
     super(props);
-    this.onExpensesDataChange = this.onExpensesDataChange.bind(this);
-    this.onExpensesDataChange(null);
-    this.onExpensesSelectedFileChange = this.onExpensesSelectedFileChange.bind(this);
-  }
-
-  onExpensesDataChange(expenseData) {
-    this.props.setExpensesData(expenseData);
-  }
-
-  onExpensesSelectedFileChange(selectedFile){
-    this.props.setExpensesSelectedFile(selectedFile)
+    this.props.setExpensesData(null);
   }
 
   componentDidMount() {
-    fetch(
-      'https://app.osbb365.com/api/tenant/costs/' +
-        this.props.expensesGeneralData.id +
-        '/transcript?accountId=' +
-        this.props.accountId.id +
-        '&osbbId=' +
-        this.props.osbbId,
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + this.props.token,
-        },
-      }
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        this.onExpensesDataChange(responseJson);
-        //console.log("onExpensesDataChange", responseJson);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    this.props.fetchExpenses(
+      this.props.expensesGeneralData, 
+      this.props.accountId, 
+      this.props.osbbId, 
+      this.props.token)
   }
 
   getExpensesGeneralData() {

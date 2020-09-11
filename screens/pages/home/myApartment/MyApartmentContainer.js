@@ -14,7 +14,9 @@ import {
   setDebtData,
   setLiqpayData,
   setIsActivated,
-  clearState
+  clearState,
+  fetchUserData,
+  fetchApartmentData
 } from '../../../../store/pages/home/myApartment/apartment/actions';
 import { setCurrentWorkPeriod } from '../../../../store/pages/home/monthPicker/actions';
 import ScreenMyApartment from './ScreenMyApartment';
@@ -53,6 +55,8 @@ class MyApartmentContainer extends React.Component {
         setLiqpayData={this.props.setLiqpayData}
         setIsActivated={this.props.setIsActivated}
         clearState={this.props.clearState}
+        fetchUserData={this.props.fetchUserData}
+        fetchApartmentData={this.props.fetchApartmentData}
       />
     );
   }
@@ -78,21 +82,23 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setUserData: setUserData,
-  setOsbbId: setOsbbId,
-  setAccountId: setAccountId,
-  setAccountIds: setAccountIds,
-  setNumber: setNumber,
-  setWorkPeriods: setWorkPeriods,
-  setCurrentWorkPeriod: setCurrentWorkPeriod,
-  setAllApartmentData: setAllApartmentData,
-  setCurrentApartmentData: setCurrentApartmentData,
-  setAllCostsData: setAllCostsData,
-  setCurrentCostsData: setCurrentCostsData,
-  setDebtData: setDebtData,
-  setLiqpayData: setLiqpayData,
-  setIsActivated: setIsActivated,
-  clearState: clearState
+  setUserData,
+  setOsbbId,
+  setAccountId,
+  setAccountIds,
+  setNumber,
+  setWorkPeriods,
+  setCurrentWorkPeriod,
+  setAllApartmentData,
+  setCurrentApartmentData,
+  setAllCostsData,
+  setCurrentCostsData,
+  setDebtData,
+  setLiqpayData,
+  setIsActivated,
+  clearState,
+  fetchUserData,
+  fetchApartmentData
 };
 
 export default connect(

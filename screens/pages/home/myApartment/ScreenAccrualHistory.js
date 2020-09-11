@@ -15,54 +15,17 @@ import DataComponent from '../../../../components/DataComponent';
 export default class ScreenAccrualHistory extends React.Component {
   constructor(props) {
     super(props);
-    this.onCurrentAccrualsDataChange = this.onCurrentAccrualsDataChange.bind(
-      this
-    );
-    this.onSelectedAccrualsDataChange = this.onSelectedAccrualsDataChange.bind(
-      this
-    );
-    this.onCurrentAccrualsDataChange(new Array());
-    this.onSelectedAccrualsDataChange(null);
-  }
-
-  onCurrentAccrualsDataChange(currentAccrualsData) {
-    this.props.setCurrentAccrualsData(currentAccrualsData);
-  }
-
-  onSelectedAccrualsDataChange(selectedAccrualsData) {
-    this.props.setSelectedAccrualsData(selectedAccrualsData);
+    this.props.setCurrentAccrualsData(new Array());
+    this.props.setSelectedAccrualsData(null);
   }
 
   componentDidMount() {
-    fetch(
-      'https://app.osbb365.com/api/tenant/charges/total?accountId=' +
-        this.props.accountId.id +
-        '&osbbId=' +
-        this.props.osbbId +
-        '&workPeriod=' +
-        this.props.currentWorkPeriod,
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + this.props.token + '',
-        },
-      }
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        const data = sortCurrentAccrualsData(responseJson.chargesList);
-        this.onCurrentAccrualsDataChange(data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    this.props.fetchAccrualHistory(this.props.token, this.props.accountId, this.props.osbbId, this.props.currentWorkPeriod);
   }
 
   render() {
     return (
       <View>
-        
         <ScrollView ref={ref => {this.scrollView = ref}}>
         <PageHeader
           navigation={this.props.navigation}
@@ -95,9 +58,7 @@ export default class ScreenAccrualHistory extends React.Component {
               )}
               keyExtractor={item => item.contribution}
             />
-            
           </View>
-          
         </ScrollView>
       </View>
     );
@@ -119,20 +80,6 @@ class Item extends React.Component {
       </TouchableOpacity>
     );
   }
-}
-
-function sortCurrentAccrualsData(data){
-  data.sort(function (a, b) {
-    if (a.caption > b.caption) {
-      return 1;
-    }
-    if (a.caption < b.caption) {
-      return -1;
-    }
-    return 0;
-  });
-  
-  return data
 }
 
 function showAccrual(selectedAccrualsData, onSelectedAccrualsDataChange) {

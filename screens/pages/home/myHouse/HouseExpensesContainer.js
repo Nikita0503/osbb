@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {setExpensesData, setExpensesSelectedFile } from '../../../../store/pages/home/myHouse/houseExpenses/actions';
+import {setExpensesData, setExpensesSelectedFile, fetchExpenses } from '../../../../store/pages/home/myHouse/houseExpenses/actions';
 import ScreenHouseExpenses from './ScreenHouseExpenses';
 
 class HouseExpensesContainer extends React.Component {
@@ -19,6 +19,7 @@ class HouseExpensesContainer extends React.Component {
         expensesSelectedFile={this.props.expensesSelectedFile}
         setExpensesData={this.props.setExpensesData}
         setExpensesSelectedFile={this.props.setExpensesSelectedFile}
+        fetchExpenses={this.props.fetchExpenses}
       />
     );
   }
@@ -39,8 +40,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setExpensesData: setExpensesData,
-  setExpensesSelectedFile: setExpensesSelectedFile
+  setExpensesData,
+  setExpensesSelectedFile,
+  fetchExpenses
 };
 
 export default connect(

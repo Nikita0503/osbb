@@ -4,6 +4,7 @@ import {
   setTokenDeviceId,
   setIsScanned,
   setHasCameraPermission,
+  signUpDevice
 } from '../../store/auth/actions';
 import ScreenQRScanner from './ScreenQRScanner';
 
@@ -17,6 +18,7 @@ class QRScannerContainer extends React.Component {
         setTokenDeviceId={this.props.setTokenDeviceId}
         setIsScanned={this.props.setIsScanned}
         setHasCameraPermission={this.props.setHasCameraPermission}
+        signUpDevice={this.props.signUpDevice}
       />
     );
   }
@@ -30,9 +32,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setTokenDeviceId: setTokenDeviceId,
-  setIsScanned: setIsScanned,
-  setHasCameraPermission: setHasCameraPermission,
+  setTokenDeviceId,
+  setIsScanned,
+  setHasCameraPermission,
+  signUpDevice
 };
 
 export default connect(

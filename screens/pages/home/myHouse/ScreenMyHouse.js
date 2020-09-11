@@ -40,65 +40,13 @@ export default class ScreenMyHouse extends React.Component {
   }
 
   componentDidMount() {
-    var ws = new WebSocket(
-      'wss://app.osbb365.com/socket.io/?auth_token=' +
-        this.props.token +
-        '&EIO=3&transport=websocket'
-    );
-    ws.onmessage = e => {
-      // a message was received
-      if (e.data.substring(0, 2) == '42') {
-        const myObjStr = JSON.stringify(e.data.substring(2, e.data.length));
-        var myObj = JSON.parse(myObjStr);
-        var data = JSON.parse(myObj);
-        var dataByPeriods = new Array();
-        for (var i = 0; i < data[1].OsbbData.Periods.length; i++) {
-          var dataObj = {
-            period: data[1].OsbbData.Periods[i].period,
-            data: data[1].OsbbData.Periods[i],
-          };
-          dataByPeriods.push(dataObj);
-        }
-
-        this.onAllHouseDataChange(dataByPeriods);
-        ws.close();
-      }
-    };
-    this.fetchHouseCosts(0);
+    this.props.fetchHouseData(this.props.accountId, 
+      this.props.osbbId, 
+      this.props.workPeriods, 
+      this.props.token)
   }
 
-  fetchHouseCosts(workPeriodIndex) {
-    fetch(
-      'https://app.osbb365.com/api/tenant/costs?accountId=' +
-        this.props.accountId.id +
-        '&osbbId=' +
-        this.props.osbbId +
-        '&workPeriod=' +
-        this.props.workPeriods[workPeriodIndex],
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + this.props.token + '',
-        },
-      }
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        var data = {
-          period: this.props.workPeriods[workPeriodIndex],
-          data: responseJson,
-        };
-        this.onAllHouseCostsDataChange(data);
-        if (workPeriodIndex != this.props.workPeriods.length - 1) {
-          this.fetchHouseCosts(workPeriodIndex + 1);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-
+  
   getHouseDataByCurrentPeriod() {
     if (this.props.allHouseData == null) {
       return (
@@ -111,12 +59,15 @@ export default class ScreenMyHouse extends React.Component {
       );
     }
     var currentHouseData;
+    console.log("123", this.props.allHouseData)
+    console.log("456", this.props.currentWorkPeriod)
     for (var i = 0; i < this.props.allHouseData.length; i++) {
       if (this.props.allHouseData[i].period == this.props.currentWorkPeriod) {
         currentHouseData = this.props.allHouseData[i].data;
         break;
       }
     }
+    console.log("789", currentHouseData)
     return (
       <View style={styles.container}>
         <DataComponent
@@ -143,7 +94,6 @@ export default class ScreenMyHouse extends React.Component {
     if (this.props.allHouseCostsData.length != this.props.workPeriods.length) {
       return(<ActivityIndicator size="large" style={styles.loader, {marginTop: 10, marginBottom: 5}} color="#36678D" />);
     }
-
     var currentHouseCostsData;
     for (var i = 0; i < this.props.allHouseCostsData.length; i++) {
       if (

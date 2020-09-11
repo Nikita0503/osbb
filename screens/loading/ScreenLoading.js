@@ -11,22 +11,6 @@ import {
 
 export default class ScreenLoading extends React.Component {
   isLoaded() {
-    /*if (this.props.isActivated != null){
-      if (this.props.isActivated){
-        this.props.navigation.goBack();
-      }else{
-        Alert.alert('Повідомлення', 'Аккаунт не було активовано головою ОСББ', [
-          {text: 'OK', onPress: () => {
-            this.props.navigation.navigate('Auth')
-            this.props.setIsActivated(null)
-          }},
-        ])
-        this.props.navigation.goBack();
-        
-      }
-    }else{
-      return;
-    }*/
     if (
       this.props.workPeriods.length == 0 &&
       this.props.allApartmentData.length == 0
@@ -53,7 +37,3 @@ export default class ScreenLoading extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  
-});

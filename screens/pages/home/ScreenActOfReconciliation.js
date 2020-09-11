@@ -17,152 +17,18 @@ import MonthPickerContainer from '../../../components/MonthPickerContainer';
 import Dialog from 'react-native-dialog';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-function getMonthsItems(year, workPeriods) {
-  var months = new Array();
-  for (var i = 0; i < workPeriods.length; i++) {
-    if (workPeriods[i].substring(2, 6) == year) {
-      months.push(workPeriods[i]);
-    }
-  }
-  //if(months == null){ console.log("months", 'null'); return }
-  
-  return months.map((item, i) => {
-    return <Picker.Item key={i} label={getMonthByPeriod(item)} value={item} />;
-  });
-}
-
-function getMonthByPeriod(data) {
-  var month;
-  switch (data.substring(0, 2)) {
-    case '01':
-      month = 'Січень';
-      break;
-    case '02':
-      month = 'Лютий';
-      break;
-    case '03':
-      month = 'Березень';
-      break;
-    case '04':
-      month = 'Квітень';
-      break;
-    case '05':
-      month = 'Травень';
-      break;
-    case '06':
-      month = 'Червень';
-      break;
-    case '07':
-      month = 'Липень';
-      break;
-    case '08':
-      month = 'Серпень';
-      break;
-    case '09':
-      month = 'Вересень';
-      break;
-    case '10':
-      month = 'Жовтень';
-      break;
-    case '11':
-      month = 'Листопад';
-      break;
-    case '12':
-      month = 'Грудень';
-      break;
-  }
-  return month;
-}
-
-function getYearsItems(workPeriods) {
-  if (workPeriods == null) {
-    return;
-  }
-  var years = [];
-  for (var i = 0; i < workPeriods.length; i++) {
-    years.push(workPeriods[i].substring(2, 6));
-  }
-  return unique(years).map((item, i) => {
-    return <Picker.Item key={i} label={item} value={item} />;
-  });
-}
-
-function unique(arr) {
-  let result = [];
-  for (let str of arr) {
-    if (!result.includes(str)) {
-      result.push(str);
-    }
-  }
-  return result;
-}
-
 export default class ScreenActOfReconciliation extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onFromMonthChange = this.onFromMonthChange.bind(this);
-    this.onFromYearChange = this.onFromYearChange.bind(this);
-    this.onToMonthChange = this.onToMonthChange.bind(this);
-    this.onToYearChange = this.onToYearChange.bind(this);
-    this.onSelectedDataChange = this.onSelectedDataChange.bind(this);
-    this.onShowLoadingChange = this.onShowLoadingChange.bind(this);
-    this.onFromMonthShowChange = this.onFromMonthShowChange.bind(this);
-    this.onFromYearShowChange = this.onFromYearShowChange.bind(this);
-    this.onToMonthShowChange = this.onToMonthShowChange.bind(this);
-    this.onToYearShowChange = this.onToYearShowChange.bind(this);
-  }
-
-  onFromMonthShowChange() {
-    this.props.setFromMonthShow();
-  }
-
-  onFromYearShowChange() {
-    this.props.setFromYearShow();
-  }
-
-  onToMonthShowChange() {
-    this.props.setToMonthShow();
-  }
-
-  onToYearShowChange() {
-    this.props.setToYearShow();
-  }
-
-  onFromMonthChange(fromMonth) {
-    this.props.setFromMonth(fromMonth);
-  }
-
-  onFromYearChange(fromYear) {
-    this.props.setFromYear(fromYear);
-  }
-
-  onToMonthChange(toMonth) {
-    this.props.setToMonth(toMonth);
-  }
-
-  onToYearChange(toYear) {
-    this.props.setToYear(toYear);
-  }
-
-  onSelectedDataChange(selectedData) {
-    this.props.setSelectedData(selectedData);
-  }
-
-  onShowLoadingChange(showLoading){
-    this.props.setShowLoading(showLoading);
-  }
 
   setStartFromAndTo(){
     if (this.props.workPeriods == null) {
       return;
     }
     if(this.props.fromMonth == ''){
-      this.onFromYearChange(this.props.workPeriods[0].substring(2, 6));
-      this.onFromMonthChange(this.props.workPeriods[0]);
-      this.onToYearChange(this.props.workPeriods[this.props.workPeriods.length - 1].substring(2, 6));
-      this.onToMonthChange(this.props.workPeriods[this.props.workPeriods.length - 1]);
+      this.props.setFromYear(this.props.workPeriods[0].substring(2, 6));
+      this.props.setFromMonth(this.props.workPeriods[0]);
+      this.props.setToYear(this.props.workPeriods[this.props.workPeriods.length - 1].substring(2, 6));
+      this.props.setToMonth(this.props.workPeriods[this.props.workPeriods.length - 1]);
     }
-    //console.log("start", this.props.workPeriods)
   }
 
   render() {
@@ -179,23 +45,17 @@ export default class ScreenActOfReconciliation extends React.Component {
       }
 
       var d1 = new Date();
-        if(props.fromMonth != null && props.fromMonth.length == 6){
-          d1.setFullYear(parseInt(props.fromMonth.substring(2, 6)));
-          d1.setMonth(parseInt(props.fromMonth.substring(0, 2)) - 1);
-        }
-        d1.setDate(1);
-      
-      
-
+      if(props.fromMonth != null && props.fromMonth.length == 6){
+        d1.setFullYear(parseInt(props.fromMonth.substring(2, 6)));
+        d1.setMonth(parseInt(props.fromMonth.substring(0, 2)) - 1);
+      }
+      d1.setDate(1);
       var d2 = new Date();
       if(props.toMonth != null && props.toMonth.length == 6){
         d2.setFullYear(parseInt(props.toMonth.substring(2, 6)));
         d2.setMonth(parseInt(props.toMonth.substring(0, 2)) - 1);
       }
-        d2.setDate(1);
-      
-      
-
+      d2.setDate(1);
       if (d1 >= d2) {
         return true;
       }
@@ -215,44 +75,12 @@ export default class ScreenActOfReconciliation extends React.Component {
                 title="Відобразити"
                 color="#5682A3"
                 onPress={() => {
-                  this.onShowLoadingChange(true);
-                  fetch(
-                    'https://app.osbb365.com/api/tenant/charges/total?accountId=' +
-                      this.props.accountId.id +
-                      '&osbbId=' +
-                      this.props.osbbId +
-                      '&periodFrom=' +
-                      this.props.fromMonth +
-                      '&periodTo=' +
-                      this.props.toMonth,
-                    {
-                      headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
-                        Authorization: 'Bearer ' + this.props.token + '',
-                      },
-                    }
-                  )
-                    .then(response => response.json())
-                    .then(responseJson => {
-                      
-                      var keys = new Array();
-                      var dataArray = new Array();
-                      for(var k in responseJson.chargesList) keys.push(k);
-                      for(var i = 0; i < keys.length; i++){
-                        var data = {
-                          month: keys[i],
-                          data: responseJson.chargesList[keys[i]]
-                        }
-                        dataArray.push(data);
-                        console.log(dataArray)
-                      }
-                      this.onSelectedDataChange(dataArray)
-                      this.onShowLoadingChange(false);
-                    })
-                    .catch(error => {
-                      console.error(error);
-                    });
+                  this.props.setShowLoading(true);
+                  this.props.fetchData(this.props.accountId,
+                    this.props.osbbId,
+                    this.props.fromMonth,
+                    this.props.toMonth,
+                    this.props.token)
                 }}
               />
             </View>
@@ -286,15 +114,14 @@ export default class ScreenActOfReconciliation extends React.Component {
             selectedValue={this.props.fromYear}
             style={{ width: '40%', marginLeft: 15 }}
             onValueChange={(itemValue, itemIndex) => {
-              this.onFromYearChange(itemValue);
+              this.props.setFromYear(itemValue);
               for(var i = 0; i < this.props.workPeriods.length; i++){
                 if(itemValue == this.props.workPeriods[i].substring(2, 6)){
-                  this.onFromMonthChange(this.props.workPeriods[i])
+                  this.props.setFromMonth(this.props.workPeriods[i])
                   break;
                 }
               }
             }}>
-            
             {getYearsItems(this.props.workPeriods)}
             {this.setStartFromAndTo()}
           </Picker>
@@ -303,7 +130,7 @@ export default class ScreenActOfReconciliation extends React.Component {
             selectedValue={this.props.fromMonth}
             style={{ width: '40%', marginLeft: 20 }}
             onValueChange={(itemValue, itemIndex) =>
-              this.onFromMonthChange(itemValue)
+              this.props.setFromMonth(itemValue)
             }>
             {getMonthsItems(this.props.fromYear, this.props.workPeriods)}
           </Picker>
@@ -318,10 +145,10 @@ export default class ScreenActOfReconciliation extends React.Component {
             selectedValue={this.props.toYear}
             style={{ width: '40%', marginLeft: 15 }}
             onValueChange={(itemValue, itemIndex) => {
-              this.onToYearChange(itemValue)
+              this.props.setToYear(itemValue)
               for(var i = 0; i < this.props.workPeriods.length; i++){
                 if(itemValue == this.props.workPeriods[i].substring(2, 6)){
-                  this.onToMonthChange(this.props.workPeriods[i])
+                  this.props.setToMonth(this.props.workPeriods[i])
                   break;
                 }
               }
@@ -334,7 +161,7 @@ export default class ScreenActOfReconciliation extends React.Component {
             selectedValue={this.props.toMonth}
             style={{ width: '40%', marginLeft: 20 }}
             onValueChange={(itemValue, itemIndex) =>
-              this.onToMonthChange(itemValue)
+              this.props.setToMonth(itemValue)
             }>
             {getMonthsItems(this.props.toYear, this.props.workPeriods)}
           </Picker>
@@ -346,9 +173,9 @@ export default class ScreenActOfReconciliation extends React.Component {
           <View style={{ flexDirection: 'row' }}>
             <Text style={{marginTop: 20, marginLeft: 10, width: '10%' }}>
               з
-            </Text>
+            </Text> 
             <View style={{width: '40%', marginTop: 15, marginLeft: 15, borderWidth: 1, padding: 5, borderColor: '#5682A3',  backgroundColor: '#F9F9F9', borderRadius: 3}}>
-              <TouchableOpacity onPress={() => {this.onFromYearShowChange()}}>
+              <TouchableOpacity onPress={() => {this.props.setFromYearShow()}}>
                 <Text
                   style={{ color: '#5682A3'}}>
                   {this.props.fromYear}
@@ -357,7 +184,7 @@ export default class ScreenActOfReconciliation extends React.Component {
             </View>
   
             <View style={{width: '40%', marginTop: 15, marginLeft: 15, borderWidth: 1, padding: 5, borderColor: '#5682A3',  backgroundColor: '#F9F9F9', borderRadius: 3}}>
-              <TouchableOpacity onPress={() => {this.onFromMonthShowChange()}}>
+              <TouchableOpacity onPress={() => {this.props.setFromMonthShow()}}>
               <Text
                 style={{ color: '#5682A3'}}>
                 {getMonthByPeriod(this.props.fromMonth)}
@@ -370,7 +197,7 @@ export default class ScreenActOfReconciliation extends React.Component {
               по
             </Text>
             <View style={{width: '40%', marginTop: 15, marginLeft: 15, borderWidth: 1, padding: 5, borderColor: '#5682A3',  backgroundColor: '#F9F9F9', borderRadius: 3}}>
-              <TouchableOpacity onPress={() => {this.onToYearShowChange()}}>
+              <TouchableOpacity onPress={() => {this.props.setToYearShow()}}>
               <Text
                 style={{ color: '#5682A3'}}>
                 {this.props.toYear}
@@ -378,7 +205,7 @@ export default class ScreenActOfReconciliation extends React.Component {
               </TouchableOpacity>
             </View>
             <View style={{width: '40%', marginTop: 15, marginLeft: 15, borderWidth: 1, padding: 5, borderColor: '#5682A3',  backgroundColor: '#F9F9F9', borderRadius: 3}}>
-              <TouchableOpacity onPress={() => {this.onToMonthShowChange()}}>
+              <TouchableOpacity onPress={() => {this.props.setToMonthShow()}}>
               <Text
                 style={{ color: '#5682A3'}}>
                 {getMonthByPeriod(this.props.toMonth)}
@@ -397,10 +224,10 @@ export default class ScreenActOfReconciliation extends React.Component {
                 selectedValue={this.props.fromYear}
                 style={{ width: '40%', marginLeft: 15 }}
                 onValueChange={(itemValue, itemIndex) => {
-                  this.onFromYearChange(itemValue);
+                  this.props.setFromYear(itemValue);
                   for(var i = 0; i < this.props.workPeriods.length; i++){
                     if(itemValue == this.props.workPeriods[i].substring(2, 6)){
-                      this.onFromMonthChange(this.props.workPeriods[i])
+                      this.props.setFromMonth(this.props.workPeriods[i])
                       break;
                     }
                   }
@@ -414,7 +241,7 @@ export default class ScreenActOfReconciliation extends React.Component {
             <Dialog.Button
               label="OK"
               onPress={() => {
-                this.onFromYearShowChange();
+                this.props.setFromYearShow();
               }}
             />
           </Dialog.Container>
@@ -429,7 +256,7 @@ export default class ScreenActOfReconciliation extends React.Component {
               selectedValue={this.props.fromMonth}
               style={{ width: '40%', marginLeft: 20 }}
               onValueChange={(itemValue, itemIndex) =>
-                this.onFromMonthChange(itemValue)
+                this.props.setFromMonth(itemValue)
               }>
               {getMonthsItems(this.props.fromYear, this.props.workPeriods)}
             </Picker>
@@ -438,7 +265,7 @@ export default class ScreenActOfReconciliation extends React.Component {
             <Dialog.Button
               label="OK"
               onPress={() => {
-                this.onFromMonthShowChange();
+                this.props.setFromMonthShow();
               }}
             />
           </Dialog.Container>
@@ -454,10 +281,10 @@ export default class ScreenActOfReconciliation extends React.Component {
                 selectedValue={this.props.toYear}
                 style={{ width: '40%', marginLeft: 15 }}
                 onValueChange={(itemValue, itemIndex) => {
-                  this.onToYearChange(itemValue)
+                  this.props.setToYear(itemValue)
                   for(var i = 0; i < this.props.workPeriods.length; i++){
                     if(itemValue == this.props.workPeriods[i].substring(2, 6)){
-                      this.onToMonthChange(this.props.workPeriods[i])
+                      this.props.setToMonth(this.props.workPeriods[i])
                       break;
                     }
                   }
@@ -469,7 +296,7 @@ export default class ScreenActOfReconciliation extends React.Component {
             <Dialog.Button
               label="OK"
               onPress={() => {
-                this.onToYearShowChange();
+                this.props.setToYearShow();
               }}
             />
           </Dialog.Container>
@@ -485,7 +312,7 @@ export default class ScreenActOfReconciliation extends React.Component {
                 selectedValue={this.props.toMonth}
                 style={{ width: '40%', marginLeft: 20 }}
                 onValueChange={(itemValue, itemIndex) =>
-                  this.onToMonthChange(itemValue)
+                  this.props.setToMonth(itemValue)
                 }>
                 {getMonthsItems(this.props.toYear, this.props.workPeriods)}
               </Picker>
@@ -494,7 +321,7 @@ export default class ScreenActOfReconciliation extends React.Component {
             <Dialog.Button
               label="OK"
               onPress={() => {
-                this.onToMonthShowChange();
+                this.props.setToMonthShow();
               }}
             />
           </Dialog.Container>
@@ -568,6 +395,84 @@ function getDebt(dataForCurrentPeriod) {
     sumAccruals += dataForCurrentPeriod.data[i].finishBalance;
   }
   return sumAccruals.toFixed(2);
+}
+
+function getMonthsItems(year, workPeriods) {
+  var months = new Array();
+  for (var i = 0; i < workPeriods.length; i++) {
+    if (workPeriods[i].substring(2, 6) == year) {
+      months.push(workPeriods[i]);
+    }
+  }
+  return months.map((item, i) => {
+    return <Picker.Item key={i} label={getMonthByPeriod(item)} value={item} />;
+  });
+}
+
+function getMonthByPeriod(data) {
+  var month;
+  switch (data.substring(0, 2)) {
+    case '01':
+      month = 'Січень';
+      break;
+    case '02':
+      month = 'Лютий';
+      break;
+    case '03':
+      month = 'Березень';
+      break;
+    case '04':
+      month = 'Квітень';
+      break;
+    case '05':
+      month = 'Травень';
+      break;
+    case '06':
+      month = 'Червень';
+      break;
+    case '07':
+      month = 'Липень';
+      break;
+    case '08':
+      month = 'Серпень';
+      break;
+    case '09':
+      month = 'Вересень';
+      break;
+    case '10':
+      month = 'Жовтень';
+      break;
+    case '11':
+      month = 'Листопад';
+      break;
+    case '12':
+      month = 'Грудень';
+      break;
+  }
+  return month;
+}
+
+function getYearsItems(workPeriods) {
+  if (workPeriods == null) {
+    return;
+  }
+  var years = [];
+  for (var i = 0; i < workPeriods.length; i++) {
+    years.push(workPeriods[i].substring(2, 6));
+  }
+  return unique(years).map((item, i) => {
+    return <Picker.Item key={i} label={item} value={item} />;
+  });
+}
+
+function unique(arr) {
+  let result = [];
+  for (let str of arr) {
+    if (!result.includes(str)) {
+      result.push(str);
+    }
+  }
+  return result;
 }
 
 class Item extends React.Component {

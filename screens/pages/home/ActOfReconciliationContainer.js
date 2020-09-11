@@ -1,6 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {setFromMonth, setFromYear, setToMonth, setToYear, setSelectedData, setFromMonths, setToMonths, setShowLoading, setFromMonthShow, setFromYearShow, setToMonthShow, setToYearShow } from '../../../store/pages/home/actOfReconciliation/actions';
+import {setFromMonth, 
+  setFromYear, 
+  setToMonth, 
+  setToYear, 
+  setSelectedData, 
+  setFromMonths, 
+  setToMonths, 
+  setShowLoading, 
+  setFromMonthShow, 
+  setFromYearShow, 
+  setToMonthShow, 
+  setToYearShow,
+  fetchData } from '../../../store/pages/home/actOfReconciliation/actions';
 import ScreenActOfReconciliation from './ScreenActOfReconciliation';
 
 class ActOfReconciliationContainer extends React.Component {
@@ -36,6 +48,7 @@ class ActOfReconciliationContainer extends React.Component {
         setFromYearShow={this.props.setFromYearShow}
         setToMonthShow={this.props.setToMonthShow}
         setToYearShow={this.props.setToYearShow}
+        fetchData={this.props.fetchData}
       />
     );
   }
@@ -63,18 +76,19 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setFromMonth: setFromMonth,
-  setFromYear: setFromYear,
-  setToMonth: setToMonth,
-  setToYear: setToYear,
-  setSelectedData: setSelectedData,
-  setFromMonths: setFromMonths,
-  setToMonths: setToMonths,
-  setShowLoading: setShowLoading,
-  setFromMonthShow: setFromMonthShow,
-  setFromYearShow: setFromYearShow,
-  setToMonthShow: setToMonthShow,
-  setToYearShow: setToYearShow
+  setFromMonth,
+  setFromYear,
+  setToMonth,
+  setToYear,
+  setSelectedData,
+  setFromMonths,
+  setToMonths,
+  setShowLoading,
+  setFromMonthShow,
+  setFromYearShow,
+  setToMonthShow,
+  setToYearShow,
+  fetchData
 };
 
 export default connect(

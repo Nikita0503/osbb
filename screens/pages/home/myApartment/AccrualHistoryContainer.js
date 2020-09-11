@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
+  fetchAccrualHistory,
   setCurrentAccrualsData,
   setSelectedAccrualsData
 } from '../../../../store/pages/home/myApartment/accrualHistory/actions';
@@ -17,6 +18,7 @@ class AccrualHistoryContainer extends React.Component {
         currentWorkPeriod={this.props.currentWorkPeriod}
         accrualHistoryCurrentData={this.props.accrualHistoryCurrentData}
         accrualHistoryCurrentSelectedData={this.props.accrualHistoryCurrentSelectedData}
+        fetchAccrualHistory={this.props.fetchAccrualHistory}
         setCurrentAccrualsData={this.props.setCurrentAccrualsData}
         setSelectedAccrualsData={this.props.setSelectedAccrualsData}
       />
@@ -37,8 +39,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setCurrentAccrualsData: setCurrentAccrualsData,
-  setSelectedAccrualsData: setSelectedAccrualsData
+  setCurrentAccrualsData,
+  setSelectedAccrualsData,
+  fetchAccrualHistory
 }
 
 export default connect(

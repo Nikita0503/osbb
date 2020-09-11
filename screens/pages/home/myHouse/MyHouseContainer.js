@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {setAllHouseData, setAllHouseCostsData } from '../../../../store/pages/home/myHouse/house/actions';
+import {setAllHouseData, setAllHouseCostsData, fetchHouseData } from '../../../../store/pages/home/myHouse/house/actions';
 import {setExpensesGeneralData, setExpensesFilesData } from '../../../../store/pages/home/myHouse/houseExpenses/actions';
 import ScreenMyHouse from './ScreenMyHouse';
 
@@ -20,6 +20,7 @@ class MyHouseContainer extends React.Component {
         setAllHouseCostsData={this.props.setAllHouseCostsData}
         setExpensesGeneralData={this.props.setExpensesGeneralData}
         setExpensesFilesData={this.props.setExpensesFilesData}
+        fetchHouseData={this.props.fetchHouseData}
       />
     );
   }
@@ -38,10 +39,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setAllHouseData: setAllHouseData,
-  setAllHouseCostsData: setAllHouseCostsData,
-  setExpensesGeneralData: setExpensesGeneralData,
-  setExpensesFilesData: setExpensesFilesData
+  setAllHouseData,
+  setAllHouseCostsData,
+  setExpensesGeneralData,
+  setExpensesFilesData,
+  fetchHouseData
 };
 
 export default connect(

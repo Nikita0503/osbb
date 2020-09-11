@@ -55,3 +55,43 @@ export const setShowLoading = showLoading => ({
   type: ACT_OF_RECONCILIATION_SHOW_LOADING,
   payload: showLoading
 });
+
+export const fetchData = (accountId, osbbId, fromMonth, toMonth, token) => {
+  return async dispatch => {
+      try {
+          const dataPromise = await fetch(
+            'https://app.osbb365.com/api/tenant/charges/total?accountId=' +
+              accountId.id +
+              '&osbbId=' +
+              osbbId +
+              '&periodFrom=' +
+              fromMonth +
+              '&periodTo=' +
+              toMonth,
+            {
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token + '',
+              },
+            }
+          )
+          const responseJson = await dataPromise.json();
+          var keys = new Array();
+            var dataArray = new Array();
+            for(var k in responseJson.chargesList) keys.push(k);
+            for(var i = 0; i < keys.length; i++){
+              var data = {
+                month: keys[i],
+                data: responseJson.chargesList[keys[i]]
+              }
+              dataArray.push(data);
+              console.log(dataArray)
+            }
+            dispatch(setSelectedData(dataArray));
+            dispatch(setShowLoading(false))
+      } catch (error) {
+          console.log("fetchData", "error");
+      }
+  }
+}
