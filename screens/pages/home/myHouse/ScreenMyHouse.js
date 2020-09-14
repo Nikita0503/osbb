@@ -15,29 +15,6 @@ import DataComponent from '../../../../components/DataComponent';
 import DataClickableComponent from '../../../../components/DataClickableComponent';
 
 export default class ScreenMyHouse extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onAllHouseDataChange = this.onAllHouseDataChange.bind(this);
-    this.onAllHouseCostsDataChange = this.onAllHouseCostsDataChange.bind(this);
-    this.onExpensesGeneralDataChange = this.onExpensesGeneralDataChange.bind(this);
-    this.onExpensesFilesDataChange = this.onExpensesFilesDataChange.bind(this);
-  }
-
-  onAllHouseDataChange(allHouseData) {
-    this.props.setAllHouseData(allHouseData);
-  }
-
-  onAllHouseCostsDataChange(allHouseCostsData) {
-    this.props.setAllHouseCostsData(allHouseCostsData);
-  }
-
-  onExpensesGeneralDataChange(expensesGeneralData){
-    this.props.setExpensesGeneralData(expensesGeneralData);
-  }
-
-  onExpensesFilesDataChange(expensesFileData){
-    this.props.setExpensesFilesData(expensesFileData);
-  }
 
   componentDidMount() {
     this.props.fetchHouseData(this.props.accountId, 
@@ -46,7 +23,6 @@ export default class ScreenMyHouse extends React.Component {
       this.props.token)
   }
 
-  
   getHouseDataByCurrentPeriod() {
     if (this.props.allHouseData == null) {
       return (
@@ -110,8 +86,8 @@ export default class ScreenMyHouse extends React.Component {
       return (
         <TouchableOpacity
           onPress={() => {
-            this.onExpensesGeneralDataChange(item);
-            this.onExpensesFilesDataChange(item.documents);
+            this.props.setExpensesGeneralData(item);
+            this.props.setExpensesFilesData(item.documents);
             this.props.navigation.navigate('HouseExpenses');
             }
           }>

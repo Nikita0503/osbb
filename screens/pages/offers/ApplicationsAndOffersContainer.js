@@ -7,7 +7,9 @@ import {
   setApplicationsAndOffersOnlyMy,
   setApplicationsAndOffersLoading,
   setApplicationsAndOffersFirstlyOpened,
-  setApplicationsAndOffersDisplayAcrhived
+  setApplicationsAndOffersDisplayAcrhived,
+  fetchAllRequests,
+  withdrawRequest
 } from '../../../store/pages/offers/applicationsAndOffers/actions';
 import ScreenApplicationsAndOffers from './ScreenApplicationsAndOffers';
 
@@ -38,6 +40,8 @@ class ApplicationsAndOffersContainer extends React.Component {
         setApplicationsAndOffersLoading={this.props.setApplicationsAndOffersLoading}
         setApplicationsAndOffersFirstlyOpened={this.props.setApplicationsAndOffersFirstlyOpened}
         setApplicationsAndOffersDisplayAcrhived={this.props.setApplicationsAndOffersDisplayAcrhived}
+        fetchAllRequests={this.props.fetchAllRequests}
+        withdrawRequest={this.props.withdrawRequest}
       />
     );
   }
@@ -60,13 +64,15 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setApplicationsAndOffersData: setApplicationsAndOffersData,
-  setApplicationsAndOffersDataClear: setApplicationsAndOffersDataClear,
-  setSelectedOfferData: setSelectedOfferData,
-  setApplicationsAndOffersOnlyMy: setApplicationsAndOffersOnlyMy,
-  setApplicationsAndOffersLoading: setApplicationsAndOffersLoading,
-  setApplicationsAndOffersFirstlyOpened: setApplicationsAndOffersFirstlyOpened,
-  setApplicationsAndOffersDisplayAcrhived: setApplicationsAndOffersDisplayAcrhived
+  setApplicationsAndOffersData,
+  setApplicationsAndOffersDataClear,
+  setSelectedOfferData,
+  setApplicationsAndOffersOnlyMy,
+  setApplicationsAndOffersLoading,
+  setApplicationsAndOffersFirstlyOpened,
+  setApplicationsAndOffersDisplayAcrhived,
+  fetchAllRequests,
+  withdrawRequest
 };
 
 export default connect(

@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setAddOfferTopic, setAddOfferText, setAddOfferSystem, setAddOfferPublicity, setAddOfferButtonSendIsDisabled } from '../../../store/pages/offers/addOffer/actions';
+import { setAddOfferTopic,
+         setAddOfferText, 
+         setAddOfferSystem, 
+         setAddOfferPublicity, 
+         setAddOfferButtonSendIsDisabled,
+         addOffer } from '../../../store/pages/offers/addOffer/actions';
 import ScreenAddOffer from './ScreenAddOffer';
 
 class AddOfferContainer extends React.Component {
@@ -22,6 +27,7 @@ class AddOfferContainer extends React.Component {
         setAddOfferSystem={this.props.setAddOfferSystem}
         setAddOfferPublicity={this.props.setAddOfferPublicity}
         setAddOfferButtonSendIsDisabled={this.props.setAddOfferButtonSendIsDisabled}
+        addOffer={this.props.addOffer}
       />
     );
   }
@@ -42,11 +48,12 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setAddOfferTopic: setAddOfferTopic,
-  setAddOfferText: setAddOfferText,
-  setAddOfferSystem: setAddOfferSystem,
-  setAddOfferPublicity: setAddOfferPublicity,
-  setAddOfferButtonSendIsDisabled: setAddOfferButtonSendIsDisabled
+  setAddOfferTopic,
+  setAddOfferText,
+  setAddOfferSystem,
+  setAddOfferPublicity,
+  setAddOfferButtonSendIsDisabled,
+  addOffer
 };
 
 export default connect(

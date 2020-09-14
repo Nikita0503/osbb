@@ -21,6 +21,7 @@ import {sendIndicationsReducer} from './pages/sendIndications/reducers'
 import {selectedOfferReducer} from './pages/offers/selectedOffer/reducers'
 import {addCommentToOfferReducer} from './pages/offers/addCommentToOffer/reducers'
 import {paymentSelectionReducer} from './pages/liqpay/paymentSelection/reducers';
+import {webViewReducer} from './pages/liqpay/webview/reducers';
 import {persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -52,7 +53,8 @@ const rootReducer = combineReducers({
   sendIndications: sendIndicationsReducer,
   selectedOffer: selectedOfferReducer,
   addCommentToOffer: addCommentToOfferReducer,
-  paymentSelection: paymentSelectionReducer
+  paymentSelection: paymentSelectionReducer,
+  webView: webViewReducer
 });
 
 export default persistReducer(persistConfig, rootReducer)

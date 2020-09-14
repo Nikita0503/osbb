@@ -6,7 +6,10 @@ import {
   setNewPassword,
   setNewRepeatPassword,
   setAvatarImage,
-  setPhoneNumber
+  setPhoneNumber,
+  sendNewPhoto,
+  deletePhoto,
+  sendNewPassword
 } from '../../store/pages/profile/actions';
 
 import {
@@ -46,6 +49,9 @@ class ProfileContainer extends React.Component {
         setTokenDeviceId={this.props.setTokenDeviceId}
         setPhoneNumber={this.props.setPhoneNumber}
         setUserData={this.props.setUserData}
+        sendNewPhoto={this.props.sendNewPhoto}
+        deletePhoto={this.props.deletePhoto}
+        sendNewPassword={this.props.sendNewPassword}
         setAuthMethod={this.props.setAuthMethod}
       />
     );
@@ -71,15 +77,18 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setShowPasswords: setShowPasswords,
-  setOldPassword: setOldPassword,
-  setNewPassword: setNewPassword,
-  setNewRepeatPassword: setNewRepeatPassword,
-  setAvatarImage: setAvatarImage,
-  setTokenDeviceId: setTokenDeviceId,
-  setPhoneNumber: setPhoneNumber,
-  setUserData: setUserData,
-  setAuthMethod: setAuthMethod
+  setShowPasswords,
+  setOldPassword,
+  setNewPassword,
+  setNewRepeatPassword,
+  setAvatarImage,
+  setTokenDeviceId,
+  setPhoneNumber,
+  setUserData,
+  setAuthMethod,
+  sendNewPhoto,
+  deletePhoto,
+  sendNewPassword,
 };
 
 export default connect(

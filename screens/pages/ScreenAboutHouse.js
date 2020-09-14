@@ -14,9 +14,6 @@ import PageHeader from '../../components/PageHeader';
 import DataContainer from '../../components/DataContainer';
 import Dialog from 'react-native-dialog';
 import PDFReader from 'rn-pdf-reader-js';
-//import * as FileSystem from 'expo-file-system';
-//import FileViewer from 'react-native-file-viewer';
-//const FileOpener = require('react-native-file-opener');
 
 const DATA_FILES = [
   {

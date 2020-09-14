@@ -14,60 +14,20 @@ import {
 } from 'react-native';
 import PageHeader from '../../../components/PageHeader';
 
-const DATA_FILES = [
-  {
-    name: 'Image file',
-    type: 'jpg',
-  },
-  {
-    name: 'Image file',
-    type: 'jpg',
-  },
-  {
-    name: 'Image file',
-    type: 'jpg',
-  },
-];
-
 export default class ScreenAddOffer extends React.Component {
   constructor(props) {
     super(props);
-    this.onTopicChange = this.onTopicChange.bind(this);
-    this.onTextChange = this.onTextChange.bind(this);
-    this.onSystemChange = this.onSystemChange.bind(this);
-    this.onPublicityChange = this.onPublicityChange.bind(this);
-    this.onSetButtonSendDisabledChange = this.onSetButtonSendDisabledChange.bind(this);
-    this.onTopicChange(null);
-    this.onTextChange(null);
-    this.onSystemChange(null);
-    this.onPublicityChange(null);
-    this.onSetButtonSendDisabledChange(false);
-  }
-
-  onTopicChange(topic) {
-    this.props.setAddOfferTopic(topic);
-  }
-
-  onTextChange(text) {
-    this.props.setAddOfferText(text);
-  }
-
-  onSystemChange(system) {
-    this.props.setAddOfferSystem(system);
-  }
-
-  onPublicityChange(publicity) {
-    this.props.setAddOfferPublicity(publicity);
-  }
-  
-  onSetButtonSendDisabledChange(isDisabled){
-    this.props.setAddOfferButtonSendIsDisabled(isDisabled);
+    this.props.setAddOfferTopic(null);
+    this.props.setAddOfferText(null);
+    this.props.setAddOfferSystem(null);
+    this.props.setAddOfferPublicity(null);
+    this.props.setAddOfferButtonSendIsDisabled(false);
   }
 
   setStartSelected(){
     if(this.props.addOfferSystem == null){
-      this.onSystemChange(1);
-      this.onPublicityChange(1);
+      this.props.setAddOfferSystem(1);
+      this.props.setAddOfferPublicity(1);
     }
   }
 
@@ -88,7 +48,7 @@ export default class ScreenAddOffer extends React.Component {
               }}
               placeholder="Тема"
               onChangeText={text => {
-                this.onTopicChange(text);
+                this.props.setAddOfferTopic(text);
               }}
               value={this.props.addOfferTopic}
             />
@@ -99,7 +59,7 @@ export default class ScreenAddOffer extends React.Component {
                 selectedValue={this.props.addOfferSystem}
                 style={{ width: '45%', marginLeft: 15 }}
                 onValueChange={(itemValue, itemIndex) => {
-                  this.onSystemChange(itemValue);
+                  this.props.setAddOfferSystem(itemValue);
                 }}>
                
                 <Picker.Item key={0} label={'вода'} value={1} />
@@ -124,8 +84,7 @@ export default class ScreenAddOffer extends React.Component {
                 selectedValue={this.props.addOfferPublicity}
                 style={{ width: '45%', marginLeft: 10 }}
                 onValueChange={(itemValue, itemIndex) => {
-                
-                  this.onPublicityChange(itemValue);
+                  this.props.setAddOfferPublicity(itemValue);
                 }}>
                 
                 <Picker.Item key={0} label={'публічна'} value={1} />
@@ -142,7 +101,7 @@ export default class ScreenAddOffer extends React.Component {
               }}
               placeholder="Введіть текст заявки або пропозиції"
               onChangeText={text => {
-                this.onTextChange(text);
+                this.props.setAddOfferText(text);
               }}
               value={this.props.addOfferText}
             />
@@ -182,7 +141,7 @@ export default class ScreenAddOffer extends React.Component {
                   )
                   return
                 }
-                this.onSetButtonSendDisabledChange(true);
+                this.props.setAddOfferButtonSendIsDisabled(true);
               var ws = new WebSocket(
                 'wss://app.osbb365.com/socket.io/?auth_token=' +
                   this.props.token +

@@ -19,112 +19,28 @@ import Dialog from 'react-native-dialog';
 import { NavigationEvents } from 'react-navigation';
 
 export default class ScreenPaymentSelection extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onLiqpayDataChange = this.onLiqpayDataChange.bind(this);
-    this.onChargesDataChange = this.onChargesDataChange.bind(this);
-    this.onSelectedChargeChange = this.onSelectedChargeChange.bind(this);
-    this.onSelectedChargeValueChange = this.onSelectedChargeValueChange.bind(
-      this
-    );
-    this.onSelectedChargeContributionChange = this.onSelectedChargeContributionChange.bind(
-      this
-    );
-  }
-
-  onLiqpayDataChange(liqpayData) {
-    this.props.setLiqpayData(liqpayData);
-  }
-
-  onChargesDataChange(chargesData) {
-    this.props.setChargesData(chargesData);
-  }
-
-  onSelectedChargeChange(selectedCharge) {
-    this.props.setSelectedCharge(selectedCharge);
-  }
-
-  onSelectedChargeValueChange(selectedChargeValue) {
-    this.props.setSelectedChargeValue(selectedChargeValue);
-  }
-
-  onSelectedChargeContributionChange(selectedChargeContribution) {
-    this.props.setSelectedChargeContribution(selectedChargeContribution);
-  }
 
   componentDidMount() {
-    this.onLiqpayDataChange(null);
-    this.onChargesDataChange(null);
-    this.onSelectedChargeChange(null);
-    this.onSelectedChargeValueChange(null);
-    this.fetchLiqpayData();
-    this.fetchChargesData();
-  }
-
-  fetchLiqpayData() {
-    fetch(
-      'https://app.osbb365.com/api/tenant/checkLiqPay?accountId=' +
-        this.props.accountId.id +
-        '&osbbId=' +
-        this.props.osbbId +
-        '&workPeriod=' +
-        this.props.workPeriods[this.props.workPeriods.length - 1],
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + this.props.token + '',
-        },
-      }
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        console.log('onLiqpayDataChange', responseJson);
-        this.onLiqpayDataChange(responseJson);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-
-  fetchChargesData() {
-    //console.log('fetchChargesData', this.props);
-    fetch(
-      'https://app.osbb365.com/api/tenant/charges/total?accountId=' +
-        this.props.accountId.id +
-        '&osbbId=' +
-        this.props.osbbId +
-        '&workPeriod=' +
-        this.props.workPeriods[this.props.workPeriods.length - 1],
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + this.props.token + '',
-        },
-      }
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        var sum = getSum(responseJson.chargesList);
-        responseJson.chargesList.push({
-          caption: "Всього",
-          finishBalance: sum
-        })
-        console.log('onChargesDataChange', responseJson);
-        this.onChargesDataChange(responseJson.chargesList);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    this.props.setLiqpayData(null);
+    this.props.setChargesData(null);
+    this.props.setSelectedCharge(null);
+    this.props.setSelectedChargeValue(null);
+    this.props.fetchLiqpayData(
+      this.props.token, 
+      this.props.accountId, 
+      this.props.osbbId, 
+      this.props.workPeriods);
+    this.props.fetchChargesData(
+      this.props.token, 
+      this.props.accountId, 
+      this.props.osbbId, 
+      this.props.workPeriods);
   }
 
   getChargesData() {
     if (this.props.chargesData == null) {
-      //console.log('getChargesData', 'null');
       return;
     }
-    //console.log('getChargesData', this.props.chargesData);
     return this.props.chargesData;
   }
 
@@ -135,7 +51,7 @@ export default class ScreenPaymentSelection extends React.Component {
         visible={this.props.selectedCharge != null ? true : false}>
         <Dialog.Title>{this.props.selectedCharge.contribution}</Dialog.Title>
         <Dialog.Input
-          onChangeText={text => this.onSelectedChargeValueChange(text)}
+          onChangeText={text => this.props.setSelectedChargeValue(text)}
           value={this.props.selectedChargeValue > 0 ? this.props.selectedChargeValue : ""}
           label="Введіть суму"
           keyboardType={'decimal-pad'}
@@ -147,19 +63,18 @@ export default class ScreenPaymentSelection extends React.Component {
         <Dialog.Button
           label="Відмінити"
           onPress={() => {
-            this.onSelectedChargeContributionChange(null);
-            this.onSelectedChargeChange(null);
-            this.onSelectedChargeValueChange(null);
+            this.props.setSelectedChargeContribution(null);
+            this.props.setSelectedCharge(null);
+            this.props.setSelectedChargeValue(null);
           }}
         />
         <Dialog.Button
           label="Оплатити"
           onPress={() => {
-            //WebViewLiqpay
-            this.onSelectedChargeContributionChange(
+            this.props.setSelectedChargeContribution(
               this.props.selectedCharge.contribution
             );
-            this.onSelectedChargeChange(null);
+            this.props.setSelectedCharge(null);
             this.props.navigation.navigate('WebViewLiqpay');
           }}
         />
@@ -172,7 +87,6 @@ export default class ScreenPaymentSelection extends React.Component {
       <KeyboardAvoidingView behavior="padding">
         <NavigationEvents
           onDidFocus={() => {
-            console.log('I am triggered');
             this.componentDidMount();
           }}
         />
@@ -186,7 +100,6 @@ export default class ScreenPaymentSelection extends React.Component {
                   style={{ width: 20, height: 20, marginLeft: 20 }}
                   source={require('../../../images/ic_left_row.png')}
                 />
-                
           </TouchableOpacity>
           <Text style={{marginTop: 45, marginEnd: 20, color: 'white'}}>Вибір оплати</Text>
         </View>
@@ -197,7 +110,7 @@ export default class ScreenPaymentSelection extends React.Component {
                 style={{
                   marginTop: 10,
                   marginBottom: 10,
-                  color: '#364A5F',
+                  color: '#002B2B',
                   fontSize: 14,
                   textAlign: 'center'
                 }}>
@@ -213,10 +126,8 @@ export default class ScreenPaymentSelection extends React.Component {
                 data={this.getChargesData()}
                 renderItem={({ item }) => (
                   <Item
-                    onSelectedChargeChange={this.onSelectedChargeChange}
-                    onSelectedChargeValueChange={
-                      this.onSelectedChargeValueChange
-                    }
+                    setSelectedCharge={this.props.setSelectedCharge}
+                    setSelectedChargeValue={this.props.setSelectedChargeValue}
                     selectedChargeValue={this.props.selectedChargeValue}
                     contribution={item.caption}
                     balance={item.startBalance}
@@ -249,8 +160,8 @@ class Item extends React.Component {
     return (
       <TouchableOpacity
         onPress={() => {
-          this.props.onSelectedChargeChange(this.props);
-          this.props.onSelectedChargeValueChange(this.props.debt.toString());
+          this.props.setSelectedCharge(this.props);
+          this.props.setSelectedChargeValue(this.props.debt.toString());
           console.log(this.props)
         }}>
         <View style={{ flexDirection: 'row', paddingVertical: 5 }}>

@@ -1,6 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {setLiqpayData, setChargesData, setSelectedCharge, setSelectedChargeValue, setSelectedChargeContribution} from '../../../store/pages/liqpay/paymentSelection/actions';
+import {setLiqpayData,
+  setChargesData, 
+  setSelectedCharge, 
+  setSelectedChargeValue, 
+  setSelectedChargeContribution,
+  fetchLiqpayData,
+  fetchChargesData} from '../../../store/pages/liqpay/paymentSelection/actions';
 import ScreenPaymentSelection from './ScreenPaymentSelection';
 
 class PaymentSelectionContainer extends React.Component {
@@ -22,6 +28,8 @@ class PaymentSelectionContainer extends React.Component {
         setSelectedCharge={this.props.setSelectedCharge}
         setSelectedChargeValue={this.props.setSelectedChargeValue}
         setSelectedChargeContribution={this.props.setSelectedChargeContribution}
+        fetchLiqpayData={this.props.fetchLiqpayData}
+        fetchChargesData={this.props.fetchChargesData}
       />
     );
   }
@@ -42,11 +50,13 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setLiqpayData: setLiqpayData,
-  setChargesData: setChargesData,
-  setSelectedCharge: setSelectedCharge,
-  setSelectedChargeValue: setSelectedChargeValue,
-  setSelectedChargeContribution: setSelectedChargeContribution
+  setLiqpayData,
+  setChargesData,
+  setSelectedCharge,
+  setSelectedChargeValue,
+  setSelectedChargeContribution,
+  fetchLiqpayData,
+  fetchChargesData
 };
 
 export default connect(

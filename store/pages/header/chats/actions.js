@@ -22,3 +22,45 @@ export const setAllChatsSelectedChat = selectedChat => ({
   type: CHATS_ALL_SELECTED_CHAT,
   payload: selectedChat
 });
+
+var ws;
+
+export const fetchAllChats = (workPeriods, token) => {
+  return async dispatch => {
+      try {
+        ws = new WebSocket(
+          'wss://app.osbb365.com/socket.io/?auth_token=' +
+            token +
+            '&EIO=3&transport=websocket'
+        );
+        ws.onopen = () => {
+          ws.send(
+            '425["/chat/user/list",{"workPeriod":"' +
+            workPeriods[workPeriods.length - 1] +
+              '"}]'
+          );
+          ws.send(
+            '427["/chat/conversation/list",{"workPeriod":"' +
+            workPeriods[workPeriods.length - 1] +
+              '"}]'
+          );
+        };
+        ws.onmessage = e => {
+          if (e.data.substring(0, 2) == '42') {
+            const myObjStr = JSON.stringify(e.data.substring(2, e.data.length));
+            var myObj = JSON.parse(myObjStr);
+            var data = JSON.parse(myObj);
+            if (data[0] == 'conversationList') {
+              console.log('convList', data[1]);
+              dispatch(setChatsAllChats(data[1]));
+            }
+            if (data[0] == 'userList') {
+              dispatch(setChatsAllUsers(data[1]));
+            }
+          }
+        };
+      } catch (error) {
+          console.log("fetchAllChats", "error");
+      }
+  }
+}
