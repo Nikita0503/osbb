@@ -51,7 +51,7 @@ export const fetchAllChats = (workPeriods, token) => {
             var myObj = JSON.parse(myObjStr);
             var data = JSON.parse(myObj);
             if (data[0] == 'conversationList') {
-              console.log('convList', data[1]);
+              //console.log('convList', data[1]);
               dispatch(setChatsAllChats(data[1]));
             }
             if (data[0] == 'userList') {

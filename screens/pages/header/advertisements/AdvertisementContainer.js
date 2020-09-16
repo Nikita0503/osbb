@@ -5,9 +5,12 @@ import {
   setAdvertisementData,
   setSelectedPost,
   setAllComments,
-  setAllCommentsClear,
   setSelectedPostComments,
-  setAdvertisementSelectedFile
+  setAdvertisementSelectedFile,
+  fetchAllAds,
+  fetchOsbbName,
+  fetchSelectedPostComments,
+  toVote
 } from '../../../../store/pages/header/advertisement/actions';
 import ScreenAdvertisement from './ScreenAdvertisement';
 
@@ -31,8 +34,11 @@ class AdvertisementContainer extends React.Component {
         setSelectedPost={this.props.setSelectedPost}
         setSelectedPostComments={this.props.setSelectedPostComments}
         setAllComments={this.props.setAllComments}
-        setAllCommentsClear={this.props.setAllCommentsClear}
         setAdvertisementSelectedFile={this.props.setAdvertisementSelectedFile}
+        fetchAllAds={this.props.fetchAllAds}
+        fetchOsbbName={this.props.fetchOsbbName}
+        fetchSelectedPostComments={this.props.fetchSelectedPostComments}
+        toVote={this.props.toVote}
       />
     );
   }
@@ -54,13 +60,16 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setAdvertisementOsbbName: setAdvertisementOsbbName,
-  setAdvertisementData: setAdvertisementData,
-  setSelectedPost: setSelectedPost,
-  setSelectedPostComments: setSelectedPostComments,
-  setAllComments: setAllComments,
-  setAllCommentsClear: setAllCommentsClear,
-  setAdvertisementSelectedFile: setAdvertisementSelectedFile
+  setAdvertisementOsbbName,
+  setAdvertisementData,
+  setSelectedPost,
+  setSelectedPostComments,
+  setAllComments,
+  setAdvertisementSelectedFile,
+  fetchAllAds,
+  fetchOsbbName,
+  fetchSelectedPostComments,
+  toVote
 };
 
 export default connect(

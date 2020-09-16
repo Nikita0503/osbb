@@ -148,6 +148,21 @@ export default class ScreenChat extends React.Component {
     }
   }
 
+  getMessages(){
+    var allMessages = new Array();
+    for(var i = 0; i < this.props.allMessages.length; i++){
+      var exist = false;
+      for(var j = 0; j < allMessages.length; j++){
+        if(this.props.allMessages[i].id == allMessages[j].id){
+          exist = true;
+          break;
+        }
+      }
+      if(!exist) allMessages.push(this.props.allMessages[i])
+    }
+    return allMessages;
+  }
+
   render() {
     return (
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
@@ -171,7 +186,7 @@ export default class ScreenChat extends React.Component {
               <View style={styles.chatContainer}>
                 {this.getLoadingView()}
                 <FlatList
-                  data={this.props.allMessages}
+                  data={this.getMessages()}
                   renderItem={({ item }) => (
                     <Item
                       userData={this.props.userData}
@@ -333,8 +348,8 @@ class Item extends React.Component {
   }
 
   getUserName(){
-    console.log("userName2", this.props.userData)
-    console.log("userName1", this.props.userId)
+    //console.log("userName2", this.props.userData)
+    //console.log("userName1", this.props.userId)
     for(var i = 0; i < this.props.allUsers.length; i++){
       
       if(this.props.me){

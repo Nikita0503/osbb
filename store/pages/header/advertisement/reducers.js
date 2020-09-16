@@ -1,11 +1,10 @@
 import {
-  ADVERTISEMENT_OSBB_NAME,
-  ADVERTISEMENT_DATA,
-  ADVERTISEMENT_SELECTED_POST,
-  ADVERTISEMENT_SELECTED_POST_COMMENTS,
-  ADVERTISEMENT_ALL_COMMENTS,
-  ADVERTISEMENT_ALL_COMMENTS_CLEAR,
-  ADVERTISEMENT_SELECTED_FILE
+  CHANGE_ADVERTISEMENT_OSBB_NAME,
+  CHANGE_ADVERTISEMENT_DATA,
+  CHANGE_ADVERTISEMENT_SELECTED_POST,
+  CHANGE_ADVERTISEMENT_SELECTED_POST_COMMENTS,
+  CHANGE_ADVERTISEMENT_ALL_COMMENTS,
+  CHANGE_ADVERTISEMENT_SELECTED_FILE
 } from './actions';
 
 const defaultState = {
@@ -13,44 +12,39 @@ const defaultState = {
   advertisementData: null,
   selectedPost: null,
   selectedPostComments: null,
-  allComments: [],
+  allComments: null,
   advertisementSelectedFile: null
 };
 
 export const advertisementReducer = (state = defaultState, action) => {
 
   switch (action.type) {
-    case ADVERTISEMENT_OSBB_NAME:
+    case CHANGE_ADVERTISEMENT_OSBB_NAME:
       return {
         ...state,
         advertisementOsbbName: action.payload
       }
-    case ADVERTISEMENT_DATA:
+    case CHANGE_ADVERTISEMENT_DATA:
       return {
         ...state,
         advertisementData: action.payload,
       };
-    case ADVERTISEMENT_SELECTED_POST:
+    case CHANGE_ADVERTISEMENT_SELECTED_POST:
       return {
         ...state,
         selectedPost: action.payload,
       };
-    case ADVERTISEMENT_SELECTED_POST_COMMENTS:
+    case CHANGE_ADVERTISEMENT_SELECTED_POST_COMMENTS:
       return {
         ...state,
         selectedPostComments: action.payload
       }
-    case ADVERTISEMENT_ALL_COMMENTS:
+    case CHANGE_ADVERTISEMENT_ALL_COMMENTS:
       return {
         ...state,
-        allComments: [...state.allComments, action.payload],
+        allComments: action.payload,
       };
-    case ADVERTISEMENT_ALL_COMMENTS_CLEAR:
-      return {
-        ...state,
-        allComments: []
-      }
-    case ADVERTISEMENT_SELECTED_FILE:
+    case CHANGE_ADVERTISEMENT_SELECTED_FILE:
       return {
         ...state,
         advertisementSelectedFile: action.payload

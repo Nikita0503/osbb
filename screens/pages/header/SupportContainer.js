@@ -1,6 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setHelpChatMessage, setHelpChatMessages, setHelpChatMessagesClear, setHelpChatConsultant} from '../../../store/pages/header/help/actions';
+import { setHelpChatMessage, 
+  setHelpChatMessages, 
+  setHelpChatMessagesClear,
+  setHelpChatConsultant,
+  openChat,
+  closeChat,
+  sendMessage} from '../../../store/pages/header/help/actions';
 import ScreenSupport from './ScreenSupport';
 
 class SupportContainer extends React.Component {
@@ -19,6 +25,9 @@ class SupportContainer extends React.Component {
         setHelpChatMessages={this.props.setHelpChatMessages}
         setHelpChatMessagesClear={this.props.setHelpChatMessagesClear}
         setHelpChatConsultant={this.props.setHelpChatConsultant}
+        openChat={this.props.openChat}
+        closeChat={this.props.closeChat}
+        sendMessage={this.props.sendMessage}
       />
     );
   }
@@ -37,10 +46,13 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setHelpChatMessage: setHelpChatMessage,
-  setHelpChatMessages: setHelpChatMessages,
-  setHelpChatMessagesClear: setHelpChatMessagesClear,
-  setHelpChatConsultant: setHelpChatConsultant
+  setHelpChatMessage,
+  setHelpChatMessages,
+  setHelpChatMessagesClear,
+  setHelpChatConsultant,
+  openChat,
+  closeChat,
+  sendMessage
 };
 
 export default connect(
