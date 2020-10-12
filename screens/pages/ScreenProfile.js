@@ -261,12 +261,10 @@ export default class ScreenProfile extends React.Component {
               >
                 <Text style={{color: 'white', fontSize: 15}}>ЗБЕРЕГТИ</Text>
               </TouchableOpacity>
-                
               </View>
             </View>
             <View style={styles.container}>
               <View style={{width: '80%', marginVertical: 15}}>
-                
               <TouchableOpacity
                   onPress={() => {
                     this.props.setAuthMethod(null)
@@ -285,42 +283,6 @@ export default class ScreenProfile extends React.Component {
   }
 }
 
-function sendNewPassword(props, onOldPasswordChange, onNewPasswordChange, onNewRepeatPasswordChange) {
-  fetch('https://app.osbb365.com/api/user/me/password', {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + props.token + '',
-    },
-    body: JSON.stringify({
-      oldPassword: props.oldPassword,
-      newPassword: props.newPassword,
-      confirmNewPassword: props.newRepeatPassword,
-    }),
-  })
-    .then(response => response.json())
-    .then(responseJson => {
-      Alert.alert(
-        'Пароль',
-        responseJson.message + '',
-        [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
-        { cancelable: false }
-      );
-    })
-    .catch(error => {
-      Alert.alert(
-        'Пароль',
-        'Пароль успішно змінено',
-        [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
-        { cancelable: false }
-      );
-      onOldPasswordChange('');
-      onNewPasswordChange('');
-      onNewRepeatPasswordChange('');
-      console.error(error);
-    });
-}
 
 const styles = StyleSheet.create({
   container: {

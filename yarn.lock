@@ -4802,6 +4802,11 @@ react-native-reanimated@^1.7.0:
   dependencies:
     fbjs "^1.0.0"
 
+react-native-reversed-flat-list@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-reversed-flat-list/-/react-native-reversed-flat-list-1.0.2.tgz#390d2e90fa04ea08405ee91e75126d09a2cdbd35"
+  integrity sha1-OQ0ukPoE6ghAXukedRJtCaLNvTU=
+
 react-native-root-siblings@3.2.3:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/react-native-root-siblings/-/react-native-root-siblings-3.2.3.tgz#df5a1cff3a3a1f433f57320e1cae719f1b15a3f2"

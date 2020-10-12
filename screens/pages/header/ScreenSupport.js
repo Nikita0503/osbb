@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import PageHeader from '../../../components/PageHeader';
 import { NavigationEvents } from 'react-navigation';
+import ReversedFlatList from 'react-native-reversed-flat-list';
 
 export default class ScreenSupport extends React.Component {
 
@@ -48,25 +49,16 @@ export default class ScreenSupport extends React.Component {
             title="Задати питання"
           />
           <View style={styles.container}>
-            <ScrollView
-              ref="scrollView"
-              onContentSizeChange={(width, height) =>
-                this.refs.scrollView.scrollToEnd()
-              }>
-              <View style={styles.chatContainer}>
-                <FlatList
-                  data={this.getMessages()}
-                  renderItem={({ item }) => (
-                    <Item
-                      text={item.message}
-                      me={item.me}
-                    />
-                  )}
-                  keyExtractor={item => item.text}
-                  listKey={item => item.text}
+            <ReversedFlatList
+              data={this.getMessages()}
+              renderItem={({ item }) => (
+                <Item
+                  text={item.message}
+                  me={item.me}
                 />
-              </View>
-            </ScrollView>
+              )}
+              keyExtractor={item => item.id}
+            />
 
             <View style={styles.messageContainer}>
               <TextInput

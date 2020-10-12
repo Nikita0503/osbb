@@ -16,150 +16,6 @@ import { RadioButton } from 'react-native-paper';
 import { NavigationEvents } from 'react-navigation';
 import { bool } from 'prop-types';
 
-const DATA_INHABITANT = [
-  {
-    fullName: 'example1',
-    dataOfBirth: '09.12.2019',
-  },
-  {
-    fullName: 'example22',
-    dataOfBirth: '10.10.1000',
-  },
-  {
-    fullName: 'example333',
-    dataOfBirth: '01.09.1010',
-  },
-];
-
-const DATA_OPTIONS = [
-  {
-    name: 'Кількість кімнат',
-    startDate: '1 лип. 2018 р.',
-    endDate: '4 лип. 2018 р.',
-    value: '1',
-    unit: 'кількість кімнат у приміщенні (шт.)',
-  },
-  {
-    name: 'Кількість прописаних',
-    startDate: '1 лип. 2018 р.',
-    endDate: '4 лип. 2018 р.',
-    value: '3',
-    unit: 'кількість людей, що прописані у приміщенні (ос.)',
-  },
-  {
-    name: 'Загальна площа',
-    startDate: '1 лип. 2018 р.',
-    endDate: '4 лип. 2018 р.',
-    value: '55.3',
-    unit: 'загальна площа (м кв.)',
-  },
-];
-
-const DATA_PRIVILEGES = [
-  {
-    name: 'name',
-    type: 'type1',
-    itn: 'ipn1',
-    number: '12345',
-  },
-  {
-    name: 'name2',
-    type: 'type12',
-    itn: 'ipn45',
-    number: '12345',
-  },
-  {
-    name: 'name3',
-    type: 'type3',
-    itn: 'ipn2',
-    number: '1234521',
-  },
-];
-
-const DATA_CONTRIBUTIONS = [
-  {
-    name: 'Утримання будинку',
-    unit: 'загальна площа',
-    rate: '2.2000000',
-  },
-  {
-    name: 'Утримання будинку (без пільг)',
-    unit: 'загальна площа',
-    rate: '3.3000000',
-  },
-  {
-    name: 'Холодне водопостачання (кількість прописаних)',
-    unit: 'об’єм води (м куб.)',
-    rate: '2.000000',
-  },
-];
-
-const DATA_INDIVIDUAL_CONTRIBUTIONS = [
-  {
-    name: 'Утримання будинку',
-    unit: 'загальна площа',
-    isActive: '+',
-    rate: '2.2000000',
-  },
-  {
-    name: 'Утримання будинку (без пільг)',
-    unit: 'загальна площа',
-    isActive: '+',
-    rate: '3.3000000',
-  },
-  {
-    name: 'Холодне водопостачання (кількість прописаних)',
-    unit: 'об’єм води (м куб.)',
-    isActive: '-',
-    rate: '2.000000',
-  },
-];
-
-const DATA_COUNTERS = [
-  {
-    name: 'Утримання будинку',
-    place: 'вул. Ватутіна',
-    previousIndicators: '101010',
-    currentIndicators: '202002',
-  },
-  {
-    name: 'Утримання будинку2',
-    place: 'вул. Ватутіна3',
-    previousIndicators: '621010',
-    currentIndicators: '542002',
-  },
-  {
-    name: 'Утримання будинку3',
-    place: 'вул. Ватутіна2',
-    previousIndicators: '14230',
-    currentIndicators: '2522',
-  },
-];
-
-const DATA_CONTRACTS = [
-  {
-    name: 'Контракт1',
-    sum: '1000',
-    startDate: '1 лип. 2018 р.',
-    endDate: '4 лип. 2018 р.',
-    notes: 'кількість кімнат у приміщенні (шт.)',
-  },
-  {
-    name: 'Контракт2',
-    sum: '1000',
-    startDate: '1 лип. 2018 р.',
-    endDate: '4 лип. 2018 р.',
-    notes: 'кількість кімнат у приміщенні (шт.)',
-  },
-  {
-    name: 'Контракт3',
-    sum: '1000',
-    startDate: '1 лип. 2018 р.',
-    endDate: '4 лип. 2018 р.',
-    notes: 'кількість кімнат у приміщенні (шт.)',
-  },
-];
-
 function getDate(data) {
   if (data == null) return;
   var date = new Date(data);
@@ -317,8 +173,6 @@ export default class ScreenFlatInfo extends React.Component {
   onFlatInfoContractsClear() {
     this.props.setFlatInfoContractsClear([]);
   }
-
-
 
   componentDidMount() {
     /*this.onFlatInfoGeneralDataClear();
@@ -670,9 +524,6 @@ export default class ScreenFlatInfo extends React.Component {
   }
 
   getGeneralData() {
-    //if (this.props.flatInfoGeneralData.length != this.props.accountIds.length) {
-    //  return;
-    //}
     var currentFlatInfoGeneralData;
     for (var i = 0; i < this.props.flatInfoGeneralData.length; i++) {
       if (
@@ -739,9 +590,6 @@ export default class ScreenFlatInfo extends React.Component {
   }
 
   getLodgers() {
-    //if (this.props.flatInfoLodgerData.length != this.props.accountIds.length) {
-    //  return;
-    //}
     for (var i = 0; i < this.props.flatInfoLodgerData.length; i++) {
       if (
         this.props.accountId.number ==
@@ -750,13 +598,9 @@ export default class ScreenFlatInfo extends React.Component {
         return this.props.flatInfoLodgerData[i].data;
       }
     }
-    //console.log('lodgers', this.props.flatInfoLodgerData);
   }
 
   getParameters() {
-    //if (this.props.flatInfoParameters.length != this.props.accountIds.length) {
-    //  return;
-    //}
     for (var i = 0; i < this.props.flatInfoParameters.length; i++) {
       if (
         this.props.accountId.number ==
@@ -765,7 +609,6 @@ export default class ScreenFlatInfo extends React.Component {
         return this.props.flatInfoParameters[i].data;
       }
     }
-    //console.log('parameters', this.props.flatInfoParameters);
   }
 
   getContributions() {
@@ -790,11 +633,6 @@ export default class ScreenFlatInfo extends React.Component {
   }
 
   getCounters() {
-    //if (this.props.flatInfoCounters.length != this.props.accountIds.length) {
-      //console.log('counters', 'null');
-    //  return;
-    //}
-
     for (var i = 0; i < this.props.flatInfoCounters.length; i++) {
       if (
         this.props.accountId.number ==

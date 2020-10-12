@@ -3,6 +3,7 @@ import { WebView } from 'react-native-webview';
 import { FlatList, ActivityIndicator, Text, View, Image, BackHandler, Alert } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Dimensions } from 'react-native';
 
 export default class ScreenWebViewLiqpay extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ export default class ScreenWebViewLiqpay extends React.Component {
       "hardwareBackPress",
       this.backAction
     );
-    var d = new Date();
+    
     var details = {
       private_key: this.props.liqpayData[0].liqPayPrivateKey,
       public_key: this.props.liqpayData[0].liqPayPublicKey,
@@ -31,9 +32,9 @@ export default class ScreenWebViewLiqpay extends React.Component {
         '","version":"3","action":"pay","amount":"' +
         this.props.selectedChargeValue +
         '","currency":"UAH","description":"' +
-        this.props.selectedChargeContribution +
+        this.getDescription() +
         '","order_id":"' +
-        d.getTime() +
+        this.getOrderId() +
         '","language":"uk"' +
         '}',
     };
@@ -47,6 +48,64 @@ export default class ScreenWebViewLiqpay extends React.Component {
     this.props.sendPaymentRequest(formBody)
   }
 
+  getOrderId(){
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth() + 1;
+    var day = d.getDate();
+    var hours = d.getHours();
+    var minutes = d.getMinutes();
+    var seconds = d.getSeconds();
+
+    var orderId = year + ".";
+    if(month < 10){
+      orderId += "0"
+    }
+    orderId += month + "."
+
+    if(day < 10){
+      orderId += "0"
+    }
+    orderId += day + "_"
+
+    if(hours < 10){
+      orderId += "0"
+    }
+    orderId += hours + ":"
+
+    if(minutes < 10){
+      orderId += "0"
+    }
+    orderId += minutes + ":"
+
+    if(seconds < 10){
+      orderId += "0"
+    }
+    orderId += seconds
+
+    orderId += "_о.р." + this.props.accountId.number;
+    orderId += "_" + this.props.userData.firstName;
+    orderId += "_" + this.props.userData.lastName;
+    orderId += "_" + this.props.userData.patronymic;
+    var service = this.props.selectedChargeContribution.replace(" ", "_")
+    orderId += "_" + service
+    return orderId;
+  }
+
+  getDescription(){
+    //{"action":"pay","amount":202.35,
+    //"currency":"UAH","description":"О.р. 8 имя Прізвище Отчество Услуга",
+    //"order_id":"2020.09.16_15:06:45_о.р.8_имя_Прізвище_Отчество_Услуга",
+    //"version":"3","public_key":"i45497868202"}
+    var description = "О.р. " + this.props.accountId.number;
+    description += " " + this.props.userData.firstName;
+    description += " " + this.props.userData.lastName;
+    description += " " + this.props.userData.patronymic;
+    description += " " + this.props.selectedChargeContribution;
+    //console.log("LIQPAY", orderId)
+    return description
+  }
+
   _onNavigationStateChange(webViewState){
     if(webViewState.url == 'https://sapo365.com/tenant#/home'){
       this.backAction()
@@ -54,6 +113,8 @@ export default class ScreenWebViewLiqpay extends React.Component {
   }
 
   getWebView(){
+    var width = Dimensions.get('window').width;
+    //console.log("LIQPAY", width)
     return(
     <WebView
       originWhitelist={['*']}
@@ -64,7 +125,7 @@ export default class ScreenWebViewLiqpay extends React.Component {
           this.props.data +
           '"/><input type="hidden" name="signature" value="' +
           this.props.signature +
-          '"/><input style="width: 500; margin-left: 24%; margin-top: 60%" type="image" src="https://static.liqpay.ua/buttons/p1ru.radius.png"/></form>',
+          '"/><input style="width: ' + width + '; margin-left: 30%; margin-top: 60%" type="image" src="https://static.liqpay.ua/buttons/p1ru.radius.png"/></form>',
       }}
       style={{width: '100%', alignSelf: 'center'}}
     />);
@@ -92,7 +153,7 @@ export default class ScreenWebViewLiqpay extends React.Component {
             </TouchableOpacity>
           <Text style={{marginTop: 45, marginEnd: 20, color: 'white'}}>Оплата</Text>
           </View>
-          <View style={{width: '90%', height: '80%', justifyContent: 'center', alignSelf: 'center', borderBottomWidth: 1, borderStartWidth: 1, borderRightWidth: 1, borderTopWidth: 1, borderColor: 'green'}}>
+          <View style={{width: '100%', height: '80%', justifyContent: 'center', alignSelf: 'center', borderBottomWidth: 1, borderStartWidth: 1, borderRightWidth: 1, borderTopWidth: 1, borderColor: 'green'}}>
             {this.getWebView()}
           </View>
           <Text style={{backgroundColor: "white", padding: 10, textAlign: 'center', color: "#002B2B"}}>Оплата відобразиться у додатку після її обробки бухгалтером САПО</Text>

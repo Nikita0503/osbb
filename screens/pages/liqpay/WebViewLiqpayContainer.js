@@ -19,6 +19,7 @@ class WebViewLiqpayContainer extends React.Component {
         loading={this.props.loading}
         data={this.props.data}
         signature={this.props.signature}
+        userData={this.props.userData}
         selectedChargeContribution={this.props.selectedChargeContribution}
         selectedChargeValue={this.props.selectedChargeValue}
         setLoading={this.props.setLoading}
@@ -41,7 +42,8 @@ const mapStateToProps = state => {
     selectedChargeValue: state.paymentSelection.selectedChargeValue,
     loading: state.webView.loading,
     data: state.webView.data,
-    signature: state.webView.signature
+    signature: state.webView.signature,
+    userData: state.apartment.userData
   };
 };
 

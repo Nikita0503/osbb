@@ -4,7 +4,9 @@ import {
   setIndicationText,
   setIndicationsCounters,
   updateIndicationsCounters,
-  setSelectedCounter
+  setSelectedCounter,
+  fetchSendIndicationsCounters,
+  editIndications
 } from '../../store/pages/sendIndications/actions';
 import ScreenSendIndications from './ScreenSendIndications';
 
@@ -26,6 +28,8 @@ class SendIndicationsContainer extends React.Component {
         setIndicationsCounters={this.props.setIndicationsCounters}
         updateIndicationsCounters={this.props.updateIndicationsCounters}
         setSelectedCounter={this.props.setSelectedCounter}
+        fetchSendIndicationsCounters={this.props.fetchSendIndicationsCounters}
+        editIndications={this.props.editIndications}
       />
     );
   }
@@ -46,10 +50,12 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setIndicationText: setIndicationText,
-  setIndicationsCounters: setIndicationsCounters,
-  updateIndicationsCounters: updateIndicationsCounters,
-  setSelectedCounter: setSelectedCounter
+  setIndicationText,
+  setIndicationsCounters,
+  updateIndicationsCounters,
+  setSelectedCounter,
+  fetchSendIndicationsCounters,
+  editIndications
 };
 
 export default connect(

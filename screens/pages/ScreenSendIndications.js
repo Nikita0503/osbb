@@ -14,86 +14,25 @@ import MonthPickerContainer from '../../components/MonthPickerContainer';
 import Dialog from 'react-native-dialog';
 
 export default class ScreenSendIndications extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onIndicationTextChange = this.onIndicationTextChange.bind(this);
-    this.onSelectedCounterChange = this.onSelectedCounterChange.bind(this);
-    this.onSendIndicationsCountersChange = this.onSendIndicationsCountersChange.bind(
-      this
-    );
-    this.onUpdateIndicationsCountersChange = this.onUpdateIndicationsCountersChange.bind(
-      this
-    );
-  }
-
-  onIndicationTextChange(text) {
-    this.props.setIndicationText(text);
-  }
-
-  onSelectedCounterChange(selectedCounter) {
-    this.props.setSelectedCounter(selectedCounter);
-  }
-
-  onUpdateIndicationsCountersChange(indicationsCounters) {
-    this.props.updateIndicationsCounters(indicationsCounters);
-  }
-
-  onSendIndicationsCountersChange(counters) {
-    this.props.setIndicationsCounters(counters);
-  }
 
   componentDidMount() {
-    this.onUpdateIndicationsCountersChange([]);
-    this.fetchSendIndicationsCounters(0);
-  }
-
-  fetchSendIndicationsCounters(index) {
-    //this.onFlatInfoCountersChange(null);
-    fetch(
-      'https://app.osbb365.com/api/tenant/counters?accountId=' +
-        this.props.accountIds[index].id +
-        '&osbbId=' +
-        this.props.osbbId +
-        '&workPeriod=' +
-        this.props.workPeriods[this.props.workPeriods.length - 1],
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + this.props.token + '',
-        },
-      }
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        console.log('counters1', responseJson.counters);
-        var obj = {
-          accountId: this.props.accountIds[index],
-          data: responseJson.counters,
-        };
-        this.onSendIndicationsCountersChange(obj);
-        if (index != this.props.accountIds.length - 1) {
-          index++;
-          this.fetchSendIndicationsCounters(index);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    this.props.updateIndicationsCounters([]);
+    this.props.fetchSendIndicationsCounters(this.props.token, 
+      this.props.accountIds, 
+      this.props.osbbId,
+      this.props.workPeriods,
+      0);
   }
 
   getCounters() {
     if (this.props.indicationsCounters.length != this.props.accountIds.length) {
-      //console.log('counters2', 'null');
       return;
     }
-    
     for (var i = 0; i < this.props.indicationsCounters.length; i++) {
       if (
         this.props.accountId.number ==
         this.props.indicationsCounters[i].accountId.number
       ) {
-        //console.log('counters2', this.props.indicationsCounters[i].data);
         return this.props.indicationsCounters[i].data;
       }
     }
@@ -129,9 +68,9 @@ export default class ScreenSendIndications extends React.Component {
                 accountId={this.props.accountId}
                 counter={item}
                 indicationsCounters={counters}
-                onSelectedCounterChange={this.onSelectedCounterChange}
-                onUpdateIndicationsCountersChange={
-                  this.onUpdateIndicationsCountersChange
+                setSelectedCounter={this.props.setSelectedCounter}
+                updateIndicationsCounters={
+                  this.props.updateIndicationsCounters
                 }
               />
             )}
@@ -142,7 +81,6 @@ export default class ScreenSendIndications extends React.Component {
       }
     
   }
-
 
   render() {
     return (
@@ -165,7 +103,7 @@ export default class ScreenSendIndications extends React.Component {
             </Dialog.Title>
             <Dialog.Input
               keyboardType={'decimal-pad'}
-              onChangeText={text => this.onIndicationTextChange(text)}
+              onChangeText={text => this.props.setIndicationText(text)}
               value={this.props.indicationText}
               label="Введіть поточний показник"
               wrapperStyle={{
@@ -176,80 +114,19 @@ export default class ScreenSendIndications extends React.Component {
             <Dialog.Button
               label="Скасувати"
               onPress={() => {
-                this.onSelectedCounterChange(null);
+                this.props.setSelectedCounter(null);
               }}
             />
             <Dialog.Button
               label="Редагувати"
               onPress={() => {
-                fetch(
-                  'https://app.osbb365.com/api/account/undefined/counters/' +
-                    this.props.selectedCounter.id +
-                    '?accountId=' +
-                    this.props.accountId.id +
-                    '&osbbId=' +
-                    this.props.osbbId +
-                    '&workPeriod=' +
-                    this.props.workPeriods[this.props.workPeriods.length - 1],
-                  {
-                    method: 'PUT',
-                    headers: {
-                      Accept: 'application/json',
-                      'Content-Type': 'application/json',
-                      Authorization: 'Bearer ' + this.props.token + '',
-                    },
-                    body: JSON.stringify({
-                      testimony: this.props.indicationText,
-                    }),
-                  }
-                )
-                  .then(response => response.json())
-                  .then(responseJson => {
-                    console.log("ak-47", responseJson);
-                    Alert.alert(
-                      'Повідомлення',
-                      'Успішно оновлено!',
-                      [
-                        {text: 'OK', onPress: () => console.log('OK Pressed')},
-                      ],
-                      { cancelable: true }
-                    )
-                    this.componentDidMount();
-                  })
-                  .catch(error => {
-                    console.error(error);
-                  });
-
-                this.onSelectedCounterChange(null);
-                this.onIndicationTextChange(null);
-                //this.onSelectedCounterChange(null);
-                /*var data = this.props.indicationsCounters;
-                for (var i = 0; i < data.length; i++) {
-                  if (data[i].accountId.number == this.props.accountId.number) {
-                    for (var j = 0; j < data[i].data.length; j++) {
-                      if (data[i].data[j].id == this.props.selectedCounter.id) {
-                        data[i].data[j].testimony = this.props.indicationText;
-                      }
-                    }
-                  }
-                }
-                this.onUpdateIndicationsCountersChange([]);
-                for (i = 0; i < data.length; i++) {
-                  var obj = {
-                    accountId: data[i].accountId,
-                    data: data[i].data,
-                  };
-                  //console.log('hello4', obj);
-                  this.onSendIndicationsCountersChange(obj);
-                }*/
-                
-                
-                //console.log('hello', data);
-                /*var obj = {
-                  accountId: this.props.accountIds[index],
-                  data: responseJson.counters,
-                };
-                this.onSendIndicationsCountersChange(obj);*/
+                this.props.editIndications(this.props.token,
+                  this.props.selectedCounter,
+                  this.props.accountId,
+                  this.props.osbbId,
+                  this.props.workPeriods,
+                  this.props.indicationText,
+                  this.componentDidMount)
               }}
             />
           </Dialog.Container>
@@ -265,7 +142,7 @@ class ItemCounters extends React.Component {
       <TouchableOpacity
         onPress={() => {
           if (this.props.counter.editAllow == true) {
-            this.props.onSelectedCounterChange(this.props.counter);
+            this.props.setSelectedCounter(this.props.counter);
           } else {
             Alert.alert(
               'Повідомлення',

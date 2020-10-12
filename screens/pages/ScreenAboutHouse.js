@@ -15,102 +15,16 @@ import DataContainer from '../../components/DataContainer';
 import Dialog from 'react-native-dialog';
 import PDFReader from 'rn-pdf-reader-js';
 
-const DATA_FILES = [
-  {
-    name: 'Excel file',
-    type: 'xls',
-  },
-  {
-    name: 'PDF file',
-    type: 'pdf',
-  },
-  {
-    name: 'DOC file',
-    type: 'doc',
-  },
-  {
-    name: 'TXT file',
-    type: 'txt',
-  },
-  {
-    name: 'Image file',
-    type: 'jpg',
-  },
-];
-
 export default class ScreenAboutHouse extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onAboutHouseDataChange = this.onAboutHouseDataChange.bind(this);
-    this.onAboutHouseDocumentsChange = this.onAboutHouseDocumentsChange.bind(this);
-    this.onAboutHouseSelectedFileChange = this.onAboutHouseSelectedFileChange.bind(this);
-  }
-
-  onAboutHouseDataChange(aboutHouseData) {
-    this.props.setAboutHouseData(aboutHouseData);
-  }
-
-  onAboutHouseDocumentsChange(aboutHouseDocuments) {
-    this.props.setAboutHouseDocuments(aboutHouseDocuments);
-  }
-
-  onAboutHouseSelectedFileChange(selectedFile){
-    this.props.setAboutHouseSelectedFile(selectedFile)
-  }
 
   componentDidMount() {
-    fetch(
-      'https://app.osbb365.com/api/tenant/osbb?accountId=' +
-        this.props.accountId +
-        '&osbbId=' +
-        this.props.osbbId +
-        '&workPeriod=' +
-        this.props.workPeriods[this.props.workPeriods.length - 1],
-      /*'https://app.osbb365.com/api/tenant/osbb?'
-    + 'accountId=' + this.props.accountId
-    + '&osbbId=' + this.props.osbbId
-    + 'workPeriod=' + this.props.workPeriods[this.props.workPeriods.length-1]*/ {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + this.props.token + '',
-        },
-      }
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        
-        this.onAboutHouseDataChange(responseJson);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-
-      var ws = new WebSocket(
-      'wss://app.osbb365.com/socket.io/?auth_token=' +
-        this.props.token +
-        '&EIO=3&transport=websocket'
-    );
-
-    ws.onopen = () => {
-    // connection opened
-      ws.send('424["/statutoryDocuments/list",{}]'); // send a message
-    };
-
-    ws.onmessage = e => {
-      // a message was received
-      if (e.data.substring(0, 3) == '434') {
-        const myObjStr = JSON.stringify(e.data.substring(3, e.data.length));
-        var myObj = JSON.parse(myObjStr);
-        var data = JSON.parse(myObj);
-        //console.log('aboutHouseDocuments', data[0]);
-        this.onAboutHouseDocumentsChange(data[0]);
-      }
-    };
+    this.props.fetchHouseData(this.props.accountId,
+      this.props.osbbId,
+      this.props.workPeriods,
+      this.props.token)
   }
 
   getImage() {
-    //console.log("house", this.props.aboutHouseData);
     if (this.props.aboutHouseData == null) return;
     if (this.props.aboutHouseData.image == null) return (<View style={{alignItems: 'center', margin: 5}}><Text style={{color: '#364A5F'}}>Фото будинку відсутнє</Text></View>);
     return (
@@ -160,8 +74,6 @@ export default class ScreenAboutHouse extends React.Component {
     if(this.props.aboutHouseSelectedFile != null){
       var type = this.props.aboutHouseSelectedFile.path.substring(this.props.aboutHouseSelectedFile.path.length - 3)
       var path = this.props.aboutHouseSelectedFile.path;
-      //type = 'jpg'
-      //console.log("TYPE", type)
       switch(type){
         case 'jpg':
           return(
@@ -262,7 +174,7 @@ export default class ScreenAboutHouse extends React.Component {
                 <ItemFile 
                   name={item.name} 
                   path={item.filename} 
-                  onAboutHouseSelectedFileChange={this.onAboutHouseSelectedFileChange}/>
+                  setAboutHouseSelectedFile={this.setAboutHouseSelectedFile}/>
               )}
               keyExtractor={item => item.name}
             />
@@ -281,7 +193,7 @@ export default class ScreenAboutHouse extends React.Component {
             <Dialog.Button
               label="OK"
               onPress={() => {
-                this.onAboutHouseSelectedFileChange(null);
+                this.props.setAboutHouseSelectedFile(null);
               }}
             />
           </Dialog.Container>
@@ -292,34 +204,6 @@ export default class ScreenAboutHouse extends React.Component {
   }
 }
 
-async function download(url) {
-  //const { uri: localUri } = await FileSystem.downloadAsync(url, 'file://..name.txt'); 
-
-  //console.log("svinya", localUri)
-
-  //alert(localUri)
-  //const FilePath = localUri // path of the file
-  //const FileMimeType = 'application/msword'; // mime type of the file
-  //FileOpener.open(
-  //  FilePath,
-  //  FileMimeType
-  //).then((msg) => {
-  //  alert('success!!')
-  //},() => {
-  //  alert('error!!')
-  //});
-
-  /*alert(localUri)
-  FileViewer.open(localUri)
-  then(() => {
-	  console.log('openFile', 1)
-  })
-  .catch(error => {
-	  console.log('openFile', 2)
-  });
-  console.log('openFiele', localUri)*/
-}
-
 class ItemFile extends React.Component {
   render() {
     return (
@@ -328,7 +212,7 @@ class ItemFile extends React.Component {
           name: this.props.name,
           path: this.props.path
         }
-        this.props.onAboutHouseSelectedFileChange(file)
+        this.props.setAboutHouseSelectedFile(file)
       }}>
         <View
           >

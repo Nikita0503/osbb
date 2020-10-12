@@ -108,7 +108,7 @@ export default class ScreenAddOffer extends React.Component {
         
           </ScrollView>
           <TouchableOpacity
-          disabled={this.props.addOfferIsDisabled}
+            disabled={this.props.addOfferIsDisabled}
             style={{
               width: '100%',
               backgroundColor: '#F9F9F9',
@@ -116,80 +116,15 @@ export default class ScreenAddOffer extends React.Component {
               borderRadius: 15
             }}
             onPress={() => {
-              /*alert(
-                this.props.addOfferTopic +
-                  ' ' +
-                  this.props.addOfferText +
-                  ' ' +
-                  this.props.addOfferSystem +
-                  ' ' +
-                  this.props.addOfferPublicity
-              );*/
-              if(this.props.addOfferTopic == null 
-                || this.props.addOfferText == null
-                || this.props.addOfferSystem == null
-                || this.props.addOfferPublicity == null
-                || this.props.addOfferTopic.trim() == ''
-                || this.props.addOfferText.trim() == ''){
-                  Alert.alert(
-                    'Повідомлення',
-                    'Заповнено некоректно',
-                    [
-                      {text: 'OK', onPress: () => console.log('OK Pressed')},
-                    ],
-                    { cancelable: true }
-                  )
-                  return
-                }
-                this.props.setAddOfferButtonSendIsDisabled(true);
-              var ws = new WebSocket(
-                'wss://app.osbb365.com/socket.io/?auth_token=' +
-                  this.props.token +
-                  '&EIO=3&transport=websocket'
-              );
-
-              ws.onopen = () => {
-                var text = this.props.addOfferText;
-                text = text.replace(new RegExp('\n','g'), '\\n')
-                // connection opened
-                var bool = this.props.addOfferPublicity ==
-                    1
-                    ? 'true'
-                    : 'false';
-                var text = '4211["/claim/create",{"subject":"' +
-                    this.props.addOfferTopic +
-                    '","text":"' +
-                    text +
-                    '","systemId":"' +
-                    this.props.addOfferSystem +
-                    '","isPublic":' + bool
-                     +
-                        ',"documents":[],"workPeriod":"' +
-                        this.props.workPeriods[
-                          this.props.workPeriods.length - 1
-                        ] +
-                        '"}]';
-                  console.log('message',text)
-                ws.send(
-                  text
-                );
-              };
-
-              ws.onmessage = e => {
-                // a message was received
-                  console.log('qwerty', e.data)
-                if (e.data.substring(0, 4) == '4311') {
-                  Alert.alert(
-                    'Повідомлення',
-                    'Надіслано успішно!',
-                    [
-                      {text: 'OK', onPress: () => console.log('OK Pressed')},
-                    ],
-                    { cancelable: true }
-                  )
-                  this.props.navigation.goBack();
-                }
-              };
+              this.props.addOffer(
+                this.props.addOfferText,
+                this.props.addOfferSystem,
+                this.props.addOfferPublicity,
+                this.props.addOfferTopic,
+                this.props.workPeriods,
+                this.props.navigation,
+                this.props.token
+              )
             }}>
             <View>
               <Text

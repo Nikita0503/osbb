@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {setAboutHouseData, setAboutHouseDocuments, setAboutHouseSelectedFile, setSelectedFile} from '../../store/pages/aboutHouse/actions';
+import {setAboutHouseData, 
+  setAboutHouseDocuments, 
+  setAboutHouseSelectedFile, 
+  setSelectedFile,
+  fetchHouseData} from '../../store/pages/aboutHouse/actions';
 import ScreenAboutHouse from './ScreenAboutHouse';
 
 class AboutHouseContainer extends React.Component {
@@ -20,6 +24,7 @@ class AboutHouseContainer extends React.Component {
         setAboutHouseDocuments={this.props.setAboutHouseDocuments}
         setAboutHouseSelectedFile={this.props.setAboutHouseSelectedFile}
         setSelectedFile={this.props.setSelectedFile}
+        fetchHouseData={this.props.fetchHouseData}
       />
     );
   }
@@ -39,10 +44,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setAboutHouseData: setAboutHouseData,
-  setAboutHouseDocuments: setAboutHouseDocuments,
-  setAboutHouseSelectedFile: setAboutHouseSelectedFile,
-  setSelectedFile: setSelectedFile
+  setAboutHouseData,
+  setAboutHouseDocuments,
+  setAboutHouseSelectedFile,
+  setSelectedFile,
+  fetchHouseData
 };
 
 export default connect(

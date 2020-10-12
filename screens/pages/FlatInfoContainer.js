@@ -47,7 +47,6 @@ class FlatInfoContainer extends React.Component {
         setFlatInfoIndividualContributions={this.props.setFlatInfoIndividualContributions}
         setFlatInfoCounters={this.props.setFlatInfoCounters}
         setFlatInfoContracts={this.props.setFlatInfoContracts}
-
         setFlatInfoGeneralDataClear={this.props.setFlatInfoGeneralDataClear}
         setflatInfoLodgerDataClear={this.props.setflatInfoLodgerDataClear}
         setFlatInfoParametersClear={this.props.setFlatInfoParametersClear}

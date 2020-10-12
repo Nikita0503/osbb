@@ -51,11 +51,12 @@ export const addOffer = (addOfferText, addOfferSystem, addOfferPublicity, addOff
           }
         dispatch(setAddOfferButtonSendIsDisabled(true));
         var ws = new WebSocket(
-          'wss://app.sapo365.com/socket.io/?auth_token=' +
+          'wss://app.osbb365.com/socket.io/?auth_token=' +
             token +
             '&EIO=3&transport=websocket'
         );
         ws.onopen = () => {
+          
           var text = addOfferText;
           text = text.replace(new RegExp('\n','g'), '\\n')
           var bool = addOfferPublicity ==
@@ -93,7 +94,7 @@ export const addOffer = (addOfferText, addOfferSystem, addOfferPublicity, addOff
           }
         };
       } catch (error) {
-          console.log("withdrawRequest", "error");
+          console.log("addOffer", "error");
       }
   }
 }
