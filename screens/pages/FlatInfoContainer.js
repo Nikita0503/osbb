@@ -1,22 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  setFlatInfoGeneralData,
-  setFlatInfoGeneralDataClear,
-  setflatInfoLodgerData,
-  setflatInfoLodgerDataClear,
-  setFlatInfoParameters,
-  setFlatInfoParametersClear,
-  setFlatInfoPrivileges,
-  setFlatInfoPrivilegesClear,
-  setFlatInfoContributions,
-  setFlatInfoContributionsClear,
-  setFlatInfoIndividualContributions,
-  setFlatInfoIndividualContributionsClear,
-  setFlatInfoCounters,
   setFlatInfoCountersClear,
-  setFlatInfoContracts,
-  setFlatInfoContractsClear,
+  fetchFlatInfoGeneralData,
+  fetchFlatInfoLodgerData,
+  fetchFlatInfoParameters,
+  fetchFlatInfoContributions,
+  fetchFlatInfoIndividualContributions,
+  fetchFlatInfoPrivileges,
+  fetchFlatInfoCounters,
+  fetchFlatInfoContracts
 } from '../../store/pages/flatInfo/actions';
 import ScreenFlatInfo from './ScreenFlatInfo';
 
@@ -39,22 +32,15 @@ class FlatInfoContainer extends React.Component {
         flatInfoIndividualContributions={this.props.flatInfoIndividualContributions}
         flatInfoCounters={this.props.flatInfoCounters}
         flatInfoContracts={this.props.flatInfoContracts}
-        setFlatInfoGeneralData={this.props.setFlatInfoGeneralData}
-        setflatInfoLodgerData={this.props.setflatInfoLodgerData}
-        setFlatInfoParameters={this.props.setFlatInfoParameters}
-        setFlatInfoPrivileges={this.props.setFlatInfoPrivileges}
-        setFlatInfoContributions={this.props.setFlatInfoContributions}
-        setFlatInfoIndividualContributions={this.props.setFlatInfoIndividualContributions}
-        setFlatInfoCounters={this.props.setFlatInfoCounters}
-        setFlatInfoContracts={this.props.setFlatInfoContracts}
-        setFlatInfoGeneralDataClear={this.props.setFlatInfoGeneralDataClear}
-        setflatInfoLodgerDataClear={this.props.setflatInfoLodgerDataClear}
-        setFlatInfoParametersClear={this.props.setFlatInfoParametersClear}
-        setFlatInfoPrivilegesClear={this.props.setFlatInfoPrivilegesClear}
-        setFlatInfoContributionsClear={this.props.setFlatInfoContributionsClear}
-        setFlatInfoIndividualContributionsClear={this.props.setFlatInfoIndividualContributionsClear}
         setFlatInfoCountersClear={this.props.setFlatInfoCountersClear}
-        setFlatInfoContractsClear={this.props.setFlatInfoContractsClear}
+        fetchFlatInfoGeneralData={this.props.fetchFlatInfoGeneralData}
+        fetchFlatInfoLodgerData={this.props.fetchFlatInfoLodgerData}
+        fetchFlatInfoParameters={this.props.fetchFlatInfoParameters}
+        fetchFlatInfoContributions={this.props.fetchFlatInfoContributions}
+        fetchFlatInfoIndividualContributions={this.props.fetchFlatInfoIndividualContributions}
+        fetchFlatInfoPrivileges={this.props.fetchFlatInfoPrivileges}
+        fetchFlatInfoCounters={this.props.fetchFlatInfoCounters}
+        fetchFlatInfoContracts={this.props.fetchFlatInfoContracts}
       />
     );
   }
@@ -81,22 +67,15 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  setFlatInfoGeneralData: setFlatInfoGeneralData,
-  setFlatInfoGeneralDataClear: setFlatInfoGeneralDataClear,
-  setflatInfoLodgerData: setflatInfoLodgerData,
-  setflatInfoLodgerDataClear: setflatInfoLodgerDataClear,
-  setFlatInfoParameters: setFlatInfoParameters,
-  setFlatInfoParametersClear: setFlatInfoParametersClear,
-  setFlatInfoPrivileges: setFlatInfoPrivileges,
-  setFlatInfoPrivilegesClear: setFlatInfoPrivilegesClear,
-  setFlatInfoContributions: setFlatInfoContributions,
-  setFlatInfoContributionsClear: setFlatInfoContributionsClear,
-  setFlatInfoIndividualContributions: setFlatInfoIndividualContributions,
-  setFlatInfoIndividualContributionsClear: setFlatInfoIndividualContributionsClear,
-  setFlatInfoCounters: setFlatInfoCounters,
-  setFlatInfoCountersClear: setFlatInfoCountersClear,
-  setFlatInfoContracts: setFlatInfoContracts,
-  setFlatInfoContractsClear: setFlatInfoContractsClear
+  setFlatInfoCountersClear,
+  fetchFlatInfoGeneralData,
+  fetchFlatInfoLodgerData,
+  fetchFlatInfoParameters,
+  fetchFlatInfoContributions,
+  fetchFlatInfoIndividualContributions,
+  fetchFlatInfoPrivileges,
+  fetchFlatInfoCounters,
+  fetchFlatInfoContracts
 };
 
 export default connect(

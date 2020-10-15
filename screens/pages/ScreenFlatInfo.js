@@ -62,420 +62,35 @@ function getDate(data) {
 }
 
 export default class ScreenFlatInfo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onFlatInfoGeneralDataChange = this.onFlatInfoGeneralDataChange.bind(
-      this
-    );
-    this.onFlatInfoLodgerDataChange = this.onFlatInfoLodgerDataChange.bind(
-      this
-    );
-    this.onFlatInfoParametersChange = this.onFlatInfoParametersChange.bind(
-      this
-    );
-    this.onFlatInfoPrivilegesChange = this.onFlatInfoPrivilegesChange.bind(
-      this
-    );
-    this.onFlatInfoContributionsChange = this.onFlatInfoContributionsChange.bind(
-      this
-    );
-    this.onFlatInfoIndividualContributionsChange = this.onFlatInfoIndividualContributionsChange.bind(
-      this
-    );
-    this.onFlatInfoCountersChange = this.onFlatInfoCountersChange.bind(this);
-    this.onFlatInfoContractsChange = this.onFlatInfoContractsChange.bind(this);
-
-    this.onFlatInfoGeneralDataClear = this.onFlatInfoGeneralDataClear.bind(
-      this
-    );
-    this.onFlatInfoLodgerDataClear = this.onFlatInfoLodgerDataClear.bind(
-      this
-    );
-    this.onFlatInfoParametersClear = this.onFlatInfoParametersClear.bind(
-      this
-    );
-    this.onFlatInfoPrivilegesClear = this.onFlatInfoPrivilegesClear.bind(
-      this
-    );
-    this.onFlatInfoContributionsClear = this.onFlatInfoContributionsClear.bind(
-      this
-    );
-    this.onFlatInfoIndividualContributionsClear = this.onFlatInfoIndividualContributionsClear.bind(
-      this
-    );
-    this.onFlatInfoCountersClear = this.onFlatInfoCountersClear.bind(this);
-    this.onFlatInfoContractsClear = this.onFlatInfoContractsClear.bind(this);
-
-  }
-
-  onFlatInfoGeneralDataChange(generalData) {
-    this.props.setFlatInfoGeneralData(generalData);
-  }
-
-  onFlatInfoLodgerDataChange(lodgerData) {
-    this.props.setflatInfoLodgerData(lodgerData);
-  }
-
-  onFlatInfoParametersChange(parameters) {
-    this.props.setFlatInfoParameters(parameters);
-  }
-
-  onFlatInfoPrivilegesChange(privileges) {
-    this.props.setFlatInfoPrivileges(privileges);
-  }
-
-  onFlatInfoContributionsChange(contributions) {
-    this.props.setFlatInfoContributions(contributions);
-  }
-
-  onFlatInfoIndividualContributionsChange(individualContributions) {
-    this.props.setFlatInfoIndividualContributions(individualContributions);
-  }
-
-  onFlatInfoCountersChange(counters) {
-    this.props.setFlatInfoCounters(counters);
-  }
-
-  onFlatInfoContractsChange(contracts) {
-    this.props.setFlatInfoContracts(contracts);
-  }
-
-
-
-  onFlatInfoGeneralDataClear() {
-    this.props.setFlatInfoGeneralDataClear([]);
-  }
-
-  onFlatInfoLodgerDataClear() {
-    this.props.setflatInfoLodgerDataClear([]);
-  }
-
-  onFlatInfoParametersClear() {
-    this.props.setFlatInfoParametersClear([]);
-  }
-
-  onFlatInfoPrivilegesClear() {
-    this.props.setFlatInfoPrivilegesClear([]);
-  }
-
-  onFlatInfoContributionsClear() {
-    this.props.setFlatInfoContributionsClear([]);
-  }
-
-  onFlatInfoIndividualContributionsClear() {
-    this.props.setFlatInfoIndividualContributionsClear([]);
-  }
-
-  onFlatInfoCountersClear() {
-    this.props.setFlatInfoCountersClear([]);
-  }
-
-  onFlatInfoContractsClear() {
-    this.props.setFlatInfoContractsClear([]);
-  }
 
   componentDidMount() {
-    /*this.onFlatInfoGeneralDataClear();
-    this.onFlatInfoLodgerDataClear();
-    this.onFlatInfoParametersClear();
-    this.onFlatInfoContributionsClear();
-    this.onFlatInfoIndividualContributionsClear();
-    this.onFlatInfoPrivilegesClear();*/
-    this.onFlatInfoCountersClear();
-    //this.onFlatInfoContractsClear();
-
-    this.fetchFlatInfoGeneralData();
-    this.fetchFlatInfoLodgerData(0);
-    this.fetchFlatInfoParameters(0);
-    this.fetchFlatInfoContributions();
-    this.fetchFlatInfoIndividualContributions();
-    this.fetchFlatInfoPrivileges();
-    this.fetchFlatInfoCounters(0);
-    this.fetchFlatInfoContracts();
-  }
-
-  fetchFlatInfoGeneralData() {
-    //this.onFlatInfoGeneralDataChange(null);
-    var ws = new WebSocket(
-      'wss://app.osbb365.com/socket.io/?auth_token=' +
-        this.props.token +
-        '&EIO=3&transport=websocket'
-    );
-
-    ws.onmessage = e => {
-      // a message was received
-      if (e.data.substring(0, 2) == '42') {
-        const myObjStr = JSON.stringify(e.data.substring(2, e.data.length));
-        var myObj = JSON.parse(myObjStr);
-        var data = JSON.parse(myObj);
-        for (var i = this.props.accountIds.length - 1; i >= 0; i--) {
-          for (var j = data[1].UserAccounts.length - 1; j >= 0; j--) {
-            if (
-              this.props.accountIds[i].number == data[1].UserAccounts[j].number
-            ) {
-              this.onFlatInfoGeneralDataChange(data[1].UserAccounts[j]);
-              break;
-            }
-          }
-        }
-        
-        ws.close();
-        
-      }
-    };
-  }
-
-  fetchFlatInfoCounters(index) {
-    //this.onFlatInfoCountersChange(null);
-    fetch(
-      'https://app.osbb365.com/api/tenant/counters?accountId=' +
-        this.props.accountIds[index].id +
-        '&osbbId=' +
-        this.props.osbbId +
-        '&workPeriod=' +
-        this.props.workPeriods[this.props.workPeriods.length - 1],
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + this.props.token + '',
-        },
-      }
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        //console.log('counters1', responseJson.counters);
-        var obj = {
-          accountId: this.props.accountIds[index],
-          data: responseJson.counters,
-        };
-        this.onFlatInfoCountersChange(obj);
-        if (index != this.props.accountIds.length - 1) {
-          index++;
-          this.fetchFlatInfoCounters(index);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-
-  fetchFlatInfoLodgerData(index) {
-    //this.onFlatInfoLodgerDataChange(null);
-    fetch(
-      'https://app.osbb365.com/api/tenant/lodgers?accountId=' +
-        this.props.accountIds[index].id +
-        '&osbbId=' +
-        this.props.osbbId +
-        '&workPeriod=' +
-        this.props.workPeriods[this.props.workPeriods.length - 1],
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + this.props.token + '',
-        },
-      }
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        var obj = {
-          accountId: this.props.accountIds[index],
-          data: responseJson,
-        };
-        //console.log('lodg', responseJson);
-        this.onFlatInfoLodgerDataChange(obj);
-        if (index != this.props.accountIds.length - 1) {
-          index++;
-          this.fetchFlatInfoLodgerData(index);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-
-  fetchFlatInfoParameters(index) {
-    //this.onFlatInfoParametersChange(null);
-    fetch(
-      'https://app.osbb365.com/api/tenant/parameters?accountId=' +
-        this.props.accountIds[index].id +
-        '&osbbId=' +
-        this.props.osbbId +
-        '&workPeriod=' +
-        this.props.workPeriods[this.props.workPeriods.length - 1],
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + this.props.token + '',
-        },
-      }
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        var obj = {
-          accountId: this.props.accountIds[index],
-          data: responseJson,
-        };
-        this.onFlatInfoParametersChange(obj);
-        if (index != this.props.accountIds.length - 1) {
-          index++;
-          this.fetchFlatInfoParameters(index);
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-
-  fetchFlatInfoPrivileges() {
-    //this.onFlatInfoPrivilegesChange(null);
-    for (var i = 0; i < this.props.accountIds.length; i++) {
-      fetch(
-        'https://app.osbb365.com/api/tenant/privileges?accountId=' +
-          this.props.accountIds[i].id +
-          '&osbbId=' +
-          this.props.osbbId +
-          '&workPeriod=' +
-          this.props.workPeriods[this.props.workPeriods.length - 1],
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + this.props.token + '',
-          },
-        }
-      )
-        .then(response => response.json())
-        .then(responseJson => {
-          this.onFlatInfoPrivilegesChange(responseJson);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
-  }
-
-  fetchFlatInfoContributions() {
-    //this.onFlatInfoContributionsChange(null);
-    var ws = new WebSocket(
-      'wss://app.osbb365.com/socket.io/?auth_token=' +
-        this.props.token +
-        '&EIO=3&transport=websocket'
-    );
-
-    ws.onopen = () => {
-      // connection opened
-      ws.send(
-        '4216["/tenant/services/global",{"workPeriod":"' +
-          this.props.workPeriods[this.props.workPeriods.length - 1] +
-          '"}]'
-      ); // send a message
-    };
-
-    ws.onmessage = e => {
-      // a message was received
-      if (e.data.substring(0, 4) == '4316') {
-        const myObjStr = JSON.stringify(e.data.substring(4, e.data.length));
-        var myObj = JSON.parse(myObjStr);
-        var data = JSON.parse(myObj);
-        this.onFlatInfoContributionsChange(data[0]);
-        ws.close();
-      }
-    };
-  }
-
-  fetchFlatInfoIndividualContributions() {
-    var ws = new WebSocket(
-      'wss://app.osbb365.com/socket.io/?auth_token=' +
-        this.props.token +
-        '&EIO=3&transport=websocket'
-    );
-
-    ws.onopen = () => {
-      // connection opened
-      ws.send(
-        '4217["/tenant/services/personal",{"workPeriod":"' +
-          this.props.workPeriods[this.props.workPeriods.length - 1] +
-          '"}]'
-      ); // send a message
-    };
-
-    ws.onmessage = e => {
-      // a message was received
-      if (e.data.substring(0, 4) == '4317') {
-        const myObjStr = JSON.stringify(e.data.substring(4, e.data.length));
-        var myObj = JSON.parse(myObjStr);
-        var data = JSON.parse(myObj);
-        this.onFlatInfoIndividualContributionsChange(data[0]);
-        //console.log('ind', data[0]);
-        ws.close();
-      }
-    };
-  }
-
-  fetchFlatInfoContracts() {
-    
-    var ws = new WebSocket(
-      'wss://app.osbb365.com/socket.io/?auth_token=' +
-        this.props.token +
-        '&EIO=3&transport=websocket'
-    );
-
-    ws.onmessage = e => {
-      // a message was received
-      
-      if (e.data.substring(0, 2) == '42') {
-        const myObjStr = JSON.stringify(e.data.substring(2, e.data.length));
-        var myObj = JSON.parse(myObjStr);
-        var data = JSON.parse(myObj);
-        this.fetchFlatInfoContractsByAccountId(0, data[1].UserAccounts);
-        ws.close();
-      }
-    };
-
-    //this.onFlatInfoContractsChange(null);
-  }
-
-  fetchFlatInfoContractsByAccountId(index, userAccounts) {
-    for (var i = 0; i < userAccounts.length; i++) {
-      if (userAccounts[i].number == this.props.accountIds[index].number) {
-        fetch(
-          'https://app.osbb365.com/api/tenant/contracts?accountId=' +
-            userAccounts[i].id +
-            '&osbbId=' +
-            this.props.osbbId,
-          {
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + this.props.token + '',
-            },
-          }
-        )
-          .then(response => response.json())
-          .then(responseJson => {
-            if (responseJson.length != 0) {
-              for (var i = 0; i < responseJson.length; i++) {
-                var obj = {
-                  accountId: this.props.accountIds[index],
-                  data: responseJson[i],
-                };
-                this.onFlatInfoContractsChange(obj);
-                
-              }
-            }
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      }
-    }
-    if (index != this.props.accountIds.length - 1) {
-      index++;
-      this.fetchFlatInfoContractsByAccountId(index, userAccounts);
-    }
+    this.props.setFlatInfoCountersClear([]);
+    this.props.fetchFlatInfoGeneralData(this.props.accountIds, this.props.token);
+    this.props.fetchFlatInfoLodgerData(this.props.accountIds, 
+      this.props.osbbId, 
+      this.props.workPeriods, 
+      0, 
+      this.props.token);
+    this.props.fetchFlatInfoParameters(this.props.accountIds, 
+      this.props.osbbId, 
+      this.props.workPeriods, 
+      0,
+      this.props.token);
+    this.props.fetchFlatInfoContributions(this.props.workPeriods, this.props.token);
+    this.props.fetchFlatInfoIndividualContributions(this.props.workPeriods, this.props.token);
+    this.props.fetchFlatInfoPrivileges(this.props.accountIds, 
+      this.props.osbbId, 
+      this.props.workPeriods, 
+      this.props.token);
+    this.props.fetchFlatInfoCounters(this.props.accountIds, 
+      this.props.osbbId, 
+      this.props.workPeriods, 
+      0, 
+      this.props.token);
+    this.props.fetchFlatInfoContracts(this.props.accountIds, 
+      this.props.osbbId, 
+      this.props.workPeriods, 
+      this.props.token);
   }
 
   getRadioButtons() {
@@ -638,7 +253,6 @@ export default class ScreenFlatInfo extends React.Component {
         this.props.accountId.number ==
         this.props.flatInfoCounters[i].accountId.number
       ) {
-        console.log("count", this.props.flatInfoCounters[i].data)
         return this.props.flatInfoCounters[i].data;
       }
     }
@@ -658,7 +272,6 @@ export default class ScreenFlatInfo extends React.Component {
       }
     }
     var uniqueArr = this.getUnique(contracts);
-    //console.log(contracts)
     return uniqueArr;
   }
 
