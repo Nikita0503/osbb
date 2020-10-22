@@ -69,7 +69,7 @@ export default class ScreenFlatInfo extends React.Component {
     this.props.fetchFlatInfoLodgerData(this.props.accountIds, 
       this.props.osbbId, 
       this.props.workPeriods, 
-      0, 
+      0,
       this.props.token);
     this.props.fetchFlatInfoParameters(this.props.accountIds, 
       this.props.osbbId, 

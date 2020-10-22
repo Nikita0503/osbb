@@ -138,7 +138,7 @@ export default class ScreenMyApartment extends React.Component {
             </View>
           </View>
           {this.getGeneralData()}
-          {getPieChart(this.props.currentCostsData)}
+          {this.getPieChart()}
         </ScrollView>
       </View>
     );
@@ -261,6 +261,62 @@ export default class ScreenMyApartment extends React.Component {
       this.props.navigation.navigate('Loading');
     }
   }
+
+  getPieChart() {
+    if (this.props.currentCostsData == null) return;
+    let arr = new Array();
+    let arrForiOS = new Array();
+    let series = new Array();
+    let sliceColor = new Array();
+    const randomColor = () =>
+      ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(
+        0,
+        7
+      );
+
+    var sum = countSum(this.props.currentCostsData);
+
+    for (var i = 0; i < this.props.currentCostsData.data.length; i++) {
+      var val = parseFloat(this.props.currentCostsData.data[i].cost).toFixed(2);
+      var per = ((parseFloat(this.props.currentCostsData.data[i].cost) / sum) * 100).toFixed(
+        2
+      );
+      var color = randomColor();
+      let data = {
+        name: this.props.currentCostsData.data[i].name,
+        value: parseFloat(val),
+        svg: { fill: color },
+        key: i,
+        percent: per,
+      };
+      let dataForiOS = {
+        name: this.props.currentCostsData.data[i].name,
+        population: parseFloat(val),
+        color: color,
+        legendFontColor: "#7F7F7F",
+        legendFontSize: 15
+      };
+      arrForiOS.push(dataForiOS);    
+      series.push(parseFloat(val));
+      sliceColor.push(color);
+      arr.push(data);
+    }
+
+    return (
+      <View
+        style={{
+          padding: 5,
+          marginLeft: 15,
+          marginEnd: 15,
+          marginTop: 7,
+          marginBottom: 8,
+          backgroundColor: 'white',
+          borderRadius: 15
+        }}>
+          <Chart data={arr} dataForiOS={arrForiOS} series={series} sliceColor={sliceColor} sum={sum} />
+      </View>
+    ) 
+  }
 }
 
 function getStartBalance(dataForCurrentPeriod) {
@@ -342,10 +398,11 @@ function getFinishBalance(dataForCurrentPeriod) {
   return sumFinishBalance.toFixed(2);
 }
 
-function getPieChart(currentCostsData) {
-  if(Platform.OS == 'android'){
+/*function getPieChart(currentCostsData) {
+  
     if (currentCostsData == null) return;
     let arr = new Array();
+    let arrForiOS = new Array();
     let series = new Array();
     let sliceColor = new Array();
     const randomColor = () =>
@@ -361,17 +418,24 @@ function getPieChart(currentCostsData) {
       var per = ((parseFloat(currentCostsData.data[i].cost) / sum) * 100).toFixed(
         2
       );
-    var color = randomColor();
+      var color = randomColor();
       let data = {
         name: currentCostsData.data[i].name,
         value: parseFloat(val),
         svg: { fill: color },
-      key: i,
+        key: i,
         percent: per,
       };
-    
-    series.push(parseFloat(val));
-    sliceColor.push(color);
+      let dataForiOS = {
+        name: currentCostsData.data[i].name,
+        population: parseFloat(val),
+        color: color,
+        legendFontColor: "#7F7F7F",
+        legendFontSize: 15
+      };
+      arrForiOS.push(dataForiOS);    
+      series.push(parseFloat(val));
+      sliceColor.push(color);
       arr.push(data);
     }
 
@@ -386,10 +450,10 @@ function getPieChart(currentCostsData) {
         backgroundColor: 'white',
         borderRadius: 15
       }}>
-        <Chart data={arr} series={series} sliceColor={sliceColor} sum={sum} />
+        <Chart data={arr} dataForiOS={arrForiOS} series={series} sliceColor={sliceColor} sum={sum} />
     </View>) 
-  }
-}
+  
+}*/
 
 function countSum(currentCostsData) {
   var sum = 0;

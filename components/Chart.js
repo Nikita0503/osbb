@@ -1,13 +1,38 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, FlatList, Text} from 'react-native';
-//import { PieChart  } from 'react-native-svg-charts'
-import PieChart from 'react-native-pie-chart';
+import {StyleSheet, View, FlatList, Text, Dimensions} from 'react-native';
+import { PieChart } from "react-native-chart-kit";
 
 export default class Chart extends Component
 {
+  getChart(){
+      return(<PieChart
+        data={this.props.dataForiOS}
+        width={Dimensions.get("window").width}
+        height={250}
+        hasLegend={false}
+        chartConfig={{
+          backgroundColor: "#e26a00",
+          backgroundGradientFrom: "#fb8c00",
+          backgroundGradientTo: "#ffa726",
+          decimalPlaces: 2, // optional, defaults to 2dp
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          style: {
+            borderRadius: 16
+          },
+          propsForDots: {
+            r: "6",
+            strokeWidth: "2",
+            stroke: "#ffa726"
+          }
+        }}
+        accessor="population"
+        backgroundColor="transparent"
+        paddingLeft={Dimensions.get("window").width/4}
+      />)
+  }
+
   render() {
-	  const chart_wh = 250
-    
         return (
           <View style={{alignItems: 'center',}}>
             <View style={{marginBottom: 20, width: '100%', backgroundColor: '#F9F9F9', alignItems: 'center', borderRadius: 15}}>
@@ -15,30 +40,14 @@ export default class Chart extends Component
                 Витрати за місяць
               </Text>
             </View>
-            <PieChart
-				      chart_wh={chart_wh}
-				      series={this.props.series}
-				      sliceColor={this.props.sliceColor}
-			      />
+            {this.getChart()}
             {getLegend(this.props.data, this.props.sum)}
           </View>
         );
     }
 }
 
-function getPie(data){
-	/*return(
-		<PieChart
-                style={ { height: 200 } }
-                data={ data }
-            />
-	);*/
-}
-
 function getLegend(data, sum){
-	//for(var i = 0; i < data.length; i++){
-    //  data[i].key = data[i].percent
-    //}
     return(<View style={{marginTop: 20}}>
               <View style={{marginTop: 20, marginStart: 5, width: '100%',  alignItems: 'center'}}>
                 <Text style={{ marginTop: 10, marginBottom: 10, color: '#364A5F', fontSize: 20, fontWeight: 'bold' }}>
@@ -56,9 +65,8 @@ function getLegend(data, sum){
                 data={data}
                 renderItem={({ item }) => <Item color={item.svg.fill} value={item.value} name={item.name} percent={item.percent}/>}
                 keyExtractor={item => item.percent}
-              />
-              
-            </View>);  
+              />  
+          </View>);  
 }
 
 class Item extends React.Component {
