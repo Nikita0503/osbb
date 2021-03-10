@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   setAddCommentToAdvertisementText,
   setAddCommentToAdvertisementButtonSend,
-  sendComment
-} from '../../../../store/pages/header/addCommentToAdvertisement/actions';
-import ScreenAddCommentToAdvertisement from './ScreenAddCommentToAdvertisement';
+  sendComment,
+} from "../../../../store/pages/header/addCommentToAdvertisement/actions";
+import ScreenAddCommentToAdvertisement from "./ScreenAddCommentToAdvertisement";
 
 class AddCommentToAdvertisementContainer extends React.Component {
   render() {
@@ -19,30 +19,35 @@ class AddCommentToAdvertisementContainer extends React.Component {
         selectedPost={this.props.selectedPost}
         addCommentToAdvertisementText={this.props.addCommentToAdvertisementText}
         isDisabledButtonSend={this.props.isDisabledButtonSend}
-        setAddCommentToAdvertisementText={this.props.setAddCommentToAdvertisementText}
-        setAddCommentToAdvertisementButtonSend={this.props.setAddCommentToAdvertisementButtonSend}
+        setAddCommentToAdvertisementText={
+          this.props.setAddCommentToAdvertisementText
+        }
+        setAddCommentToAdvertisementButtonSend={
+          this.props.setAddCommentToAdvertisementButtonSend
+        }
         sendComment={this.props.sendComment}
       />
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
     accountId: state.apartment.accountId,
     workPeriods: state.apartment.workPeriods,
     selectedPost: state.advertisement.selectedPost,
-    addCommentToAdvertisementText: state.addCommentToAdvertisement.addCommentToAdvertisementText, 
-    isDisabledButtonSend: state.addCommentToAdvertisement.isDisabledButtonSend
+    addCommentToAdvertisementText:
+      state.addCommentToAdvertisement.addCommentToAdvertisementText,
+    isDisabledButtonSend: state.addCommentToAdvertisement.isDisabledButtonSend,
   };
 };
 
 const mapDispatchToProps = {
   setAddCommentToAdvertisementText,
   setAddCommentToAdvertisementButtonSend,
-  sendComment
+  sendComment,
 };
 
 export default connect(

@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   setShowPasswords,
   setOldPassword,
@@ -9,19 +9,14 @@ import {
   setPhoneNumber,
   sendNewPhoto,
   deletePhoto,
-  sendNewPassword
-} from '../../store/pages/profile/actions';
+  sendNewPassword,
+} from "../../store/pages/profile/actions";
 
-import {
-  setTokenDeviceId,
-  setAuthMethod
-} from '../../store/auth/actions';
+import { setTokenDeviceId, setAuthMethod } from "../../store/auth/actions";
 
-import {
-  setUserData
-} from '../../store/pages/home/myApartment/apartment/actions';
+import { setUserData } from "../../store/pages/home/myApartment/apartment/actions";
 
-import ScreenProfile from './ScreenProfile';
+import ScreenProfile from "./ScreenProfile";
 
 class ProfileContainer extends React.Component {
   render() {
@@ -58,7 +53,7 @@ class ProfileContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -72,7 +67,7 @@ const mapStateToProps = state => {
     newRepeatPassword: state.profile.newRepeatPassword,
     userData: state.apartment.userData,
     imageAvatar: state.profile.imageAvatar,
-    phoneNumber: state.profile.phoneNumber
+    phoneNumber: state.profile.phoneNumber,
   };
 };
 
@@ -91,7 +86,4 @@ const mapDispatchToProps = {
   sendNewPassword,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProfileContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);

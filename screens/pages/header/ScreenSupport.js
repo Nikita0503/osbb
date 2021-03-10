@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Text,
   View,
@@ -11,19 +11,18 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-} from 'react-native';
-import PageHeader from '../../../components/PageHeader';
-import { NavigationEvents } from 'react-navigation';
-import ReversedFlatList from 'react-native-reversed-flat-list';
+} from "react-native";
+import PageHeader from "../../../components/PageHeader";
+import { NavigationEvents } from "react-navigation";
+import ReversedFlatList from "react-native-reversed-flat-list";
 
 export default class ScreenSupport extends React.Component {
-
   componentDidMount() {
-    this.props.openChat(this.props.token)
+    this.props.openChat(this.props.token);
   }
 
   componentWillUnmount() {
-    this.props.closeChat(this.props.consultant)
+    this.props.closeChat(this.props.consultant);
   }
 
   getMessages() {
@@ -37,13 +36,14 @@ export default class ScreenSupport extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView behavior="padding">
-      <NavigationEvents
+        <NavigationEvents
           onDidFocus={() => {
-            console.log('I am triggered');
+            console.log("I am triggered");
           }}
         />
         <View
-          style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+          style={{ width: "100%", height: "100%", backgroundColor: "#EEEEEE" }}
+        >
           <PageHeader
             navigation={this.props.navigation}
             title="Задати питання"
@@ -52,12 +52,9 @@ export default class ScreenSupport extends React.Component {
             <ReversedFlatList
               data={this.getMessages()}
               renderItem={({ item }) => (
-                <Item
-                  text={item.message}
-                  me={item.me}
-                />
+                <Item text={item.message} me={item.me} />
               )}
-              keyExtractor={item => item.id}
+              keyExtractor={(item) => item.id}
             />
 
             <View style={styles.messageContainer}>
@@ -65,30 +62,31 @@ export default class ScreenSupport extends React.Component {
                 multiline
                 style={{
                   marginLeft: 10,
-                  width: '85%',
+                  width: "85%",
                   fontSize: 16,
                   borderBottomWidth: 1,
-                  borderBottomColor: 'gray',
-                  alignSelf: 'center',
+                  borderBottomColor: "gray",
+                  alignSelf: "center",
                 }}
                 placeholder="Ваше питання"
-                onChangeText={text => {
+                onChangeText={(text) => {
                   this.props.setHelpChatMessage(text);
                 }}
                 value={this.props.helpChatMessage}
               />
 
-              
-
               <TouchableOpacity
                 onPress={() => {
-                  this.props.sendMessage(this.props.token,
+                  this.props.sendMessage(
+                    this.props.token,
                     this.props.consultant,
-                    this.props.helpChatMessage)                  
-                }}>
+                    this.props.helpChatMessage
+                  );
+                }}
+              >
                 <Image
                   style={{ width: 35, height: 40, marginHorizontal: 5 }}
-                  source={require('../../../images/ic_send.png')}
+                  source={require("../../../images/ic_send.png")}
                 />
               </TouchableOpacity>
             </View>
@@ -105,7 +103,8 @@ class Item extends React.Component {
       <View
         style={
           this.props.me ? styles.myMessageStyle : styles.supportMessageStyle
-        }>
+        }
+      >
         <Text style={styles.itemStyle}>{this.props.text}</Text>
       </View>
     );
@@ -114,42 +113,42 @@ class Item extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#E1E7EC',
-    alignItems: 'stretch',
+    backgroundColor: "#E1E7EC",
+    alignItems: "stretch",
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   chatContainer: {
-    width: '100%',
+    width: "100%",
     marginBottom: 15,
   },
   supportMessageStyle: {
-    maxWidth: '70%',
-    alignSelf: 'flex-start',
+    maxWidth: "70%",
+    alignSelf: "flex-start",
     borderRadius: 10,
     marginHorizontal: 10,
     marginVertical: 5,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   myMessageStyle: {
-    maxWidth: '70%',
-    alignSelf: 'flex-end',
+    maxWidth: "70%",
+    alignSelf: "flex-end",
     borderRadius: 10,
     marginHorizontal: 10,
     marginVertical: 5,
-    backgroundColor: '#ADD9FA',
+    backgroundColor: "#ADD9FA",
   },
   messageContainer: {
-    width: '100%',
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: 'white'
+    width: "100%",
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "white",
   },
   itemStyle: {
     fontSize: 16,
-    color: '#364A5F',
-    alignContent: 'flex-end',
+    color: "#364A5F",
+    alignContent: "flex-end",
     margin: 7,
   },
 });

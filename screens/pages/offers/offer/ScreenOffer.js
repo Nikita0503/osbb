@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Text,
   View,
@@ -8,11 +8,11 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
-} from 'react-native';
-import PageHeader from '../../../../components/PageHeader';
-import { NavigationEvents } from 'react-navigation';
-import Dialog from 'react-native-dialog';
-import PDFReader from 'rn-pdf-reader-js';
+} from "react-native";
+import PageHeader from "../../../../components/PageHeader";
+import { NavigationEvents } from "react-navigation";
+import Dialog from "react-native-dialog";
+import PDFReader from "rn-pdf-reader-js";
 
 function getDateForComments(data) {
   if (data == null) return;
@@ -20,49 +20,49 @@ function getDateForComments(data) {
   var month;
   switch (date.getMonth()) {
     case 0:
-      month = ' січ. ';
+      month = " січ. ";
       break;
     case 1:
-      month = ' лют. ';
+      month = " лют. ";
       break;
     case 2:
-      month = ' бер. ';
+      month = " бер. ";
       break;
     case 3:
-      month = ' квіт. ';
+      month = " квіт. ";
       break;
     case 4:
-      month = ' трав. ';
+      month = " трав. ";
       break;
     case 5:
-      month = ' черв. ';
+      month = " черв. ";
       break;
     case 6:
-      month = ' лип. ';
+      month = " лип. ";
       break;
     case 7:
-      month = ' серп. ';
+      month = " серп. ";
       break;
     case 8:
-      month = ' вер. ';
+      month = " вер. ";
       break;
     case 9:
-      month = ' жовт. ';
+      month = " жовт. ";
       break;
     case 10:
-      month = ' лист. ';
+      month = " лист. ";
       break;
     case 11:
-      month = ' груд. ';
+      month = " груд. ";
       break;
   }
   return (
     date.getDate() +
     month +
     date.getFullYear() +
-    ':' +
+    ":" +
     date.getHours() +
-    ':' +
+    ":" +
     date.getMinutes()
   );
 }
@@ -73,40 +73,40 @@ function getDate(data) {
   var month;
   switch (date.getMonth()) {
     case 0:
-      month = ' січ. ';
+      month = " січ. ";
       break;
     case 1:
-      month = ' лют. ';
+      month = " лют. ";
       break;
     case 2:
-      month = ' бер. ';
+      month = " бер. ";
       break;
     case 3:
-      month = ' квіт. ';
+      month = " квіт. ";
       break;
     case 4:
-      month = ' трав. ';
+      month = " трав. ";
       break;
     case 5:
-      month = ' черв. ';
+      month = " черв. ";
       break;
     case 6:
-      month = ' лип. ';
+      month = " лип. ";
       break;
     case 7:
-      month = ' серп. ';
+      month = " серп. ";
       break;
     case 8:
-      month = ' вер. ';
+      month = " вер. ";
       break;
     case 9:
-      month = ' жовт. ';
+      month = " жовт. ";
       break;
     case 10:
-      month = ' лист. ';
+      month = " лист. ";
       break;
     case 11:
-      month = ' груд. ';
+      month = " груд. ";
       break;
   }
   return date.getDate() + month + date.getFullYear();
@@ -126,16 +126,20 @@ export default class ScreenOffer extends React.Component {
     this.props.setSelectedOfferComments(comments);
   }
 
-  onOfferSelectedFileChange(file){
-    this.props.setSelectedFile(file)
+  onOfferSelectedFileChange(file) {
+    this.props.setSelectedFile(file);
   }
 
   state = {
-    isShown: false
+    isShown: false,
   };
 
   componentDidMount() {
-    this.props.fetchRequest(this.props.selectedOfferData, this.props.workPeriods, this.props.token)
+    this.props.fetchRequest(
+      this.props.selectedOfferData,
+      this.props.workPeriods,
+      this.props.token
+    );
   }
 
   getComments() {
@@ -153,18 +157,20 @@ export default class ScreenOffer extends React.Component {
           <TouchableOpacity onPress={() => this.setState({ isShown: false })}>
             <View
               style={{
-                width: '100%',
-                backgroundColor: '#F9F9F9',
-                alignItems: 'center',
-                borderRadius: 15
-              }}>
+                width: "100%",
+                backgroundColor: "#F9F9F9",
+                alignItems: "center",
+                borderRadius: 15,
+              }}
+            >
               <Text
                 style={{
                   marginTop: 10,
                   marginBottom: 10,
-                  color: '#364A5F',
+                  color: "#364A5F",
                   fontSize: 18,
-                }}>
+                }}
+              >
                 ↑ Сховати коментарі
               </Text>
             </View>
@@ -177,18 +183,20 @@ export default class ScreenOffer extends React.Component {
         <TouchableOpacity onPress={() => this.setState({ isShown: true })}>
           <View
             style={{
-              width: '100%',
-              backgroundColor: '#F9F9F9',
-              alignItems: 'center',
-              borderRadius: 15
-            }}>
+              width: "100%",
+              backgroundColor: "#F9F9F9",
+              alignItems: "center",
+              borderRadius: 15,
+            }}
+          >
             <Text
               style={{
                 marginTop: 10,
                 marginBottom: 10,
-                color: '#364A5F',
+                color: "#364A5F",
                 fontSize: 18,
-              }}>
+              }}
+            >
               ↓ Показати коментарі
             </Text>
           </View>
@@ -198,8 +206,22 @@ export default class ScreenOffer extends React.Component {
   }
 
   getCommentsList() {
-    if(this.props.selectedOfferComments == null || this.props.selectedOfferComments.length == 0){
-      return(<Text style={{color: '#364A5F', fontSize: 16, marginVertical: 10, alignSelf: 'center'}}>Даних немає</Text>)
+    if (
+      this.props.selectedOfferComments == null ||
+      this.props.selectedOfferComments.length == 0
+    ) {
+      return (
+        <Text
+          style={{
+            color: "#364A5F",
+            fontSize: 16,
+            marginVertical: 10,
+            alignSelf: "center",
+          }}
+        >
+          Даних немає
+        </Text>
+      );
     }
     return (
       <FlatList
@@ -214,7 +236,7 @@ export default class ScreenOffer extends React.Component {
             onOfferSelectedFileChange={this.onOfferSelectedFileChange}
           />
         )}
-        keyExtractor={item => item.name}
+        keyExtractor={(item) => item.name}
       />
     );
   }
@@ -222,7 +244,8 @@ export default class ScreenOffer extends React.Component {
   render() {
     return (
       <View
-        style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+        style={{ width: "100%", height: "100%", backgroundColor: "#EEEEEE" }}
+      >
         <PageHeader navigation={this.props.navigation} title="Заявка" />
         <NavigationEvents
           onDidFocus={() => {
@@ -231,25 +254,31 @@ export default class ScreenOffer extends React.Component {
         />
         <ScrollView>
           <View style={styles.container}>
-            <View style={{ width: '100%', backgroundColor: '#F9F9F9', borderRadius: 15 }}>
-              <View style={{ flexDirection: 'row' }}>
+            <View
+              style={{
+                width: "100%",
+                backgroundColor: "#F9F9F9",
+                borderRadius: 15,
+              }}
+            >
+              <View style={{ flexDirection: "row" }}>
                 <View>
-                  <Text style={{ color: '#364A5F', marginStart: 10 }}>
-                    Заявка №{this.props.selectedOfferData.id} від{' '}
+                  <Text style={{ color: "#364A5F", marginStart: 10 }}>
+                    Заявка №{this.props.selectedOfferData.id} від{" "}
                     {this.props.selectedOfferData.fromUser.lastName +
-                      ' ' +
+                      " " +
                       this.props.selectedOfferData.fromUser.firstName}
                   </Text>
-                  <Text style={{ color: '#CDCDCD', marginStart: 10 }}>
+                  <Text style={{ color: "#CDCDCD", marginStart: 10 }}>
                     {getDate(this.props.selectedOfferData.createdAt)}
                   </Text>
                 </View>
               </View>
               <View style={{ marginHorizontal: 10, marginVertical: 5 }}>
-                <Text style={{ color: '#364A5F' }}>
+                <Text style={{ color: "#364A5F" }}>
                   Тип системи: {this.props.selectedOfferData.system}
                 </Text>
-                <Text style={{ color: '#364A5F' }}>
+                <Text style={{ color: "#364A5F" }}>
                   Статус заявки: {this.props.selectedOfferData.status}
                 </Text>
               </View>
@@ -266,29 +295,36 @@ export default class ScreenOffer extends React.Component {
               <FlatList
                 data={this.props.selectedOfferData.attachment}
                 renderItem={({ item }) => (
-                  <ItemFile name={item.name} path={item.filename} onOfferSelectedFileChange={this.onOfferSelectedFileChange} />
+                  <ItemFile
+                    name={item.name}
+                    path={item.filename}
+                    onOfferSelectedFileChange={this.onOfferSelectedFileChange}
+                  />
                 )}
-                keyExtractor={item => item.name}
+                keyExtractor={(item) => item.name}
               />
             </View>
             <TouchableOpacity
               onPress={() => {
-                this.props.navigation.navigate('AddCommentToOffer');
-              }}>
+                this.props.navigation.navigate("AddCommentToOffer");
+              }}
+            >
               <View
                 style={{
-                  backgroundColor: '#F9F9F9',
-                  alignItems: 'center',
+                  backgroundColor: "#F9F9F9",
+                  alignItems: "center",
                   margin: 10,
-                  borderRadius: 15
-                }}>
+                  borderRadius: 15,
+                }}
+              >
                 <Text
                   style={{
                     marginTop: 10,
                     marginBottom: 10,
-                    color: '#364A5F',
+                    color: "#364A5F",
                     fontSize: 18,
-                  }}>
+                  }}
+                >
                   Додати коментар +
                 </Text>
               </View>
@@ -297,65 +333,69 @@ export default class ScreenOffer extends React.Component {
           </View>
         </ScrollView>
         <Dialog.Container
-            visible={this.props.offerSelectedFile == null ? false : true}>
-            <Dialog.Title>
-              {this.props.offerSelectedFile == null
-                ? ''
-                : this.props.offerSelectedFile.name}
-            </Dialog.Title>
-            <View style={{alignSelf: 'center'}}>
-              {this.getFileShowDialog()}
-            </View>
-            
-            
-            <Dialog.Button
-              label="OK"
-              onPress={() => {
-                this.onOfferSelectedFileChange(null);
-              }}
-            />
-          </Dialog.Container>
+          visible={this.props.offerSelectedFile == null ? false : true}
+        >
+          <Dialog.Title>
+            {this.props.offerSelectedFile == null
+              ? ""
+              : this.props.offerSelectedFile.name}
+          </Dialog.Title>
+          <View style={{ alignSelf: "center" }}>
+            {this.getFileShowDialog()}
+          </View>
+
+          <Dialog.Button
+            label="OK"
+            onPress={() => {
+              this.onOfferSelectedFileChange(null);
+            }}
+          />
+        </Dialog.Container>
       </View>
     );
   }
 
-  getFileShowDialog(){
-    if(this.props.offerSelectedFile != null){
-      var type = this.props.offerSelectedFile.path.substring(this.props.offerSelectedFile.path.length - 3)
+  getFileShowDialog() {
+    if (this.props.offerSelectedFile != null) {
+      var type = this.props.offerSelectedFile.path.substring(
+        this.props.offerSelectedFile.path.length - 3
+      );
       var path = this.props.offerSelectedFile.path;
       //type = 'jpg'
       //console.log("TYPE", type)
-      switch(type){
-        case 'jpg':
-          return(
-          <Image
-            style={{width: 320, height: 300, resizeMode: 'contain'}}
-            source={{uri: 'https://app.osbb365.com' + path}}
-          />)
-        case 'png':
-          return(
-          <Image
-            style={{width: 320, height: 300, resizeMode: 'contain'}}
-            source={{uri: 'https://app.osbb365.com' + path}}
-          />)
-        case 'svg':
-          return(
-          <Image
-            style={{width: 320, height: 300, resizeMode: 'contain'}}
-            source={{uri: 'https://app.osbb365.com' + path}}
-          />)
-        case 'pdf':
-          return(
-          <PDFReader
-            style={{width: 250, maxHeight: 400}}
-            source={{
-              uri: 'https://app.osbb365.com' + path,
-            }}
-          />
-          )
-        default: 
-          return(<Text>In developing...</Text>)
-
+      switch (type) {
+        case "jpg":
+          return (
+            <Image
+              style={{ width: 320, height: 300, resizeMode: "contain" }}
+              source={{ uri: "https://app.osbb365.com" + path }}
+            />
+          );
+        case "png":
+          return (
+            <Image
+              style={{ width: 320, height: 300, resizeMode: "contain" }}
+              source={{ uri: "https://app.osbb365.com" + path }}
+            />
+          );
+        case "svg":
+          return (
+            <Image
+              style={{ width: 320, height: 300, resizeMode: "contain" }}
+              source={{ uri: "https://app.osbb365.com" + path }}
+            />
+          );
+        case "pdf":
+          return (
+            <PDFReader
+              style={{ width: 250, maxHeight: 400 }}
+              source={{
+                uri: "https://app.osbb365.com" + path,
+              }}
+            />
+          );
+        default:
+          return <Text>In developing...</Text>;
       }
     }
   }
@@ -364,39 +404,48 @@ export default class ScreenOffer extends React.Component {
 class ItemComment extends React.Component {
   render() {
     return (
-      <View style={{ backgroundColor: '#F9F9F9', margin: 10, borderRadius: 15 }}>
-        <View style={{ flexDirection: 'row' }}>
+      <View
+        style={{ backgroundColor: "#F9F9F9", margin: 10, borderRadius: 15 }}
+      >
+        <View style={{ flexDirection: "row" }}>
           <Image
             style={{
               width: 50,
               height: 50,
-              resizeMode: 'contain',
+              resizeMode: "contain",
               marginLeft: 5,
               marginRight: 5,
-              borderRadius: 25
+              borderRadius: 25,
             }}
             source={{
-              uri: 'https://app.osbb365.com' + this.props.user.photo,
+              uri: "https://app.osbb365.com" + this.props.user.photo,
             }}
           />
           <View>
-            <Text style={{ color: '#364A5F' }}>{this.props.user.lastName + " " + this.props.user.firstName}</Text>
-            <Text style={{ color: '#CDCDCD' }}>{getDateForComments(this.props.time)}</Text>
+            <Text style={{ color: "#364A5F" }}>
+              {this.props.user.lastName + " " + this.props.user.firstName}
+            </Text>
+            <Text style={{ color: "#CDCDCD" }}>
+              {getDateForComments(this.props.time)}
+            </Text>
           </View>
         </View>
-        <Text style={{ color: '#364A5F', marginLeft: 20 }}>
+        <Text style={{ color: "#364A5F", marginLeft: 20 }}>
           {this.props.text}
         </Text>
         <FlatList
-            horizontal
-            data={this.props.files}
-            renderItem={({ item }) => (
-            <ItemFileComment name={item.name} path={item.filename} onOfferSelectedFileChange={this.props.onOfferSelectedFileChange} />
+          horizontal
+          data={this.props.files}
+          renderItem={({ item }) => (
+            <ItemFileComment
+              name={item.name}
+              path={item.filename}
+              onOfferSelectedFileChange={this.props.onOfferSelectedFileChange}
+            />
           )}
-          keyExtractor={item => item.claimId}
-          listKey={item => item.name}
+          keyExtractor={(item) => item.claimId}
+          listKey={(item) => item.name}
         />
-        
       </View>
     );
   }
@@ -405,16 +454,16 @@ class ItemComment extends React.Component {
 class ItemFile extends React.Component {
   render() {
     return (
-      <TouchableOpacity onPress = {() => {
-        var obj = {
-          name: this.props.name,
-          path: this.props.path
-        }
-        this.props.onOfferSelectedFileChange(obj)
-      }}>
-        <View>
-          {getImageWithText(this.props.path, this.props.name)}
-        </View>
+      <TouchableOpacity
+        onPress={() => {
+          var obj = {
+            name: this.props.name,
+            path: this.props.path,
+          };
+          this.props.onOfferSelectedFileChange(obj);
+        }}
+      >
+        <View>{getImageWithText(this.props.path, this.props.name)}</View>
       </TouchableOpacity>
     );
   }
@@ -423,18 +472,21 @@ class ItemFile extends React.Component {
 class ItemFileComment extends React.Component {
   render() {
     return (
-      <TouchableOpacity onPress = {() => {
-        var obj = {
-          name: this.props.name,
-          path: this.props.path
-        }
-        this.props.onOfferSelectedFileChange(obj)
-      }}>
+      <TouchableOpacity
+        onPress={() => {
+          var obj = {
+            name: this.props.name,
+            path: this.props.path,
+          };
+          this.props.onOfferSelectedFileChange(obj);
+        }}
+      >
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: "row",
             margin: 5,
-          }}>
+          }}
+        >
           {getImage(this.props.path)}
         </View>
       </TouchableOpacity>
@@ -444,32 +496,32 @@ class ItemFileComment extends React.Component {
 
 function getImage(type) {
   switch (type.substring(type.length - 3)) {
-    case 'pdf':
+    case "pdf":
       return (
         <Image
           style={{ width: 40, height: 50 }}
-          source={require('../../../../images/ic_pdf.png')}
+          source={require("../../../../images/ic_pdf.png")}
         />
       );
-    case 'png':
+    case "png":
       return (
         <Image
           style={{ width: 40, height: 50 }}
-          source={require('../../../../images/ic_jpg.png')}
+          source={require("../../../../images/ic_jpg.png")}
         />
       );
-    case 'jpg':
+    case "jpg":
       return (
         <Image
           style={{ width: 40, height: 50 }}
-          source={require('../../../../images/ic_jpg.png')}
+          source={require("../../../../images/ic_jpg.png")}
         />
       );
-    case 'svg':
+    case "svg":
       return (
         <Image
           style={{ width: 40, height: 50 }}
-          source={require('../../../../images/ic_jpg.png')}
+          source={require("../../../../images/ic_jpg.png")}
         />
       );
   }
@@ -477,69 +529,76 @@ function getImage(type) {
 
 function getImageWithText(type, name) {
   switch (type.substring(type.length - 3)) {
-    case 'pdf':
+    case "pdf":
       return (
-        <View style={{
-          flexDirection: 'row',
-          marginVertical: 5,
-          justifyContent: 'space-between',
-          backgroundColor: '#F9F9F9',
-        }}> 
+        <View
+          style={{
+            flexDirection: "row",
+            marginVertical: 5,
+            justifyContent: "space-between",
+            backgroundColor: "#F9F9F9",
+          }}
+        >
           <Image
             style={{ width: 40, height: 50 }}
-            source={require('../../../../images/ic_pdf.png')}
+            source={require("../../../../images/ic_pdf.png")}
           />
           <Text style={styles.itemFileStyle}>{name}</Text>
         </View>
       );
-    case 'png':
+    case "png":
       return (
-        <View style={{
-          flexDirection: 'row',
-          marginVertical: 5,
-          justifyContent: 'space-between',
-          backgroundColor: '#F9F9F9',
-        }}>
+        <View
+          style={{
+            flexDirection: "row",
+            marginVertical: 5,
+            justifyContent: "space-between",
+            backgroundColor: "#F9F9F9",
+          }}
+        >
           <Image
             style={{ width: 40, height: 50 }}
-            source={require('../../../../images/ic_jpg.png')}
+            source={require("../../../../images/ic_jpg.png")}
           />
           <Text style={styles.itemFileStyle}>{name}</Text>
         </View>
       );
-    case 'jpg':
+    case "jpg":
       return (
-        <View style={{
-          flexDirection: 'row',
-          marginVertical: 5,
-          justifyContent: 'space-between',
-          backgroundColor: '#F9F9F9',
-        }}>
+        <View
+          style={{
+            flexDirection: "row",
+            marginVertical: 5,
+            justifyContent: "space-between",
+            backgroundColor: "#F9F9F9",
+          }}
+        >
           <Image
             style={{ width: 40, height: 50 }}
-            source={require('../../../../images/ic_jpg.png')}
+            source={require("../../../../images/ic_jpg.png")}
           />
           <Text style={styles.itemFileStyle}>{name}</Text>
         </View>
       );
-    case 'svg':
+    case "svg":
       return (
-        <View style={{
-          flexDirection: 'row',
-          marginVertical: 5,
-          justifyContent: 'space-between',
-          backgroundColor: '#F9F9F9',
-        }}>
+        <View
+          style={{
+            flexDirection: "row",
+            marginVertical: 5,
+            justifyContent: "space-between",
+            backgroundColor: "#F9F9F9",
+          }}
+        >
           <Image
             style={{ width: 40, height: 50 }}
-            source={require('../../../../images/ic_jpg.png')}
+            source={require("../../../../images/ic_jpg.png")}
           />
           <Text style={styles.itemFileStyle}>{name}</Text>
         </View>
-      );  
-    }
+      );
+  }
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -549,12 +608,12 @@ const styles = StyleSheet.create({
     marginEnd: 15,
     marginTop: 7,
     marginBottom: 8,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   itemFileStyle: {
-    width: '80%',
+    width: "80%",
     fontSize: 16,
-    color: '#364A5F',
-    alignContent: 'flex-end',
+    color: "#364A5F",
+    alignContent: "flex-end",
   },
 });

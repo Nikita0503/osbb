@@ -1,14 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   setIndicationText,
   setIndicationsCounters,
   updateIndicationsCounters,
   setSelectedCounter,
   fetchSendIndicationsCounters,
-  editIndications
-} from '../../store/pages/sendIndications/actions';
-import ScreenSendIndications from './ScreenSendIndications';
+  editIndications,
+} from "../../store/pages/sendIndications/actions";
+import ScreenSendIndications from "./ScreenSendIndications";
 
 class SendIndicationsContainer extends React.Component {
   render() {
@@ -35,7 +35,7 @@ class SendIndicationsContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -45,7 +45,7 @@ const mapStateToProps = state => {
     workPeriods: state.apartment.workPeriods,
     indicationText: state.sendIndications.indicationText,
     indicationsCounters: state.sendIndications.sendIndicationsCounters,
-    selectedCounter: state.sendIndications.selectedCounter
+    selectedCounter: state.sendIndications.selectedCounter,
   };
 };
 
@@ -55,7 +55,7 @@ const mapDispatchToProps = {
   updateIndicationsCounters,
   setSelectedCounter,
   fetchSendIndicationsCounters,
-  editIndications
+  editIndications,
 };
 
 export default connect(

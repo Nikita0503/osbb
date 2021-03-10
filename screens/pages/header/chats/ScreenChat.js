@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Text,
   View,
@@ -11,20 +11,19 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
-} from 'react-native';
-import PageHeader from '../../../../components/PageHeader';
-import { NavigationEvents } from 'react-navigation';
-import { BackHandler } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
-import Dialog from 'react-native-dialog';
-import PDFReader from 'rn-pdf-reader-js';
-import ImageZoom from 'react-native-image-pan-zoom';
-import ReversedFlatList from 'react-native-reversed-flat-list';
+} from "react-native";
+import PageHeader from "../../../../components/PageHeader";
+import { NavigationEvents } from "react-navigation";
+import { BackHandler } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
+import Dialog from "react-native-dialog";
+import PDFReader from "rn-pdf-reader-js";
+import ImageZoom from "react-native-image-pan-zoom";
+import ReversedFlatList from "react-native-reversed-flat-list";
 
 export default class ScreenChat extends React.Component {
-
   constructor(props) {
     super(props);
     this.props.setChatAllMessages([]);
@@ -35,11 +34,11 @@ export default class ScreenChat extends React.Component {
   getPermissionAsync = async () => {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
       }
     }
-  }
+  };
 
   _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -47,19 +46,17 @@ export default class ScreenChat extends React.Component {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1
+      quality: 1,
     });
-    console.log("123", result)
+    console.log("123", result);
 
-    
     var ws = new WebSocket(
-      'wss://app.osbb365.com/socket.io/?auth_token=' +
+      "wss://app.osbb365.com/socket.io/?auth_token=" +
         this.props.token +
-        '&EIO=3&transport=websocket'
+        "&EIO=3&transport=websocket"
     );
 
     ws.onopen = () => {
-      
       ws.send(
         '42["socket.io-file::createFile",{"id":"u_0","name":"file1.png","size":2293127,"chunkSize":40960,"sent":0,"uploadTo":"documents"}]'
       );
@@ -67,11 +64,11 @@ export default class ScreenChat extends React.Component {
         '451-["socket.io-file::stream::u_0",{"_placeholder":true,"num":0}]'
       );
 
-      ws.send(result.base64)
+      ws.send(result.base64);
     };
 
-    ws.onmessage = e => {
-        //console.log("resp", e.data)  
+    ws.onmessage = (e) => {
+      //console.log("resp", e.data)
     };
 
     /*ImgToBase64.getBase64String(result.uri)
@@ -95,7 +92,6 @@ export default class ScreenChat extends React.Component {
     if (!result.cancelled) {
       this.setState({ image: result.uri });
     }*/
-
   };
 
   componentWillUnmount() {
@@ -103,9 +99,11 @@ export default class ScreenChat extends React.Component {
   }
 
   componentDidMount() {
-    this.props.downloadMessages(this.props.selectedChat,
+    this.props.downloadMessages(
+      this.props.selectedChat,
       this.props.workPeriods,
-      this.props.token)
+      this.props.token
+    );
   }
 
   getIsMe(userId) {
@@ -119,65 +117,81 @@ export default class ScreenChat extends React.Component {
   sendMessage() {
     if (this.props.currentMessage != null) {
       var photos = this.getCurrentImages();
-      this.props.sendMessage(this.props.currentMessage,
+      this.props.sendMessage(
+        this.props.currentMessage,
         this.props.selectedChat,
         photos,
-        this.props.workPeriods)
+        this.props.workPeriods
+      );
     }
   }
 
   getCurrentImages() {
-    if(this.props.currentImages.length == 0) return "";
+    if (this.props.currentImages.length == 0) return "";
     var images = "";
-    for(var i = 0; i < this.props.currentImages.length; i++){
-      images +=  "\"" + this.props.currentImages[i] + "\"";
-      if(i + 1 != this.props.currentImages.length){
+    for (var i = 0; i < this.props.currentImages.length; i++) {
+      images += '"' + this.props.currentImages[i] + '"';
+      if (i + 1 != this.props.currentImages.length) {
         images += ",";
       }
     }
     return images;
   }
 
-  getLoadingView(){
-    if(this.props.loading){
-      return(<View style={styles.container, {marginTop: '50%'}}>
-        <ActivityIndicator size="large" style={styles.loader} color="#002B2B" />
-        <Text style={{color: '#002B2B', fontSize: 16, marginTop: 20, alignSelf: 'center'}}>
-          Зачекайте, дані завантажуються
-        </Text>
-        </View>);
+  getLoadingView() {
+    if (this.props.loading) {
+      return (
+        <View style={(styles.container, { marginTop: "50%" })}>
+          <ActivityIndicator
+            size="large"
+            style={styles.loader}
+            color="#002B2B"
+          />
+          <Text
+            style={{
+              color: "#002B2B",
+              fontSize: 16,
+              marginTop: 20,
+              alignSelf: "center",
+            }}
+          >
+            Зачекайте, дані завантажуються
+          </Text>
+        </View>
+      );
     }
   }
 
-  getMessages(){
+  getMessages() {
     var allMessages = new Array();
-    for(var i = 0; i < this.props.allMessages.length; i++){
+    for (var i = 0; i < this.props.allMessages.length; i++) {
       var exist = false;
-      for(var j = 0; j < allMessages.length; j++){
-        if(this.props.allMessages[i].id == allMessages[j].id){
+      for (var j = 0; j < allMessages.length; j++) {
+        if (this.props.allMessages[i].id == allMessages[j].id) {
           exist = true;
           break;
         }
       }
-      if(!exist) allMessages.push(this.props.allMessages[i])
+      if (!exist) allMessages.push(this.props.allMessages[i]);
     }
     return allMessages;
   }
 
   render() {
     return (
-      <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
-        <View behavior="padding"
-          style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+      >
+        <View
+          behavior="padding"
+          style={{ width: "100%", height: "100%", backgroundColor: "#EEEEEE" }}
+        >
           <NavigationEvents
             onDidFocus={() => {
               this.componentDidMount();
             }}
           />
-          <PageHeader
-            navigation={this.props.navigation}
-            title={""}
-          />
+          <PageHeader navigation={this.props.navigation} title={""} />
           <View style={styles.container}>
             <ReversedFlatList
               data={this.getMessages()}
@@ -192,7 +206,7 @@ export default class ScreenChat extends React.Component {
                   setSelectedFile={this.props.setSelectedFile}
                 />
               )}
-              keyExtractor={item => item.id}
+              keyExtractor={(item) => item.id}
             />
 
             <View style={styles.messageContainer}>
@@ -200,111 +214,125 @@ export default class ScreenChat extends React.Component {
                 multiline
                 style={{
                   marginLeft: 10,
-                  width: '75%',
+                  width: "75%",
                   fontSize: 16,
                   borderBottomWidth: 1,
-                  borderBottomColor: 'gray',
-                  alignSelf: 'center',
-                  
+                  borderBottomColor: "gray",
+                  alignSelf: "center",
                 }}
                 placeholder="Ваше повідомлення"
-                onChangeText={text => {
+                onChangeText={(text) => {
                   this.props.setChatCurrentMessage(text);
                 }}
                 value={this.props.currentMessage}
               />
-              <TouchableOpacity
-                onPress={this._pickImage}>
+              <TouchableOpacity onPress={this._pickImage}>
                 <Image
                   style={{ width: 35, height: 35, marginHorizontal: 5 }}
-                  source={require('../../../../images/ic_clip.png')}
+                  source={require("../../../../images/ic_clip.png")}
                 />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   this.sendMessage();
-                }}>
+                }}
+              >
                 <Image
                   style={{ width: 35, height: 40, marginHorizontal: 5 }}
-                  source={require('../../../../images/ic_send.png')}
+                  source={require("../../../../images/ic_send.png")}
                 />
               </TouchableOpacity>
             </View>
           </View>
         </View>
         <Dialog.Container
-            visible={this.props.chatSelectedFile == null ? false : true}>
-            <View style={{alignSelf: 'center'}}>
-              {this.getFileShowDialog()}
-            </View>
-            <Dialog.Button
-              label="OK"
-              onPress={() => {
-                this.props.setSelectedFile(null);
-              }}
-            />
+          visible={this.props.chatSelectedFile == null ? false : true}
+        >
+          <View style={{ alignSelf: "center" }}>
+            {this.getFileShowDialog()}
+          </View>
+          <Dialog.Button
+            label="OK"
+            onPress={() => {
+              this.props.setSelectedFile(null);
+            }}
+          />
         </Dialog.Container>
       </KeyboardAvoidingView>
     );
   }
 
-  getFilesClip(){
-    return(<TouchableOpacity
-      onPress={this._pickImage}>
-      <Image
-        style={{ width: 35, height: 35, marginHorizontal: 5 }}
-        source={require('../../../../images/ic_clip.png')}
-      />
-    </TouchableOpacity>)
+  getFilesClip() {
+    return (
+      <TouchableOpacity onPress={this._pickImage}>
+        <Image
+          style={{ width: 35, height: 35, marginHorizontal: 5 }}
+          source={require("../../../../images/ic_clip.png")}
+        />
+      </TouchableOpacity>
+    );
   }
 
-  getFileShowDialog(){
-    if(this.props.chatSelectedFile != null){
-      var type = this.props.chatSelectedFile.substring(this.props.chatSelectedFile.length - 3)
+  getFileShowDialog() {
+    if (this.props.chatSelectedFile != null) {
+      var type = this.props.chatSelectedFile.substring(
+        this.props.chatSelectedFile.length - 3
+      );
       var path = this.props.chatSelectedFile;
-      switch(type){
-        case 'jpg':
-          return(
-            <ImageZoom cropWidth={320}
-                       cropHeight={300}
-                       imageWidth={320}
-                       imageHeight={300}>
-          <Image
-            style={{width: 320, height: 300, resizeMode: 'contain'}}
-            source={{uri: 'https://app.osbb365.com' + path}}
-          /></ImageZoom>)
-        case 'png':
-          return(
-            <ImageZoom cropWidth={320}
-                       cropHeight={300}
-                       imageWidth={320}
-                       imageHeight={300}>
-          <Image
-            style={{width: 320, height: 300, resizeMode: 'contain'}}
-            source={{uri: 'https://app.osbb365.com' + path}}
-          /></ImageZoom>)
-        case 'svg':
-          return(
-            <ImageZoom cropWidth={320}
-                       cropHeight={300}
-                       imageWidth={320}
-                       imageHeight={300}>
-          <Image
-            style={{width: 320, height: 300, resizeMode: 'contain'}}
-            source={{uri: 'https://app.osbb365.com' + path}}
-          /></ImageZoom>)
-        case 'pdf':
-          return(
-          <PDFReader
-            style={{width: 250, maxHeight: 400}}
-            source={{
-              uri: 'https://app.osbb365.com' + path,
-            }}
-          />
-          )
-        default: 
-          return(<Text>In developing...</Text>)
-
+      switch (type) {
+        case "jpg":
+          return (
+            <ImageZoom
+              cropWidth={320}
+              cropHeight={300}
+              imageWidth={320}
+              imageHeight={300}
+            >
+              <Image
+                style={{ width: 320, height: 300, resizeMode: "contain" }}
+                source={{ uri: "https://app.osbb365.com" + path }}
+              />
+            </ImageZoom>
+          );
+        case "png":
+          return (
+            <ImageZoom
+              cropWidth={320}
+              cropHeight={300}
+              imageWidth={320}
+              imageHeight={300}
+            >
+              <Image
+                style={{ width: 320, height: 300, resizeMode: "contain" }}
+                source={{ uri: "https://app.osbb365.com" + path }}
+              />
+            </ImageZoom>
+          );
+        case "svg":
+          return (
+            <ImageZoom
+              cropWidth={320}
+              cropHeight={300}
+              imageWidth={320}
+              imageHeight={300}
+            >
+              <Image
+                style={{ width: 320, height: 300, resizeMode: "contain" }}
+                source={{ uri: "https://app.osbb365.com" + path }}
+              />
+            </ImageZoom>
+          );
+        case "pdf":
+          return (
+            <PDFReader
+              style={{ width: 250, maxHeight: 400 }}
+              source={{
+                uri: "https://app.osbb365.com" + path,
+              }}
+            />
+          );
+        default:
+          return <Text>In developing...</Text>;
       }
     }
   }
@@ -316,54 +344,73 @@ class Item extends React.Component {
       <View
         style={
           this.props.me ? styles.myMessageStyle : styles.supportMessageStyle
-        }>
+        }
+      >
         {this.getMessageText()}
         <FlatList
           data={this.props.files}
-          renderItem={({ item }) => <ItemImage onChatSelectedFileChange={this.props.onChatSelectedFileChange} image={item} />}
-          keyExtractor={item => item}
-          listKey={item => item}
+          renderItem={({ item }) => (
+            <ItemImage
+              onChatSelectedFileChange={this.props.onChatSelectedFileChange}
+              image={item}
+            />
+          )}
+          keyExtractor={(item) => item}
+          listKey={(item) => item}
         />
       </View>
     );
   }
 
-  getMessageText(){
-    if(this.props.text != ""){
-      return(
+  getMessageText() {
+    if (this.props.text != "") {
+      return (
         <View>
-          <Text style={styles.itemStyle, {marginLeft: 10, marginRight: 8, marginVertical: 3, fontWeight: 'bold', fontSize: 12}}>{this.getUserName()}</Text>
-          <Text style={styles.itemStyle, {marginLeft: 10, marginBottom: 5}}>{this.props.text}</Text>
-        </View>)
+          <Text
+            style={
+              (styles.itemStyle,
+              {
+                marginLeft: 10,
+                marginRight: 8,
+                marginVertical: 3,
+                fontWeight: "bold",
+                fontSize: 12,
+              })
+            }
+          >
+            {this.getUserName()}
+          </Text>
+          <Text style={(styles.itemStyle, { marginLeft: 10, marginBottom: 5 })}>
+            {this.props.text}
+          </Text>
+        </View>
+      );
     }
   }
 
-  getUserName(){
+  getUserName() {
     //console.log("userName2", this.props.userData)
     //console.log("userName1", this.props.userId)
-    for(var i = 0; i < this.props.allUsers.length; i++){
-      
-      if(this.props.me){
+    for (var i = 0; i < this.props.allUsers.length; i++) {
+      if (this.props.me) {
         /*if(this.props.allUsers[i].userId == this.props.userId){
           return this.props.allUsers[i].fullName
         }*/
-        return this.props.userData.firstName + " " + this.props.userData.lastName
-      }else{
-        if(this.props.allUsers[i].id == this.props.userId){
-          return this.props.allUsers[i].fullName
+        return (
+          this.props.userData.firstName + " " + this.props.userData.lastName
+        );
+      } else {
+        if (this.props.allUsers[i].id == this.props.userId) {
+          return this.props.allUsers[i].fullName;
         }
       }
     }
   }
 }
 
-
-
 class ItemImage extends React.Component {
   render() {
-    return (
-        getImage(this.props.image, this.props.onChatSelectedFileChange)
-    );
+    return getImage(this.props.image, this.props.onChatSelectedFileChange);
   }
 }
 
@@ -384,133 +431,133 @@ function getImage(image, onChatSelectedFileChange) {
         />
       );*/
 
-    case 'pdf':
+    case "pdf":
       return (
         <TouchableOpacity
-          onPress = {() => {
+          onPress={() => {
             onChatSelectedFileChange(image);
-          }
-        }
-        style={{
-          marginVertical: 5,
-          alignItems: "center",
-          backgroundColor: "#81A4BD",
-          padding: 5,
-          marginHorizontal: 5
-        }}>
+          }}
+          style={{
+            marginVertical: 5,
+            alignItems: "center",
+            backgroundColor: "#81A4BD",
+            padding: 5,
+            marginHorizontal: 5,
+          }}
+        >
           <Image
             style={{ width: 40, height: 50 }}
-            source={require('../../../../images/ic_pdf.png')}
+            source={require("../../../../images/ic_pdf.png")}
           />
         </TouchableOpacity>
       );
-    case 'png':
+    case "png":
       return (
         <TouchableOpacity
-          onPress = {() => {
+          onPress={() => {
             onChatSelectedFileChange(image);
-          }
-        }
-        style={{
-          marginVertical: 5,
-          alignItems: "center",
-          backgroundColor: "#81A4BD",
-          padding: 5,
-          marginHorizontal: 5
-        }}>
-        <Image
-          style={{ width: 150, height: 150 }}
-          resizeMode="contain"
-          source={{ uri: 'https://app.osbb365.com' + image }}
-        />
+          }}
+          style={{
+            marginVertical: 5,
+            alignItems: "center",
+            backgroundColor: "#81A4BD",
+            padding: 5,
+            marginHorizontal: 5,
+          }}
+        >
+          <Image
+            style={{ width: 150, height: 150 }}
+            resizeMode="contain"
+            source={{ uri: "https://app.osbb365.com" + image }}
+          />
         </TouchableOpacity>
       );
-    case 'jpg':
+    case "jpg":
       return (
         <TouchableOpacity
-          onPress = {() => {
+          onPress={() => {
             onChatSelectedFileChange(image);
-          }
-        }
-        style={{
-          marginVertical: 5,
-          alignItems: "center",
-          backgroundColor: "#81A4BD",
-          padding: 5,
-          marginHorizontal: 5
-        }}>
-        <Image
-          style={{ width: 150, height: 150 }}
-          resizeMode="contain"
-          source={{ uri: 'https://app.osbb365.com' + image }}
-        />
+          }}
+          style={{
+            marginVertical: 5,
+            alignItems: "center",
+            backgroundColor: "#81A4BD",
+            padding: 5,
+            marginHorizontal: 5,
+          }}
+        >
+          <Image
+            style={{ width: 150, height: 150 }}
+            resizeMode="contain"
+            source={{ uri: "https://app.osbb365.com" + image }}
+          />
         </TouchableOpacity>
       );
-    case 'svg':
+    case "svg":
       return (
         <TouchableOpacity
-          onPress = {() => {
+          onPress={() => {
             onChatSelectedFileChange(image);
-          }
-        }
-        style={{
-          marginVertical: 5,
-          alignItems: "center",
-          backgroundColor: "#81A4BD",
-          padding: 5,
-          marginHorizontal: 5
-        }}>
-        <Image
-          style={{ width: 150, height: 150 }}
-          resizeMode="contain"
-          source={{ uri: 'https://app.osbb365.com' + image }}
-        />
+          }}
+          style={{
+            marginVertical: 5,
+            alignItems: "center",
+            backgroundColor: "#81A4BD",
+            padding: 5,
+            marginHorizontal: 5,
+          }}
+        >
+          <Image
+            style={{ width: 150, height: 150 }}
+            resizeMode="contain"
+            source={{ uri: "https://app.osbb365.com" + image }}
+          />
         </TouchableOpacity>
       );
-    default: return null;
+    default:
+      return null;
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#E1E7EC',
-    alignItems: 'stretch',
+    backgroundColor: "#E1E7EC",
+    alignItems: "stretch",
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   chatContainer: {
-    width: '100%',
+    width: "100%",
     marginBottom: 15,
   },
   supportMessageStyle: {
-    maxWidth: '70%',
-    alignSelf: 'flex-start',
+    maxWidth: "70%",
+    alignSelf: "flex-start",
     marginHorizontal: 10,
     marginVertical: 5,
     borderRadius: 10,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   myMessageStyle: {
-    maxWidth: '70%',
-    alignSelf: 'flex-end',
+    maxWidth: "70%",
+    alignSelf: "flex-end",
     marginHorizontal: 10,
     marginVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#ADD9FA',
+    backgroundColor: "#ADD9FA",
   },
   messageContainer: {
-    width: '100%',
-    
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: 'white',
+    width: "100%",
+
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "white",
   },
   itemStyle: {
     fontSize: 16,
-    color: '#364A5F',
-    alignContent: 'flex-end',
+    color: "#364A5F",
+    alignContent: "flex-end",
     margin: 7,
   },
 });

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Text,
   View,
@@ -11,17 +11,17 @@ import {
   Switch,
   TouchableOpacity,
   KeyboardAvoidingView,
-} from 'react-native';
-import PageHeader from '../../components/PageHeader';
-import * as ImagePicker from 'expo-image-picker';
-import ImageAvatar from 'react-native-image-progress';
-import { TextInputMask } from 'react-native-masked-text'
-import {Linking} from 'react-native'
+} from "react-native";
+import PageHeader from "../../components/PageHeader";
+import * as ImagePicker from "expo-image-picker";
+import ImageAvatar from "react-native-image-progress";
+import { TextInputMask } from "react-native-masked-text";
+import { Linking } from "react-native";
 
 export default class ScreenProfile extends React.Component {
   state = { showPassword: false };
-  
-  toggleSwitch = value => {
+
+  toggleSwitch = (value) => {
     this.props.setShowPasswords(value);
   };
 
@@ -32,72 +32,73 @@ export default class ScreenProfile extends React.Component {
       aspect: [4, 3],
       quality: 1,
     });
-    if(result.cancelled == true) return
+    if (result.cancelled == true) return;
     let photo = { uri: result.uri };
     let formdata = new FormData();
-    formdata.append('photo', {
+    formdata.append("photo", {
       uri: photo.uri,
-      name: 'image.jpg',
-      type: 'image/jpeg',
+      name: "image.jpg",
+      type: "image/jpeg",
     });
-    this.props.sendNewPhoto(formdata, 
-      this.props.accountId, 
-      this.props.osbbId, 
-      this.props.workPeriods, 
-      this.props.token)
+    this.props.sendNewPhoto(
+      formdata,
+      this.props.accountId,
+      this.props.osbbId,
+      this.props.workPeriods,
+      this.props.token
+    );
     if (!result.cancelled) {
       this.setState({ image: result.uri });
     }
   };
 
-  getAvatar(){
-    if(this.props.imageAvatar == 'deleted'){
-      return(<ImageAvatar
-        indicator='bar' 
-        source={   
-          require('../../images/add.png')
-        }
-        style={{ width: 300, height: 300, resizeMode: 'contain' }}
-      />);
+  getAvatar() {
+    if (this.props.imageAvatar == "deleted") {
+      return (
+        <ImageAvatar
+          indicator="bar"
+          source={require("../../images/add.png")}
+          style={{ width: 300, height: 300, resizeMode: "contain" }}
+        />
+      );
     }
-    if(this.props.imageAvatar != null){
-      console.log("imageAvatar", this.props.imageAvatar)
-      return(<ImageAvatar
-        indicator='bar' 
-        source={
-          {
-                uri:
-                  'https://app.osbb365.com' +
-                  this.props.imageAvatar,
-              }
-        }
-        style={{ width: 300, height: 300, resizeMode: 'contain' }}
-      />);
+    if (this.props.imageAvatar != null) {
+      console.log("imageAvatar", this.props.imageAvatar);
+      return (
+        <ImageAvatar
+          indicator="bar"
+          source={{
+            uri: "https://app.osbb365.com" + this.props.imageAvatar,
+          }}
+          style={{ width: 300, height: 300, resizeMode: "contain" }}
+        />
+      );
     }
-    
-    if(this.props.userData == null){
+
+    if (this.props.userData == null) {
       return;
     }
-    return(<ImageAvatar
-      indicator='bar' 
-      source={
-        this.props.userData.photo == null
-          ? require('../../images/add.png')
-          : {
-              uri:
-                'https://app.osbb365.com' +
-                this.props.userData.photo,
-            }
-      }
-      style={{ width: 300, height: 300, resizeMode: 'contain' }}
-    />);
+    return (
+      <ImageAvatar
+        indicator="bar"
+        source={
+          this.props.userData.photo == null
+            ? require("../../images/add.png")
+            : {
+                uri: "https://app.osbb365.com" + this.props.userData.photo,
+              }
+        }
+        style={{ width: 300, height: 300, resizeMode: "contain" }}
+      />
+    );
   }
 
   render() {
     return (
       <KeyboardAvoidingView behavior="padding">
         <View
-          style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+          style={{ width: "100%", height: "100%", backgroundColor: "#EEEEEE" }}
+        >
           <PageHeader
             style={{ flex: 1 }}
             navigation={this.props.navigation}
@@ -105,31 +106,49 @@ export default class ScreenProfile extends React.Component {
           />
           <ScrollView>
             <View style={styles.container}>
-              <Text style={{ marginTop: 15, marginBottom: 10, color: '#002B2B', fontSize: 18 }}>
+              <Text
+                style={{
+                  marginTop: 15,
+                  marginBottom: 10,
+                  color: "#002B2B",
+                  fontSize: 18,
+                }}
+              >
                 Загальне
               </Text>
               <TouchableOpacity onPress={this._pickImage}>
                 {this.getAvatar()}
               </TouchableOpacity>
               <View style={styles.container}>
-              <View style={{width: '80%', marginVertical: 15}}>       
-                <TouchableOpacity
-                  onPress={() => {
-                    this.props.deletePhoto(this.props.accountIds, 
-                      this.props.osbbId, 
-                      this.props.workPeriods, 
-                      this.props.token)
-                  }}
-                  style={{backgroundColor: "#364A5F", alignItems: 'center', justifyContent: 'center', height: 35, borderRadius: 12, paddingHorizontal: 10}}
-                >
-                  <Text style={{color: 'white', fontSize: 15}}>ВИДАЛИТИ ФОТО</Text>
-                </TouchableOpacity>
+                <View style={{ width: "80%", marginVertical: 15 }}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.deletePhoto(
+                        this.props.accountIds,
+                        this.props.osbbId,
+                        this.props.workPeriods,
+                        this.props.token
+                      );
+                    }}
+                    style={{
+                      backgroundColor: "#364A5F",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      height: 35,
+                      borderRadius: 12,
+                      paddingHorizontal: 10,
+                    }}
+                  >
+                    <Text style={{ color: "white", fontSize: 15 }}>
+                      ВИДАЛИТИ ФОТО
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
               <View style={styles.containerEmail}>
                 <Image
                   style={{ width: 40, height: 35, marginLeft: 20 }}
-                  source={require('../../images/ic_email.png')}
+                  source={require("../../images/ic_email.png")}
                 />
                 <TextInput
                   editable={false}
@@ -142,39 +161,52 @@ export default class ScreenProfile extends React.Component {
                     marginLeft: 10,
                     marginEnd: 10,
                     borderBottomWidth: 1,
-                    borderBottomColor: '#C5C5C5',
+                    borderBottomColor: "#C5C5C5",
                   }}
                 />
               </View>
               <View style={styles.containerEmail}>
-                <TouchableOpacity style={{ width: 40, height: 35, marginLeft: 20 }} onPress={() => {
-                  Linking.openURL(`tel:${this.props.phoneNumber == null ? this.props.userData.phone : this.props.phoneNumber}`)
-                }}>
+                <TouchableOpacity
+                  style={{ width: 40, height: 35, marginLeft: 20 }}
+                  onPress={() => {
+                    Linking.openURL(
+                      `tel:${
+                        this.props.phoneNumber == null
+                          ? this.props.userData.phone
+                          : this.props.phoneNumber
+                      }`
+                    );
+                  }}
+                >
                   <Image
-                    style={{ width: 40, height: 35}}
-                    source={require('../../images/ic_phone.png')}
+                    style={{ width: 40, height: 35 }}
+                    source={require("../../images/ic_phone.png")}
                   />
                 </TouchableOpacity>
                 <TextInputMask
                   maxLength={14}
-                  type={'cel-phone'}
+                  type={"cel-phone"}
                   placeholder="Номер телефону"
                   options={{
-                    maskType: 'BRL',
+                    maskType: "BRL",
                     withDDD: true,
-                    dddMask: '(999) 999-9999'
+                    dddMask: "(999) 999-9999",
                   }}
-                  value={this.props.phoneNumber == null ? this.props.userData.phone : this.props.phoneNumber}
-                  onChangeText={text => {
+                  value={
+                    this.props.phoneNumber == null
+                      ? this.props.userData.phone
+                      : this.props.phoneNumber
+                  }
+                  onChangeText={(text) => {
                     this.props.setPhoneNumber(text);
                   }}
                   onEndEditing={() => {
-                    if(this.props.phoneNumber == '') {
-                      this.props.setPhoneNumber(null)
-                    }else{
+                    if (this.props.phoneNumber == "") {
+                      this.props.setPhoneNumber(null);
+                    } else {
                       var userData = this.props.userData;
                       userData.phone = this.props.phoneNumber;
-                      this.props.setUserData(userData)
+                      this.props.setUserData(userData);
                     }
                   }}
                   style={{
@@ -183,7 +215,7 @@ export default class ScreenProfile extends React.Component {
                     marginLeft: 10,
                     marginEnd: 10,
                     borderBottomWidth: 1,
-                    borderBottomColor: '#C5C5C5',
+                    borderBottomColor: "#C5C5C5",
                   }}
                 />
               </View>
@@ -209,7 +241,7 @@ export default class ScreenProfile extends React.Component {
               </View>
             </View>
             <View style={styles.container}>
-              <Text style={{ marginTop: 15, color: '#002B2B', fontSize: 18 }}>
+              <Text style={{ marginTop: 15, color: "#002B2B", fontSize: 18 }}>
                 Змінити пароль
               </Text>
               <View style={styles.containerSwitch}>
@@ -218,14 +250,14 @@ export default class ScreenProfile extends React.Component {
                   onValueChange={this.toggleSwitch}
                   value={this.props.showPasswords}
                 />
-                <Text style={{ marginTop: 15, color: '#002B2B' }}>
-                  Показувати пароль: {this.props.showPasswords ? 'Так' : 'Ні'}
+                <Text style={{ marginTop: 15, color: "#002B2B" }}>
+                  Показувати пароль: {this.props.showPasswords ? "Так" : "Ні"}
                 </Text>
               </View>
               <View style={styles.conteinerInput}>
                 <TextInput
                   value={this.props.oldPassword}
-                  onChangeText={text => {
+                  onChangeText={(text) => {
                     this.props.setOldPassword(text);
                   }}
                   secureTextEntry={!this.props.showPasswords}
@@ -234,7 +266,7 @@ export default class ScreenProfile extends React.Component {
                 />
                 <TextInput
                   value={this.props.newPassword}
-                  onChangeText={text => {
+                  onChangeText={(text) => {
                     this.props.setNewPassword(text);
                   }}
                   secureTextEntry={!this.props.showPasswords}
@@ -243,7 +275,7 @@ export default class ScreenProfile extends React.Component {
                 />
                 <TextInput
                   value={this.props.newRepeatPassword}
-                  onChangeText={text => {
+                  onChangeText={(text) => {
                     this.props.setNewRepeatPassword(text);
                   }}
                   secureTextEntry={!this.props.showPasswords}
@@ -252,28 +284,46 @@ export default class ScreenProfile extends React.Component {
                 />
               </View>
               <View style={styles.buttonStyle}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.sendNewPassword(this.props.oldPassword, this.props.newPassword, this.props.newRepeatPassword, this.props.token);
-                }
-              }
-                style={{backgroundColor: "#364A5F", alignItems: 'center', justifyContent: 'center', height: 35, borderRadius: 12}}
-              >
-                <Text style={{color: 'white', fontSize: 15}}>ЗБЕРЕГТИ</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.props.sendNewPassword(
+                      this.props.oldPassword,
+                      this.props.newPassword,
+                      this.props.newRepeatPassword,
+                      this.props.token
+                    );
+                  }}
+                  style={{
+                    backgroundColor: "#364A5F",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: 35,
+                    borderRadius: 12,
+                  }}
+                >
+                  <Text style={{ color: "white", fontSize: 15 }}>ЗБЕРЕГТИ</Text>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.container}>
-              <View style={{width: '80%', marginVertical: 15}}>
-              <TouchableOpacity
+              <View style={{ width: "80%", marginVertical: 15 }}>
+                <TouchableOpacity
                   onPress={() => {
-                    this.props.setAuthMethod(null)
-                    this.props.navigation.navigate('Auth')
+                    this.props.setAuthMethod(null);
+                    this.props.navigation.navigate("Auth");
                   }}
-                  style={{backgroundColor: "#364A5F", alignItems: 'center', justifyContent: 'center', height: 35, borderRadius: 12}}
+                  style={{
+                    backgroundColor: "#364A5F",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: 35,
+                    borderRadius: 12,
+                  }}
                 >
-                <Text style={{color: 'white', fontSize: 15}}>ВИЙТИ З АККАУНТУ</Text>
-              </TouchableOpacity>
+                  <Text style={{ color: "white", fontSize: 15 }}>
+                    ВИЙТИ З АККАУНТУ
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </ScrollView>
@@ -283,7 +333,6 @@ export default class ScreenProfile extends React.Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     borderRadius: 15,
@@ -291,25 +340,25 @@ const styles = StyleSheet.create({
     marginEnd: 15,
     marginTop: 7,
     marginBottom: 8,
-    backgroundColor: 'white',
-    alignItems: 'center'
+    backgroundColor: "white",
+    alignItems: "center",
   },
   containerEmail: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-start",
     margin: 10,
   },
   containerSwitch: {
     marginLeft: 30,
     marginEnd: 120,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    flexDirection: "row",
+    justifyContent: "flex-start",
   },
   conteinerInput: {
-    width: '100%',
-    flexDirection: 'column',
-    justifyContent: 'center',
+    width: "100%",
+    flexDirection: "column",
+    justifyContent: "center",
     margin: 10,
   },
   inputStyle: {
@@ -318,10 +367,10 @@ const styles = StyleSheet.create({
     marginEnd: 30,
     marginBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#C5C5C5',
+    borderBottomColor: "#C5C5C5",
   },
   buttonStyle: {
-    width: '80%',
+    width: "80%",
     marginBottom: 20,
   },
 });

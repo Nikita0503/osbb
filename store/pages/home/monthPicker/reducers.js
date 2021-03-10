@@ -1,18 +1,17 @@
-import {APARTMENT_HEADER_CHANGE_CURRENT_WORKPERIOD} from "./actions"
+import { APARTMENT_HEADER_CHANGE_CURRENT_WORKPERIOD } from "./actions";
 
 const defaultState = {
-  currentWorkPeriod: ''
-}
+  currentWorkPeriod: "",
+};
 
 export const apartmentHeaderReducer = (state = defaultState, action) => {
-  
-  switch (action.type){
+  switch (action.type) {
     case APARTMENT_HEADER_CHANGE_CURRENT_WORKPERIOD:
       return {
         ...state,
-        currentWorkPeriod: action.payload
-      }
-  } 
-  
+        currentWorkPeriod: action.payload,
+      };
+  }
+
   return state;
-}
+};

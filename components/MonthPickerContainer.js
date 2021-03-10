@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { setCurrentWorkPeriod } from '../store/pages/home/monthPicker/actions';
+import React from "react";
+import { connect } from "react-redux";
+import { setCurrentWorkPeriod } from "../store/pages/home/monthPicker/actions";
 import {
   setCurrentApartmentData,
   setCurrentCostsData,
-  setAccountId
-} from '../store/pages/home/myApartment/apartment/actions';
-import MonthPicker from './MonthPicker';
+  setAccountId,
+} from "../store/pages/home/myApartment/apartment/actions";
+import MonthPicker from "./MonthPicker";
 
 class MonthPickerContainer extends React.Component {
   render() {
@@ -27,7 +27,7 @@ class MonthPickerContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     accountId: state.apartment.accountId,

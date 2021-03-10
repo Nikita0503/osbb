@@ -5,8 +5,8 @@ import {
   APPLICATIONS_AND_OFFERS_ONLY_MY,
   APPLICATIONS_AND_OFFERS_LOADING,
   APPLICATIONS_AND_OFFERS_FIRSTLY_OPENED,
-  APPLICATIONS_AND_OFFERS_DISPLAY_ARCHIVED
-} from './actions';
+  APPLICATIONS_AND_OFFERS_DISPLAY_ARCHIVED,
+} from "./actions";
 
 const defaultState = {
   applicationsAndOffersData: [],
@@ -15,7 +15,7 @@ const defaultState = {
   onlyMy: false,
   loading: false,
   firstlyOpened: false,
-  displayArchived: false
+  displayArchived: false,
 };
 
 export const applicationsAndOffersReducer = (state = defaultState, action) => {
@@ -41,23 +41,23 @@ export const applicationsAndOffersReducer = (state = defaultState, action) => {
     case APPLICATIONS_AND_OFFERS_ONLY_MY:
       return {
         ...state,
-        onlyMy: action.payload
-      }
+        onlyMy: action.payload,
+      };
     case APPLICATIONS_AND_OFFERS_LOADING:
       return {
         ...state,
-        loading: action.payload
-      }
+        loading: action.payload,
+      };
     case APPLICATIONS_AND_OFFERS_FIRSTLY_OPENED:
       return {
         ...state,
-        firstlyOpened: !state.firstlyOpened
-      }
+        firstlyOpened: !state.firstlyOpened,
+      };
     case APPLICATIONS_AND_OFFERS_DISPLAY_ARCHIVED:
       return {
         ...state,
-        displayArchived: !state.displayArchived
-      }
+        displayArchived: !state.displayArchived,
+      };
   }
 
   return state;

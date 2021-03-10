@@ -8,14 +8,14 @@ import {
   ACT_OF_RECONCILIATION_CHANGE_TO_MONTH,
   ACT_OF_RECONCILIATION_CHANGE_TO_YEAR,
   ACT_OF_RECONCILIATION_CHANGE_SELECTED_DATA,
-  ACT_OF_RECONCILIATION_SHOW_LOADING
-} from './actions';
+  ACT_OF_RECONCILIATION_SHOW_LOADING,
+} from "./actions";
 
 const defaultState = {
-  fromMonth: '',
-  fromYear: '',
-  toMonth: '',
-  toYear: '',
+  fromMonth: "",
+  fromYear: "",
+  toMonth: "",
+  toYear: "",
   fromMonths: [],
   toMonths: [],
   selectedData: [],
@@ -23,32 +23,31 @@ const defaultState = {
   fromMonthShow: false,
   fromYearShow: false,
   toMonthShow: false,
-  toYearShow: false
+  toYearShow: false,
 };
 
 export const actOfReconciliationReducer = (state = defaultState, action) => {
-
   switch (action.type) {
     case ACT_OF_RECONCILIATION_CHANGE_FROM_MONTH_SHOW:
       return {
         ...state,
-        fromMonthShow: !state.fromMonthShow
-      }
+        fromMonthShow: !state.fromMonthShow,
+      };
     case ACT_OF_RECONCILIATION_CHANGE_FROM_YEAR_SHOW:
       return {
         ...state,
-        fromYearShow: !state.fromYearShow
-      }
+        fromYearShow: !state.fromYearShow,
+      };
     case ACT_OF_RECONCILIATION_CHANGE_TO_MONTH_SHOW:
       return {
         ...state,
-        toMonthShow: !state.toMonthShow
-      }
+        toMonthShow: !state.toMonthShow,
+      };
     case ACT_OF_RECONCILIATION_CHANGE_TO_YEAR_SHOW:
       return {
         ...state,
-        toYearShow: !state.toYearShow
-      }
+        toYearShow: !state.toYearShow,
+      };
     case ACT_OF_RECONCILIATION_CHANGE_FROM_MONTH:
       return {
         ...state,

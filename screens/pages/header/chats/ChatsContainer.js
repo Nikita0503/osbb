@@ -1,11 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {setChatsAllChats, 
-        setChatsAllChatsClear, 
-        setChatsAllUsers, 
-        setAllChatsSelectedChat,
-        fetchAllChats} from '../../../../store/pages/header/chats/actions';
-import ScreenChats from './ScreenChats';
+import React from "react";
+import { connect } from "react-redux";
+import {
+  setChatsAllChats,
+  setChatsAllChatsClear,
+  setChatsAllUsers,
+  setAllChatsSelectedChat,
+  fetchAllChats,
+} from "../../../../store/pages/header/chats/actions";
+import ScreenChats from "./ScreenChats";
 
 class ChatsContainer extends React.Component {
   render() {
@@ -29,7 +31,7 @@ class ChatsContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -37,7 +39,7 @@ const mapStateToProps = state => {
     workPeriods: state.apartment.workPeriods,
     allChats: state.allChats.allChats,
     allUsers: state.allChats.allUsers,
-    selectedChat: state.allChats.selectedChat
+    selectedChat: state.allChats.selectedChat,
   };
 };
 
@@ -46,10 +48,7 @@ const mapDispatchToProps = {
   setChatsAllChatsClear,
   setChatsAllUsers,
   setAllChatsSelectedChat,
-  fetchAllChats
+  fetchAllChats,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChatsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ChatsContainer);

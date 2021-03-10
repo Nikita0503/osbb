@@ -1,67 +1,68 @@
 import {
-  AUTH_CHANGE_TOKEN, 
-  AUTH_CHANGE_TOKEN_DEVICE_ID, 
-  AUTH_CHANGE_IS_SCANNED, 
-  AUTH_CHANGE_HAS_CAMERA_PERMISSION, 
-  AUTH_CHANGE_EMAIL, 
-  AUTH_CHANGE_PASSWORD, 
+  AUTH_CHANGE_TOKEN,
+  AUTH_CHANGE_TOKEN_DEVICE_ID,
+  AUTH_CHANGE_IS_SCANNED,
+  AUTH_CHANGE_HAS_CAMERA_PERMISSION,
+  AUTH_CHANGE_EMAIL,
+  AUTH_CHANGE_PASSWORD,
   AUTH_CHANGE_SHOW_PASSWORD,
-  AUTH_CHANGE_AUTH_METHOD} from "./actions";
+  AUTH_CHANGE_AUTH_METHOD,
+} from "./actions";
 
 const defaultState = {
-  token: '',
-  tokenDeviceId: '',
+  token: "",
+  tokenDeviceId: "",
   isScanned: false,
   hasCameraPermission: null,
   email: null,
   password: null,
   shownPassword: false,
-  authMethod: null
-}
+  authMethod: null,
+};
 
 export const authReducer = (state = defaultState, action) => {
-  switch (action.type){
+  switch (action.type) {
     case AUTH_CHANGE_TOKEN:
       return {
         ...state,
-        token: action.payload
-      }
+        token: action.payload,
+      };
     case AUTH_CHANGE_TOKEN_DEVICE_ID:
       return {
         ...state,
-        tokenDeviceId: action.payload
-      }
+        tokenDeviceId: action.payload,
+      };
     case AUTH_CHANGE_IS_SCANNED:
       return {
         ...state,
-        isScanned: action.payload
-      }
+        isScanned: action.payload,
+      };
     case AUTH_CHANGE_HAS_CAMERA_PERMISSION:
       return {
         ...state,
-        hasCameraPermission: action.payload
-      }
+        hasCameraPermission: action.payload,
+      };
     case AUTH_CHANGE_EMAIL:
       return {
         ...state,
-        email: action.payload
-      }
+        email: action.payload,
+      };
     case AUTH_CHANGE_PASSWORD:
       return {
         ...state,
-        password: action.payload
-      }
+        password: action.payload,
+      };
     case AUTH_CHANGE_SHOW_PASSWORD:
       return {
         ...state,
-        shownPassword: !state.shownPassword
-      }
+        shownPassword: !state.shownPassword,
+      };
     case AUTH_CHANGE_AUTH_METHOD:
       return {
         ...state,
-        authMethod: action.payload
-      }
-  } 
-  
+        authMethod: action.payload,
+      };
+  }
+
   return state;
-}
+};

@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   setAdvertisementOsbbName,
   setAdvertisementData,
@@ -10,9 +10,9 @@ import {
   fetchAllAds,
   fetchOsbbName,
   fetchSelectedPostComments,
-  toVote
-} from '../../../../store/pages/header/advertisement/actions';
-import ScreenAdvertisement from './ScreenAdvertisement';
+  toVote,
+} from "../../../../store/pages/header/advertisement/actions";
+import ScreenAdvertisement from "./ScreenAdvertisement";
 
 class AdvertisementContainer extends React.Component {
   render() {
@@ -44,7 +44,7 @@ class AdvertisementContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -55,7 +55,7 @@ const mapStateToProps = state => {
     selectedPostComments: state.advertisement.selectedPostComments,
     selectedPost: state.advertisement.selectedPost,
     allComments: state.advertisement.allComments,
-    advertisementSelectedFile: state.advertisement.advertisementSelectedFile
+    advertisementSelectedFile: state.advertisement.advertisementSelectedFile,
   };
 };
 
@@ -69,7 +69,7 @@ const mapDispatchToProps = {
   fetchAllAds,
   fetchOsbbName,
   fetchSelectedPostComments,
-  toVote
+  toVote,
 };
 
 export default connect(

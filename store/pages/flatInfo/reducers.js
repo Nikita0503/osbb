@@ -14,8 +14,8 @@ import {
   FLAT_INFO_COUNTERS,
   FLAT_INFO_COUNTERS_CLEAR,
   FLAT_INFO_CONTRACTS,
-  FLAT_INFO_CONTRACTS_CLEAR
-} from './actions';
+  FLAT_INFO_CONTRACTS_CLEAR,
+} from "./actions";
 
 const defaultState = {
   flatInfoGeneralData: [],
@@ -25,11 +25,10 @@ const defaultState = {
   flatInfoContributions: [],
   flatInfoIndividualContributions: [],
   flatInfoCounters: [],
-  flatInfoContracts: []
+  flatInfoContracts: [],
 };
 
 export const flatInfoReducer = (state = defaultState, action) => {
- 
   switch (action.type) {
     case FLAT_INFO_GENERAL_DATA:
       return {
@@ -39,8 +38,8 @@ export const flatInfoReducer = (state = defaultState, action) => {
     case FLAT_INFO_GENERAL_DATA_CLEAR:
       return {
         ...state,
-        flatInfoGeneralData: []
-      }
+        flatInfoGeneralData: [],
+      };
     case FLAT_INFO_LODGER_DATA:
       return {
         ...state,
@@ -49,8 +48,8 @@ export const flatInfoReducer = (state = defaultState, action) => {
     case FLAT_INFO_LODGER_DATA_CLEAR:
       return {
         ...state,
-        flatInfoLodgerData: []
-      }
+        flatInfoLodgerData: [],
+      };
     case FLAT_INFO_PARAMETERS:
       return {
         ...state,
@@ -59,8 +58,8 @@ export const flatInfoReducer = (state = defaultState, action) => {
     case FLAT_INFO_PARAMETERS_CLEAR:
       return {
         ...state,
-        flatInfoParameters: []
-      }
+        flatInfoParameters: [],
+      };
     case FLAT_INFO_PRIVILEGES:
       return {
         ...state,
@@ -69,8 +68,8 @@ export const flatInfoReducer = (state = defaultState, action) => {
     case FLAT_INFO_PRIVILEGES_CLEAR:
       return {
         ...state,
-        flatInfoPrivileges: []
-      }
+        flatInfoPrivileges: [],
+      };
     case FLAT_INFO_CONTRIBUTIONS:
       return {
         ...state,
@@ -79,8 +78,8 @@ export const flatInfoReducer = (state = defaultState, action) => {
     case FLAT_INFO_CONTRIBUTIONS_CLEAR:
       return {
         ...state,
-        flatInfoContributions: []
-      }
+        flatInfoContributions: [],
+      };
     case FLAT_INFO_INDIVIDUAL_CONTRIBUTIONS:
       return {
         ...state,
@@ -89,8 +88,8 @@ export const flatInfoReducer = (state = defaultState, action) => {
     case FLAT_INFO_INDIVIDUAL_CONTRIBUTIONS_CLEAR:
       return {
         ...state,
-        flatInfoIndividualContributions: []
-      }
+        flatInfoIndividualContributions: [],
+      };
     case FLAT_INFO_COUNTERS:
       return {
         ...state,
@@ -99,8 +98,8 @@ export const flatInfoReducer = (state = defaultState, action) => {
     case FLAT_INFO_COUNTERS_CLEAR:
       return {
         ...state,
-        flatInfoCounters: []
-      }
+        flatInfoCounters: [],
+      };
     case FLAT_INFO_CONTRACTS:
       return {
         ...state,
@@ -109,8 +108,8 @@ export const flatInfoReducer = (state = defaultState, action) => {
     case FLAT_INFO_CONTRACTS_CLEAR:
       return {
         ...state,
-        flatInfoContracts: []
-      }
+        flatInfoContracts: [],
+      };
   }
   return state;
 };

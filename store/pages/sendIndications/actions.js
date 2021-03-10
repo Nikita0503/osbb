@@ -1,46 +1,56 @@
-export const SEND_INDICATIONS_TEXT = 'SEND_INDICATIONS_TEXT';
-export const SEND_INDICATIONS_COUNTERS = 'SEND_INDICATIONS_COUNTERS';
-export const SEND_INDICATIONS_COUNTERS_CHANGE = 'SEND_INDICATIONS_COUNTERS_CHANGE';
-export const SEND_INDICATIONS_SELECTED_COUNTER = 'SEND_INDICATIONS_SELECTED_COUNTER';
+import {Alert,
+} from "react-native";
+export const SEND_INDICATIONS_TEXT = "SEND_INDICATIONS_TEXT";
+export const SEND_INDICATIONS_COUNTERS = "SEND_INDICATIONS_COUNTERS";
+export const SEND_INDICATIONS_COUNTERS_CHANGE =
+  "SEND_INDICATIONS_COUNTERS_CHANGE";
+export const SEND_INDICATIONS_SELECTED_COUNTER =
+  "SEND_INDICATIONS_SELECTED_COUNTER";
 
-export const setIndicationText = indicationText => ({
+export const setIndicationText = (indicationText) => ({
   type: SEND_INDICATIONS_TEXT,
-  payload: indicationText
+  payload: indicationText,
 });
 
-export const setIndicationsCounters = indicationsCounters => ({
+export const setIndicationsCounters = (indicationsCounters) => ({
   type: SEND_INDICATIONS_COUNTERS,
-  payload: indicationsCounters
+  payload: indicationsCounters,
 });
 
-export const updateIndicationsCounters = indicationsCounters => ({
+export const updateIndicationsCounters = (indicationsCounters) => ({
   type: SEND_INDICATIONS_COUNTERS_CHANGE,
-  payload: []
+  payload: [],
 });
 
-export const setSelectedCounter = selectedCounter => ({
+export const setSelectedCounter = (selectedCounter) => ({
   type: SEND_INDICATIONS_SELECTED_COUNTER,
-  payload: selectedCounter
-})
+  payload: selectedCounter,
+});
 
-export const fetchSendIndicationsCounters = (token, accountIds, osbbId, workPeriods, index) => {
-  return async dispatch => {
+export const fetchSendIndicationsCounters = (
+  token,
+  accountIds,
+  osbbId,
+  workPeriods,
+  index
+) => {
+  return async (dispatch) => {
     try {
       const indicationsCountersPromise = await fetch(
-        'https://app.osbb365.com/api/tenant/counters?accountId=' +
+        "https://app.osbb365.com/api/tenant/counters?accountId=" +
           accountIds[index].id +
-          '&osbbId=' +
+          "&osbbId=" +
           osbbId +
-          '&workPeriod=' +
+          "&workPeriod=" +
           workPeriods[workPeriods.length - 1],
         {
           headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + token + '',
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token + "",
           },
         }
-      )
+      );
       const responseJson = await indicationsCountersPromise.json();
       var obj = {
         accountId: accountIds[index],
@@ -49,38 +59,46 @@ export const fetchSendIndicationsCounters = (token, accountIds, osbbId, workPeri
       dispatch(setIndicationsCounters(obj));
       if (index != accountIds.length - 1) {
         index++;
-        fetchSendIndicationsCounters(token, accountIds, osbbId, workPeriods, index);
+        fetchSendIndicationsCounters(
+          token,
+          accountIds,
+          osbbId,
+          workPeriods,
+          index
+        );
       }
     } catch (error) {
       console.log("fetchSendIndicationsCounters", error);
     }
-  }
-}
+  };
+};
 
-export const editIndications = (token, 
-  selectedCounter, 
-  accountId, 
-  osbbId, 
-  workPeriods, 
-  indicationText, 
-  componentDidMount) => {
-  return async dispatch => {
+export const editIndications = (
+  token,
+  selectedCounter,
+  accountId,
+  osbbId,
+  workPeriods,
+  indicationText,
+  refresh
+) => {
+  return async (dispatch) => {
     try {
       const editIndicationPromise = await fetch(
-        'https://app.osbb365.com/api/account/undefined/counters/' +
+        "https://app.osbb365.com/api/account/undefined/counters/" +
           selectedCounter.id +
-          '?accountId=' +
+          "?accountId=" +
           accountId.id +
-          '&osbbId=' +
+          "&osbbId=" +
           osbbId +
-          '&workPeriod=' +
+          "&workPeriod=" +
           workPeriods[workPeriods.length - 1],
         {
-          method: 'PUT',
+          method: "PUT",
           headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + token + '',
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token + "",
           },
           body: JSON.stringify({
             testimony: indicationText,
@@ -89,18 +107,22 @@ export const editIndications = (token,
       );
       const responseJson = await editIndicationPromise.json();
       Alert.alert(
-        'Повідомлення',
-        'Успішно оновлено!',
+        "Повідомлення",
+        "Успішно оновлено!",
         [
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ],
+          { text: "OK", onPress: () => {
+            dispatch(setSelectedCounter(null))
+            refresh()
+            console.log("OK Pressed") 
+          }
+        }],
         { cancelable: true }
-      )
-      componentDidMount();
+      );
+      
       dispatch(setSelectedCounter(null));
       dispatch(setIndicationText(null));
     } catch (error) {
       console.log("editIndications", error);
     }
-  }
-}
+  };
+};

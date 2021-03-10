@@ -1,10 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {setLoading, 
-    setData, 
-    setSignature, 
-    sendPaymentRequest} from '../../../store/pages/liqpay/webview/actions';
-import ScreenWebViewLiqpay from './ScreenWebViewLiqpay';
+import React from "react";
+import { connect } from "react-redux";
+import {
+  setLoading,
+  setData,
+  setSignature,
+  sendPaymentRequest,
+} from "../../../store/pages/liqpay/webview/actions";
+import ScreenWebViewLiqpay from "./ScreenWebViewLiqpay";
 
 class WebViewLiqpayContainer extends React.Component {
   render() {
@@ -14,7 +16,7 @@ class WebViewLiqpayContainer extends React.Component {
         token={this.props.token}
         osbbId={this.props.osbbId}
         accountId={this.props.accountId}
-        workPeriods={this.props.workPeriods} 
+        workPeriods={this.props.workPeriods}
         liqpayData={this.props.liqpayData}
         loading={this.props.loading}
         data={this.props.data}
@@ -31,19 +33,20 @@ class WebViewLiqpayContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
     accountId: state.apartment.accountId,
     workPeriods: state.apartment.workPeriods,
     liqpayData: state.paymentSelection.liqpayData,
-    selectedChargeContribution: state.paymentSelection.selectedChargeContribution,
+    selectedChargeContribution:
+      state.paymentSelection.selectedChargeContribution,
     selectedChargeValue: state.paymentSelection.selectedChargeValue,
     loading: state.webView.loading,
     data: state.webView.data,
     signature: state.webView.signature,
-    userData: state.apartment.userData
+    userData: state.apartment.userData,
   };
 };
 
@@ -51,7 +54,7 @@ const mapDispatchToProps = {
   setLoading,
   setData,
   setSignature,
-  sendPaymentRequest
+  sendPaymentRequest,
 };
 
 export default connect(

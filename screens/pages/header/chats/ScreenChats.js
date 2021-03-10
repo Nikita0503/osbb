@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Text,
   View,
@@ -7,12 +7,11 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
-} from 'react-native';
-import PageHeader from '../../../../components/PageHeader';
-import { NavigationEvents } from 'react-navigation';
+} from "react-native";
+import PageHeader from "../../../../components/PageHeader";
+import { NavigationEvents } from "react-navigation";
 
 export default class ScreenChats extends React.Component {
-
   componentDidMount() {
     this.props.fetchAllChats(this.props.workPeriods, this.props.token);
   }
@@ -24,14 +23,27 @@ export default class ScreenChats extends React.Component {
     return this.props.allChats;
   }
 
-  getLoadingView(){
-    if(this.props.allChats == null){
-      return(<View style={styles.container, {marginTop: '50%'}}>
-        <ActivityIndicator size="large" style={styles.loader} color="#36678D" />
-        <Text style={{color: '#36678D', fontSize: 16, marginTop: 20, alignSelf: 'center'}}>
-          Зачекайте, дані завантажуються
-        </Text>
-        </View>);
+  getLoadingView() {
+    if (this.props.allChats == null) {
+      return (
+        <View style={(styles.container, { marginTop: "50%" })}>
+          <ActivityIndicator
+            size="large"
+            style={styles.loader}
+            color="#36678D"
+          />
+          <Text
+            style={{
+              color: "#36678D",
+              fontSize: 16,
+              marginTop: 20,
+              alignSelf: "center",
+            }}
+          >
+            Зачекайте, дані завантажуються
+          </Text>
+        </View>
+      );
     }
   }
 
@@ -39,10 +51,11 @@ export default class ScreenChats extends React.Component {
     const { navigation } = this.props;
     return (
       <View
-        style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+        style={{ width: "100%", height: "100%", backgroundColor: "#EEEEEE" }}
+      >
         <NavigationEvents
           onDidFocus={() => {
-            console.log('I am triggered');
+            console.log("I am triggered");
             this.componentDidMount();
           }}
         />
@@ -60,7 +73,7 @@ export default class ScreenChats extends React.Component {
                 setAllChatsSelectedChat={this.props.setAllChatsSelectedChat}
               />
             )}
-            keyExtractor={item => item.text}
+            keyExtractor={(item) => item.text}
           />
         </View>
       </View>
@@ -81,11 +94,11 @@ class Item extends React.Component {
               style={{
                 width: 50,
                 height: 50,
-                resizeMode: 'contain',
+                resizeMode: "contain",
                 marginLeft: 5,
                 marginRight: 5,
               }}
-              source={require('../../../../images/ic_avatar.png')}
+              source={require("../../../../images/ic_avatar.png")}
             />
           );
         }
@@ -94,12 +107,12 @@ class Item extends React.Component {
             style={{
               width: 50,
               height: 50,
-              resizeMode: 'contain',
+              resizeMode: "contain",
               marginLeft: 5,
               marginRight: 1,
             }}
             source={{
-              uri: 'https://app.osbb365.com' + this.props.allUsers[i].photo,
+              uri: "https://app.osbb365.com" + this.props.allUsers[i].photo,
             }}
           />
         );
@@ -110,16 +123,23 @@ class Item extends React.Component {
   render() {
     return (
       <TouchableOpacity
-        onPress={() =>{
+        onPress={() => {
           this.props.setAllChatsSelectedChat(this.props.data);
-          this.props.navigation.navigate('Chat', {
+          this.props.navigation.navigate("Chat", {
             title: this.props.data.title,
           });
-        }}>
+        }}
+      >
         <View style={styles.itemStyle}>
           {this.getAvatar()}
-          <Text style={{color: "red"}}>{this.props.data.unread != 0 ? this.props.data.unread : ""}</Text>
-          <Text style={styles.itemTextStyle}>{this.props.data.alias == null ? this.props.data.title : this.props.data.alias}</Text>
+          <Text style={{ color: "red" }}>
+            {this.props.data.unread != 0 ? this.props.data.unread : ""}
+          </Text>
+          <Text style={styles.itemTextStyle}>
+            {this.props.data.alias == null
+              ? this.props.data.title
+              : this.props.data.alias}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -138,19 +158,19 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     borderRadius: 20,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: 'white',
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "white",
     padding: 5,
     margin: 3,
   },
   itemTextStyle: {
     fontSize: 16,
-    color: '#364A5F',
-    alignContent: 'flex-start',
+    color: "#364A5F",
+    alignContent: "flex-start",
     margin: 10,
     marginTop: 12,
-    width: '70%',
+    width: "70%",
   },
 });

@@ -1,17 +1,19 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {setChatAllMessages, 
-  setChatNewMessage, 
-  setChatCurrentMessage, 
-  setChatCurrentImagesAdd, 
-  setChatCurrentImagesClear, 
-  setSelectedFile, 
+import React from "react";
+import { connect } from "react-redux";
+import {
+  setChatAllMessages,
+  setChatNewMessage,
+  setChatCurrentMessage,
+  setChatCurrentImagesAdd,
+  setChatCurrentImagesClear,
+  setSelectedFile,
   setLoading,
   sendPhoto,
   downloadMessages,
   sendMessage,
-  closeChat} from '../../../../store/pages/header/chat/actions';
-import ScreenChat from './ScreenChat';
+  closeChat,
+} from "../../../../store/pages/header/chat/actions";
+import ScreenChat from "./ScreenChat";
 
 class ChatContainer extends React.Component {
   render() {
@@ -46,7 +48,7 @@ class ChatContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -74,10 +76,7 @@ const mapDispatchToProps = {
   sendPhoto,
   downloadMessages,
   sendMessage,
-  closeChat
+  closeChat,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChatContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ChatContainer);

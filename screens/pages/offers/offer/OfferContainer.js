@@ -1,7 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { setSelectedOfferComments, setSelectedFile, fetchRequest } from '../../../../store/pages/offers/selectedOffer/actions';
-import ScreenOffer from './ScreenOffer';
+import React from "react";
+import { connect } from "react-redux";
+import {
+  setSelectedOfferComments,
+  setSelectedFile,
+  fetchRequest,
+} from "../../../../store/pages/offers/selectedOffer/actions";
+import ScreenOffer from "./ScreenOffer";
 
 class OfferContainer extends React.Component {
   render() {
@@ -24,7 +28,7 @@ class OfferContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -33,17 +37,14 @@ const mapStateToProps = state => {
     currentWorkPeriod: state.apartmentHeader.currentWorkPeriod,
     selectedOfferData: state.applicationsAndOffers.selectedOfferData,
     selectedOfferComments: state.selectedOffer.selectedOfferComments,
-    offerSelectedFile: state.selectedOffer.offerSelectedFile
+    offerSelectedFile: state.selectedOffer.offerSelectedFile,
   };
 };
 
 const mapDispatchToProps = {
   setSelectedOfferComments,
   setSelectedFile,
-  fetchRequest
+  fetchRequest,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OfferContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferContainer);

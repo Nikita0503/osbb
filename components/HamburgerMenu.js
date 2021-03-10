@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon } from "react-native-elements";
 
-const HamburgerMenu = props => {
+const HamburgerMenu = (props) => {
   return (
     <Icon
       color="#fff"

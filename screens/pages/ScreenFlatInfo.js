@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Text,
   View,
@@ -7,14 +7,14 @@ import {
   ScrollView,
   TextInput,
   FlatList,
-} from 'react-native';
-import PageHeader from '../../components/PageHeader';
-import MonthPickerContainer from '../../components/MonthPickerContainer';
-import DataContainer from '../../components/DataContainer';
-import DataComponent from '../../components/DataComponent';
-import { RadioButton } from 'react-native-paper';
-import { NavigationEvents } from 'react-navigation';
-import { bool } from 'prop-types';
+} from "react-native";
+import PageHeader from "../../components/PageHeader";
+import MonthPickerContainer from "../../components/MonthPickerContainer";
+import DataContainer from "../../components/DataContainer";
+import DataComponent from "../../components/DataComponent";
+import { RadioButton } from "react-native-paper";
+import { NavigationEvents } from "react-navigation";
+import { bool } from "prop-types";
 
 function getDate(data) {
   if (data == null) return;
@@ -22,105 +22,123 @@ function getDate(data) {
   var month;
   switch (date.getMonth()) {
     case 0:
-      month = ' січ. ';
+      month = " січ. ";
       break;
     case 1:
-      month = ' лют. ';
+      month = " лют. ";
       break;
     case 2:
-      month = ' бер. ';
+      month = " бер. ";
       break;
     case 3:
-      month = ' квіт. ';
+      month = " квіт. ";
       break;
     case 4:
-      month = ' трав. ';
+      month = " трав. ";
       break;
     case 5:
-      month = ' черв. ';
+      month = " черв. ";
       break;
     case 6:
-      month = ' лип. ';
+      month = " лип. ";
       break;
     case 7:
-      month = ' серп. ';
+      month = " серп. ";
       break;
     case 8:
-      month = ' вер. ';
+      month = " вер. ";
       break;
     case 9:
-      month = ' жовт. ';
+      month = " жовт. ";
       break;
     case 10:
-      month = ' лист. ';
+      month = " лист. ";
       break;
     case 11:
-      month = ' груд. ';
+      month = " груд. ";
       break;
   }
   return date.getDate() + month + date.getFullYear();
 }
 
 export default class ScreenFlatInfo extends React.Component {
-
   componentDidMount() {
     this.props.setFlatInfoCountersClear([]);
-    this.props.fetchFlatInfoGeneralData(this.props.accountIds, this.props.token);
-    this.props.fetchFlatInfoLodgerData(this.props.accountIds, 
-      this.props.osbbId, 
-      this.props.workPeriods, 
+    this.props.fetchFlatInfoGeneralData(
+      this.props.accountIds,
+      this.props.token
+    );
+    this.props.fetchFlatInfoLodgerData(
+      this.props.accountIds,
+      this.props.osbbId,
+      this.props.workPeriods,
       0,
-      this.props.token);
-    this.props.fetchFlatInfoParameters(this.props.accountIds, 
-      this.props.osbbId, 
-      this.props.workPeriods, 
+      this.props.token
+    );
+    this.props.fetchFlatInfoParameters(
+      this.props.accountIds,
+      this.props.osbbId,
+      this.props.workPeriods,
       0,
-      this.props.token);
-    this.props.fetchFlatInfoContributions(this.props.workPeriods, this.props.token);
-    this.props.fetchFlatInfoIndividualContributions(this.props.workPeriods, this.props.token);
-    this.props.fetchFlatInfoPrivileges(this.props.accountIds, 
-      this.props.osbbId, 
-      this.props.workPeriods, 
-      this.props.token);
-    this.props.fetchFlatInfoCounters(this.props.accountIds, 
-      this.props.osbbId, 
-      this.props.workPeriods, 
-      0, 
-      this.props.token);
-    this.props.fetchFlatInfoContracts(this.props.accountIds, 
-      this.props.osbbId, 
-      this.props.workPeriods, 
-      this.props.token);
+      this.props.token
+    );
+    this.props.fetchFlatInfoContributions(
+      this.props.workPeriods,
+      this.props.token
+    );
+    this.props.fetchFlatInfoIndividualContributions(
+      this.props.workPeriods,
+      this.props.token
+    );
+    this.props.fetchFlatInfoPrivileges(
+      this.props.accountIds,
+      this.props.osbbId,
+      this.props.workPeriods,
+      this.props.token
+    );
+    this.props.fetchFlatInfoCounters(
+      this.props.accountIds,
+      this.props.osbbId,
+      this.props.workPeriods,
+      0,
+      this.props.token
+    );
+    this.props.fetchFlatInfoContracts(
+      this.props.accountIds,
+      this.props.osbbId,
+      this.props.workPeriods,
+      this.props.token
+    );
   }
 
   getRadioButtons() {
     return (
       <View>
-        <View style={{ flexDirection: 'row', margin: 5 }}>
+        <View style={{ flexDirection: "row", margin: 5 }}>
           <RadioButton
             disabled
             value="first"
             color="pink"
-            status={this.state.checked === 'first' ? 'checked' : 'unchecked'}
+            status={this.state.checked === "first" ? "checked" : "unchecked"}
             onPress={() => {
-              this.setState({ checked: 'first' });
+              this.setState({ checked: "first" });
             }}
           />
-          <Text style={{ marginTop: 7, color: '#949494', fontSize: 15 }}>
+          <Text style={{ marginTop: 7, color: "#949494", fontSize: 15 }}>
             Фізична особа
           </Text>
         </View>
-        <View style={{ flexDirection: 'row', margin: 5 }}>
+        <View style={{ flexDirection: "row", margin: 5 }}>
           <RadioButton
             disabled
             value="second"
             color="pink"
-            status={this.state.checked === 'second' ? 'checked' : 'unchecked'}
+            status={this.state.checked === "second" ? "checked" : "unchecked"}
             onPress={() => {
-              this.setState({ checked: 'second' });
+              this.setState({ checked: "second" });
             }}
           />
-          <Text style={{ marginTop: 7, color: '#949494', fontSize: 15 }}>
+          <Text style={{ marginTop: 7, color: "#949494", fontSize: 15 }}>
             Юридична особа
           </Text>
         </View>
@@ -131,7 +149,8 @@ export default class ScreenFlatInfo extends React.Component {
             marginLeft: 16,
             marginBottom: 10,
             marginTop: 30,
-          }}>
+          }}
+        >
           Відповідальний наймач
         </Text>
       </View>
@@ -148,10 +167,10 @@ export default class ScreenFlatInfo extends React.Component {
         break;
       }
     }
-    if(currentFlatInfoGeneralData == null) return
+    if (currentFlatInfoGeneralData == null) return;
     return (
       <View style={styles.container}>
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ alignItems: "center" }}>
           <DataComponent
             name="Рахунок відкрито"
             number={getDate(currentFlatInfoGeneralData.openingDate)}
@@ -179,7 +198,7 @@ export default class ScreenFlatInfo extends React.Component {
         </View>
 
         <View style={(styles.container, { marginLeft: 2 })}>
-          <View style={{ alignItems: 'center'}}>
+          <View style={{ alignItems: "center" }}>
             <DataComponent
               name="Власник/Співвласник"
               number={this.getName(currentFlatInfoGeneralData)}
@@ -196,9 +215,9 @@ export default class ScreenFlatInfo extends React.Component {
     } else {
       return (
         currentFlatInfoGeneralData.tenantPersonalSurname +
-        '\n' +
+        "\n" +
         currentFlatInfoGeneralData.tenantPersonalFirstName +
-        '\n' +
+        "\n" +
         currentFlatInfoGeneralData.tenantPersonalPatronymic
       );
     }
@@ -233,9 +252,9 @@ export default class ScreenFlatInfo extends React.Component {
     return this.props.flatInfoContributions;
   }
 
-  getPriviliges(){
-    if (this.props.flatInfoPrivileges == null){
-      return
+  getPriviliges() {
+    if (this.props.flatInfoPrivileges == null) {
+      return;
     }
     return;
   }
@@ -279,25 +298,26 @@ export default class ScreenFlatInfo extends React.Component {
     var unique = new Array();
     for (var i = 0; i < arr.length; i++) {
       var bool = new Boolean(true);
-      for(var j = 0; j < unique.length; j++){
-        if(arr[i].id == unique[j].id){
+      for (var j = 0; j < unique.length; j++) {
+        if (arr[i].id == unique[j].id) {
           bool = false;
         }
       }
-      if(bool){
-        unique.push(arr[i])
+      if (bool) {
+        unique.push(arr[i]);
       }
     }
     return unique;
-  };
+  }
 
   render() {
     return (
       <View
-        style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+        style={{ width: "100%", height: "100%", backgroundColor: "#EEEEEE" }}
+      >
         <NavigationEvents
           onDidFocus={() => {
-            console.log('I am triggered');
+            console.log("I am triggered");
             this.componentDidMount();
           }}
         />
@@ -308,44 +328,46 @@ export default class ScreenFlatInfo extends React.Component {
           <View style={styles.container}>
             <View
               style={{
-                width: '100%',
-                backgroundColor: '#F9F9F9',
-                alignItems: 'center',
-                borderRadius: 15
-              }}>
+                width: "100%",
+                backgroundColor: "#F9F9F9",
+                alignItems: "center",
+                borderRadius: 15,
+              }}
+            >
               <Text
                 style={{
                   marginTop: 10,
                   marginBottom: 10,
-                  color: '#364A5F',
+                  color: "#364A5F",
                   fontSize: 18,
-                }}>
+                }}
+              >
                 Зареєстровані мешканці
               </Text>
             </View>
             <View style={styles.container}>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: "row" }}>
                 <Text style={styles.dataColumnNameInhabitantStyle}>ПІБ</Text>
                 <Text style={styles.dataColumnNameInhabitantStyle}>
                   Дата народження
                 </Text>
               </View>
-              
+
               <FlatList
                 data={this.getLodgers()}
                 renderItem={({ item }) => (
                   <ItemInhabitant
                     fullName={
                       item.surname +
-                      '\n' +
+                      "\n" +
                       item.firstName +
-                      '\n' +
+                      "\n" +
                       item.patronymic
                     }
                     dateOfBirth={getDate(item.dateOfRegistration)}
                   />
                 )}
-                keyExtractor={item => item.surname}
+                keyExtractor={(item) => item.surname}
               />
             </View>
           </View>
@@ -353,23 +375,25 @@ export default class ScreenFlatInfo extends React.Component {
           <View style={styles.container}>
             <View
               style={{
-                width: '100%',
-                backgroundColor: '#F9F9F9',
-                alignItems: 'center',
-                borderRadius: 15
-              }}>
+                width: "100%",
+                backgroundColor: "#F9F9F9",
+                alignItems: "center",
+                borderRadius: 15,
+              }}
+            >
               <Text
                 style={{
                   marginTop: 10,
                   marginBottom: 10,
-                  color: '#364A5F',
+                  color: "#364A5F",
                   fontSize: 18,
-                }}>
+                }}
+              >
                 Параметри
               </Text>
             </View>
             <View style={(styles.container, { marginTop: 10 })}>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: "row" }}>
                 <Text style={styles.dataColumnNameOptionsStyle}>Назва</Text>
                 <Text style={styles.dataColumnNameOptionsStyle}>
                   Початкова дата
@@ -393,7 +417,7 @@ export default class ScreenFlatInfo extends React.Component {
                     unit={item.unit}
                   />
                 )}
-                keyExtractor={item => item.name}
+                keyExtractor={(item) => item.name}
               />
             </View>
           </View>
@@ -401,23 +425,25 @@ export default class ScreenFlatInfo extends React.Component {
           <View style={styles.container}>
             <View
               style={{
-                width: '100%',
-                backgroundColor: '#F9F9F9',
-                alignItems: 'center',
-                borderRadius: 15
-              }}>
+                width: "100%",
+                backgroundColor: "#F9F9F9",
+                alignItems: "center",
+                borderRadius: 15,
+              }}
+            >
               <Text
                 style={{
                   marginTop: 10,
                   marginBottom: 10,
-                  color: '#364A5F',
+                  color: "#364A5F",
                   fontSize: 18,
-                }}>
+                }}
+              >
                 Пільги
               </Text>
             </View>
             <View style={(styles.container, { marginTop: 10 })}>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: "row" }}>
                 <Text style={styles.dataColumnNamePrivilegesStyle}>
                   Пільговик
                 </Text>
@@ -439,7 +465,7 @@ export default class ScreenFlatInfo extends React.Component {
                     number={item.number}
                   />
                 )}
-                keyExtractor={item => item.name}
+                keyExtractor={(item) => item.name}
               />
             </View>
           </View>
@@ -447,23 +473,25 @@ export default class ScreenFlatInfo extends React.Component {
           <View style={styles.container}>
             <View
               style={{
-                width: '100%',
-                backgroundColor: '#F9F9F9',
-                alignItems: 'center',
-                borderRadius: 15
-              }}>
+                width: "100%",
+                backgroundColor: "#F9F9F9",
+                alignItems: "center",
+                borderRadius: 15,
+              }}
+            >
               <Text
                 style={{
                   marginTop: 10,
                   marginBottom: 10,
-                  color: '#364A5F',
+                  color: "#364A5F",
                   fontSize: 18,
-                }}>
+                }}
+              >
                 Внески та їх розміри
               </Text>
             </View>
             <View style={(styles.container, { marginTop: 10 })}>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: "row" }}>
                 <Text style={styles.dataColumnNameContributionsStyle}>
                   Назва
                 </Text>
@@ -482,12 +510,12 @@ export default class ScreenFlatInfo extends React.Component {
                     unit={item.unit}
                     rate={
                       item.tariff == null
-                        ? ''
+                        ? ""
                         : parseFloat(item.tariff).toFixed(2)
                     }
                   />
                 )}
-                keyExtractor={item => item.name}
+                keyExtractor={(item) => item.name}
               />
             </View>
           </View>
@@ -495,23 +523,25 @@ export default class ScreenFlatInfo extends React.Component {
           <View style={styles.container}>
             <View
               style={{
-                width: '100%',
-                backgroundColor: '#F9F9F9',
-                alignItems: 'center',
-                borderRadius: 15
-              }}>
+                width: "100%",
+                backgroundColor: "#F9F9F9",
+                alignItems: "center",
+                borderRadius: 15,
+              }}
+            >
               <Text
                 style={{
                   marginTop: 10,
                   marginBottom: 10,
-                  color: '#364A5F',
+                  color: "#364A5F",
                   fontSize: 18,
-                }}>
+                }}
+              >
                 Індивідуальні внески та їх розміри
               </Text>
             </View>
             <View style={(styles.container, { marginTop: 10 })}>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: "row" }}>
                 <Text style={styles.dataColumnNameIndividualContributionsStyle}>
                   Назва
                 </Text>
@@ -531,11 +561,11 @@ export default class ScreenFlatInfo extends React.Component {
                   <ItemIndividualContributions
                     name={item.caption}
                     unit={item.unit}
-                    isActive={item.isActive ? 'Ні' : 'Так'}
+                    isActive={item.isActive ? "Ні" : "Так"}
                     rate={parseFloat(item.tariff).toFixed(2)}
                   />
                 )}
-                keyExtractor={item => item.name}
+                keyExtractor={(item) => item.name}
               />
             </View>
           </View>
@@ -543,23 +573,25 @@ export default class ScreenFlatInfo extends React.Component {
           <View style={styles.container}>
             <View
               style={{
-                width: '100%',
-                backgroundColor: '#F9F9F9',
-                alignItems: 'center',
-                borderRadius: 15
-              }}>
+                width: "100%",
+                backgroundColor: "#F9F9F9",
+                alignItems: "center",
+                borderRadius: 15,
+              }}
+            >
               <Text
                 style={{
                   marginTop: 10,
                   marginBottom: 10,
-                  color: '#364A5F',
+                  color: "#364A5F",
                   fontSize: 18,
-                }}>
+                }}
+              >
                 Лічільники
               </Text>
             </View>
             <View style={(styles.container, { marginTop: 10 })}>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: "row" }}>
                 <Text style={styles.dataColumnNameCountersStyle}>Назва</Text>
                 <Text style={styles.dataColumnNameCountersStyle}>
                   Місце встановлення
@@ -577,13 +609,19 @@ export default class ScreenFlatInfo extends React.Component {
                   <ItemCounters
                     name={item.caption}
                     place={item.installIn}
-                    previousIndicators={item.prevTestimony == null ? "0.00" : parseFloat(item.prevTestimony).toFixed(
-                      2
-                    )}
-                    currentIndicators= {item.testimony == null ? "0.00" : parseFloat(item.testimony).toFixed(2)}
+                    previousIndicators={
+                      item.prevTestimony == null
+                        ? "0.00"
+                        : parseFloat(item.prevTestimony).toFixed(2)
+                    }
+                    currentIndicators={
+                      item.testimony == null
+                        ? "0.00"
+                        : parseFloat(item.testimony).toFixed(2)
+                    }
                   />
                 )}
-                keyExtractor={item => item.name}
+                keyExtractor={(item) => item.name}
               />
             </View>
           </View>
@@ -591,23 +629,25 @@ export default class ScreenFlatInfo extends React.Component {
           <View style={styles.container}>
             <View
               style={{
-                width: '100%',
-                backgroundColor: '#F9F9F9',
-                alignItems: 'center',
-                borderRadius: 15
-              }}>
+                width: "100%",
+                backgroundColor: "#F9F9F9",
+                alignItems: "center",
+                borderRadius: 15,
+              }}
+            >
               <Text
                 style={{
                   marginTop: 10,
                   marginBottom: 10,
-                  color: '#364A5F',
+                  color: "#364A5F",
                   fontSize: 18,
-                }}>
+                }}
+              >
                 Договори
               </Text>
             </View>
             <View style={(styles.container, { marginTop: 10 })}>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: "row" }}>
                 <Text style={styles.dataColumnNameContractsStyle}>Назва</Text>
                 <Text style={styles.dataColumnNameContractsStyle}>Сума</Text>
                 <Text style={styles.dataColumnNameContractsStyle}>
@@ -629,7 +669,7 @@ export default class ScreenFlatInfo extends React.Component {
                     notes={item.notes}
                   />
                 )}
-                keyExtractor={item => item.name}
+                keyExtractor={(item) => item.name}
               />
             </View>
           </View>
@@ -642,7 +682,7 @@ export default class ScreenFlatInfo extends React.Component {
 class ItemInhabitant extends React.Component {
   render() {
     return (
-      <View style={{ flexDirection: 'row', paddingTop: 5 }}>
+      <View style={{ flexDirection: "row", paddingTop: 5 }}>
         <Text style={styles.itemInhabitantStyle}>{this.props.fullName}</Text>
         <Text style={styles.itemInhabitantStyle}>{this.props.dateOfBirth}</Text>
       </View>
@@ -653,7 +693,7 @@ class ItemInhabitant extends React.Component {
 class ItemOptions extends React.Component {
   render() {
     return (
-      <View style={{ flexDirection: 'row', paddingTop: 5 }}>
+      <View style={{ flexDirection: "row", paddingTop: 5 }}>
         <Text style={styles.itemOptionsStyle}>{this.props.name}</Text>
         <Text style={styles.itemOptionsStyle}>{this.props.startDate}</Text>
         <Text style={styles.itemOptionsStyle}>{this.props.endDate}</Text>
@@ -667,7 +707,7 @@ class ItemOptions extends React.Component {
 class ItemPrivileges extends React.Component {
   render() {
     return (
-      <View style={{ flexDirection: 'row', paddingTop: 5 }}>
+      <View style={{ flexDirection: "row", paddingTop: 5 }}>
         <Text style={styles.itemPrivilegesStyle}>{this.props.name}</Text>
         <Text style={styles.itemPrivilegesStyle}>{this.props.type}</Text>
         <Text style={styles.itemPrivilegesStyle}>{this.props.itn}</Text>
@@ -680,7 +720,7 @@ class ItemPrivileges extends React.Component {
 class ItemContributions extends React.Component {
   render() {
     return (
-      <View style={{ flexDirection: 'row', paddingTop: 5 }}>
+      <View style={{ flexDirection: "row", paddingTop: 5 }}>
         <Text style={styles.itemContributionsStyle}>{this.props.name}</Text>
         <Text style={styles.itemContributionsStyle}>{this.props.unit}</Text>
         <Text style={styles.itemContributionsStyle}>{this.props.rate}</Text>
@@ -692,7 +732,7 @@ class ItemContributions extends React.Component {
 class ItemIndividualContributions extends React.Component {
   render() {
     return (
-      <View style={{ flexDirection: 'row', paddingTop: 5 }}>
+      <View style={{ flexDirection: "row", paddingTop: 5 }}>
         <Text style={styles.itemIndividualContributionsStyle}>
           {this.props.name}
         </Text>
@@ -713,7 +753,7 @@ class ItemIndividualContributions extends React.Component {
 class ItemCounters extends React.Component {
   render() {
     return (
-      <View style={{ flexDirection: 'row', paddingTop: 5 }}>
+      <View style={{ flexDirection: "row", paddingTop: 5 }}>
         <Text style={styles.itemCountersStyle}>{this.props.name}</Text>
         <Text style={styles.itemCountersStyle}>{this.props.place}</Text>
         <Text style={styles.itemCountersStyle}>
@@ -730,7 +770,7 @@ class ItemCounters extends React.Component {
 class ItemContracts extends React.Component {
   render() {
     return (
-      <View style={{ flexDirection: 'row', paddingTop: 5 }}>
+      <View style={{ flexDirection: "row", paddingTop: 5 }}>
         <Text style={styles.itemContractsStyle}>{this.props.name}</Text>
         <Text style={styles.itemContractsStyle}>{this.props.sum}</Text>
         <Text style={styles.itemContractsStyle}>{this.props.startDate}</Text>
@@ -749,115 +789,115 @@ const styles = StyleSheet.create({
     marginEnd: 10,
     marginTop: 7,
     marginBottom: 8,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   dataColumnNameInhabitantStyle: {
-    width: '50%',
+    width: "50%",
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#364A5F',
-    alignContent: 'flex-end',
+    fontWeight: "bold",
+    color: "#364A5F",
+    alignContent: "flex-end",
   },
   itemInhabitantStyle: {
-    width: '50%',
+    width: "50%",
     fontSize: 16,
-    color: '#364A5F',
-    alignContent: 'flex-end',
+    color: "#364A5F",
+    alignContent: "flex-end",
   },
   dataColumnNameOptionsStyle: {
-    width: '20%',
+    width: "20%",
     fontSize: 12,
-    fontWeight: 'bold',
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
   itemOptionsStyle: {
-    width: '20%',
+    width: "20%",
     fontSize: 12,
     padding: 5,
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
   dataColumnNamePrivilegesStyle: {
-    width: '25%',
+    width: "25%",
     fontSize: 13,
-    fontWeight: 'bold',
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
   itemPrivilegesStyle: {
-    width: '25%',
+    width: "25%",
     fontSize: 13,
     padding: 5,
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
   dataColumnNameContributionsStyle: {
-    width: '33%',
+    width: "33%",
     fontSize: 13,
-    fontWeight: 'bold',
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
   itemContributionsStyle: {
-    width: '33%',
+    width: "33%",
     fontSize: 13,
     padding: 5,
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
   dataColumnNameIndividualContributionsStyle: {
-    width: '25%',
+    width: "25%",
     fontSize: 12,
-    fontWeight: 'bold',
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
   itemIndividualContributionsStyle: {
-    width: '25%',
+    width: "25%",
     fontSize: 12,
     padding: 5,
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
   dataColumnNameCountersStyle: {
-    width: '25%',
+    width: "25%",
     fontSize: 12,
-    fontWeight: 'bold',
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
   itemCountersStyle: {
-    width: '25%',
+    width: "25%",
     fontSize: 12,
     padding: 5,
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
   dataColumnNameContractsStyle: {
-    width: '20%',
+    width: "20%",
     fontSize: 12,
-    fontWeight: 'bold',
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
   itemContractsStyle: {
-    width: '20%',
+    width: "20%",
     fontSize: 12,
     padding: 5,
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
 });

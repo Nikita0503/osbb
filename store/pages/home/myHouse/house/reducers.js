@@ -1,7 +1,7 @@
 import {
   HOUSE_CHANGE_ALL_HOUSE_DATA,
-  HOUSE_CHANGE_ALL_COSTS_HOUSE_DATA
-} from './actions';
+  HOUSE_CHANGE_ALL_COSTS_HOUSE_DATA,
+} from "./actions";
 
 const defaultState = {
   allHouseData: null,
@@ -9,7 +9,6 @@ const defaultState = {
 };
 
 export const houseReducer = (state = defaultState, action) => {
- 
   switch (action.type) {
     case HOUSE_CHANGE_ALL_HOUSE_DATA:
       return {

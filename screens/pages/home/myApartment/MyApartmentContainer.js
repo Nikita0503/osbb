@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   setUserData,
   setOsbbId,
@@ -16,10 +16,10 @@ import {
   setIsActivated,
   clearState,
   fetchUserData,
-  fetchApartmentData
-} from '../../../../store/pages/home/myApartment/apartment/actions';
-import { setCurrentWorkPeriod } from '../../../../store/pages/home/monthPicker/actions';
-import ScreenMyApartment from './ScreenMyApartment';
+  fetchApartmentData,
+} from "../../../../store/pages/home/myApartment/apartment/actions";
+import { setCurrentWorkPeriod } from "../../../../store/pages/home/monthPicker/actions";
+import ScreenMyApartment from "./ScreenMyApartment";
 
 class MyApartmentContainer extends React.Component {
   render() {
@@ -62,7 +62,7 @@ class MyApartmentContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     userData: state.apartment.userData,
@@ -77,7 +77,7 @@ const mapStateToProps = state => {
     currentCostsData: state.apartment.currentCostsData,
     debtData: state.apartment.debtData,
     liqpayData: state.apartment.liqpayData,
-    isActivated: state.apartment.isActivated
+    isActivated: state.apartment.isActivated,
   };
 };
 
@@ -98,7 +98,7 @@ const mapDispatchToProps = {
   setIsActivated,
   clearState,
   fetchUserData,
-  fetchApartmentData
+  fetchApartmentData,
 };
 
 export default connect(

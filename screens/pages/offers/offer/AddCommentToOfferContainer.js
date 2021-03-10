@@ -1,7 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { setAddCommentToOffer, setIsDisabledButtonSendChange, addComment } from '../../../../store/pages/offers/addCommentToOffer/actions';
-import ScreenAddCommentToOffer from './ScreenAddCommentToOffer';
+import React from "react";
+import { connect } from "react-redux";
+import {
+  setAddCommentToOffer,
+  setIsDisabledButtonSendChange,
+  addComment,
+} from "../../../../store/pages/offers/addCommentToOffer/actions";
+import ScreenAddCommentToOffer from "./ScreenAddCommentToOffer";
 
 class AddCommentToOfferContainer extends React.Component {
   render() {
@@ -23,7 +27,7 @@ class AddCommentToOfferContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -31,14 +35,14 @@ const mapStateToProps = state => {
     workPeriods: state.apartment.workPeriods,
     addCommentToOfferComment: state.addCommentToOffer.addCommentToOfferComment,
     selectedOfferData: state.applicationsAndOffers.selectedOfferData,
-    isDisabledButtonSend: state.addCommentToOffer.isDisabledButtonSend
+    isDisabledButtonSend: state.addCommentToOffer.isDisabledButtonSend,
   };
 };
 
 const mapDispatchToProps = {
   setAddCommentToOffer,
   setIsDisabledButtonSendChange,
-  addComment
+  addComment,
 };
 
 export default connect(

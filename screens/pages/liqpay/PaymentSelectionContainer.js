@@ -1,13 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {setLiqpayData,
-  setChargesData, 
-  setSelectedCharge, 
-  setSelectedChargeValue, 
+import React from "react";
+import { connect } from "react-redux";
+import {
+  setLiqpayData,
+  setChargesData,
+  setSelectedCharge,
+  setSelectedChargeValue,
   setSelectedChargeContribution,
   fetchLiqpayData,
-  fetchChargesData} from '../../../store/pages/liqpay/paymentSelection/actions';
-import ScreenPaymentSelection from './ScreenPaymentSelection';
+  fetchChargesData,
+} from "../../../store/pages/liqpay/paymentSelection/actions";
+import ScreenPaymentSelection from "./ScreenPaymentSelection";
 
 class PaymentSelectionContainer extends React.Component {
   render() {
@@ -17,7 +19,7 @@ class PaymentSelectionContainer extends React.Component {
         token={this.props.token}
         osbbId={this.props.osbbId}
         accountId={this.props.accountId}
-        workPeriods={this.props.workPeriods} 
+        workPeriods={this.props.workPeriods}
         liqpayData={this.props.liqpayData}
         chargesData={this.props.chargesData}
         selectedCharge={this.props.selectedCharge}
@@ -35,7 +37,7 @@ class PaymentSelectionContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -45,7 +47,8 @@ const mapStateToProps = state => {
     chargesData: state.paymentSelection.chargesData,
     selectedCharge: state.paymentSelection.selectedCharge,
     selectedChargeValue: state.paymentSelection.selectedChargeValue,
-    selectedChargeContribution: state.paymentSelection.selectedChargeContribution
+    selectedChargeContribution:
+      state.paymentSelection.selectedChargeContribution,
   };
 };
 
@@ -56,7 +59,7 @@ const mapDispatchToProps = {
   setSelectedChargeValue,
   setSelectedChargeContribution,
   fetchLiqpayData,
-  fetchChargesData
+  fetchChargesData,
 };
 
 export default connect(

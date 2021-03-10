@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   setTokenDeviceId,
   setIsScanned,
   setHasCameraPermission,
-  signUpDevice
-} from '../../store/auth/actions';
-import ScreenQRScanner from './ScreenQRScanner';
+  signUpDevice,
+} from "../../store/auth/actions";
+import ScreenQRScanner from "./ScreenQRScanner";
 
 class QRScannerContainer extends React.Component {
   render() {
@@ -24,7 +24,7 @@ class QRScannerContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isScanned: state.auth.isScanned,
     hasCameraPermission: state.auth.hasCameraPermission,
@@ -35,10 +35,7 @@ const mapDispatchToProps = {
   setTokenDeviceId,
   setIsScanned,
   setHasCameraPermission,
-  signUpDevice
+  signUpDevice,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(QRScannerContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(QRScannerContainer);

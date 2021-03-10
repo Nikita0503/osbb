@@ -1,9 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import ScreenLoading from './ScreenLoading';
-import {
-  setIsActivated
-} from '../../store/pages/home/myApartment/apartment/actions';
+import React from "react";
+import { connect } from "react-redux";
+import ScreenLoading from "./ScreenLoading";
+import { setIsActivated } from "../../store/pages/home/myApartment/apartment/actions";
 
 class LoadingContainer extends React.Component {
   render() {
@@ -21,21 +19,18 @@ class LoadingContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     workPeriods: state.apartment.workPeriods,
     allApartmentData: state.apartment.allApartmentData,
     currentWorkPeriod: state.apartmentHeader.currentWorkPeriod,
-    isActivated: state.apartment.isActivated
+    isActivated: state.apartment.isActivated,
   };
 };
 
 const mapDispatchToProps = {
-  setIsActivated: setIsActivated
+  setIsActivated: setIsActivated,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoadingContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LoadingContainer);

@@ -4,8 +4,8 @@ import {
   CHANGE_ADVERTISEMENT_SELECTED_POST,
   CHANGE_ADVERTISEMENT_SELECTED_POST_COMMENTS,
   CHANGE_ADVERTISEMENT_ALL_COMMENTS,
-  CHANGE_ADVERTISEMENT_SELECTED_FILE
-} from './actions';
+  CHANGE_ADVERTISEMENT_SELECTED_FILE,
+} from "./actions";
 
 const defaultState = {
   advertisementOsbbName: null,
@@ -13,17 +13,16 @@ const defaultState = {
   selectedPost: null,
   selectedPostComments: null,
   allComments: null,
-  advertisementSelectedFile: null
+  advertisementSelectedFile: null,
 };
 
 export const advertisementReducer = (state = defaultState, action) => {
-
   switch (action.type) {
     case CHANGE_ADVERTISEMENT_OSBB_NAME:
       return {
         ...state,
-        advertisementOsbbName: action.payload
-      }
+        advertisementOsbbName: action.payload,
+      };
     case CHANGE_ADVERTISEMENT_DATA:
       return {
         ...state,
@@ -37,8 +36,8 @@ export const advertisementReducer = (state = defaultState, action) => {
     case CHANGE_ADVERTISEMENT_SELECTED_POST_COMMENTS:
       return {
         ...state,
-        selectedPostComments: action.payload
-      }
+        selectedPostComments: action.payload,
+      };
     case CHANGE_ADVERTISEMENT_ALL_COMMENTS:
       return {
         ...state,
@@ -47,8 +46,8 @@ export const advertisementReducer = (state = defaultState, action) => {
     case CHANGE_ADVERTISEMENT_SELECTED_FILE:
       return {
         ...state,
-        advertisementSelectedFile: action.payload
-      }
+        advertisementSelectedFile: action.payload,
+      };
   }
 
   return state;

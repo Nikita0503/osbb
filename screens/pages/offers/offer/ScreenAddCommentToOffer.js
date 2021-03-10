@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Text,
   View,
@@ -9,39 +9,39 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
-  Alert
-} from 'react-native';
-import PageHeader from '../../../../components/PageHeader';
+  Alert,
+} from "react-native";
+import PageHeader from "../../../../components/PageHeader";
 
 export default class ScreenAddCommentToOffer extends React.Component {
-
   constructor(props) {
     super(props);
-    this.props.setAddCommentToOffer(null)
+    this.props.setAddCommentToOffer(null);
     this.props.setIsDisabledButtonSendChange(false);
   }
 
   render() {
     return (
       <View
-        style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+        style={{ width: "100%", height: "100%", backgroundColor: "#EEEEEE" }}
+      >
         <PageHeader
           navigation={this.props.navigation}
           title="Додати коментар"
         />
         <View style={styles.container}>
-          <ScrollView style={{width: '90%'}}>
+          <ScrollView style={{ width: "90%" }}>
             <TextInput
               multiline
               style={{
-                width: '90%',
+                width: "90%",
                 fontSize: 16,
                 borderBottomWidth: 1,
-                borderBottomColor: 'gray',
-                alignSelf: 'center',
+                borderBottomColor: "gray",
+                alignSelf: "center",
               }}
               placeholder="Ваш коментар"
-              onChangeText={text => {
+              onChangeText={(text) => {
                 this.props.setAddCommentToOffer(text);
               }}
               value={this.props.addCommentToOfferComment}
@@ -50,26 +50,30 @@ export default class ScreenAddCommentToOffer extends React.Component {
           <TouchableOpacity
             disabled={this.props.isDisabledButtonSend}
             style={{
-              width: '100%',
-              backgroundColor: '#F9F9F9',
-              alignItems: 'center',
-              borderRadius: 15
+              width: "100%",
+              backgroundColor: "#F9F9F9",
+              alignItems: "center",
+              borderRadius: 15,
             }}
             onPress={() => {
-              this.props.addComment(this.props.addCommentToOfferComment,
+              this.props.addComment(
+                this.props.addCommentToOfferComment,
                 this.props.selectedOfferData,
                 this.props.workPeriods,
                 this.props.navigation,
-                this.props.token)
-            }}>
+                this.props.token
+              );
+            }}
+          >
             <View>
               <Text
                 style={{
                   marginTop: 10,
                   marginBottom: 10,
-                  color: '#364A5F',
+                  color: "#364A5F",
                   fontSize: 18,
-                }}>
+                }}
+              >
                 Додати коментар
               </Text>
             </View>
@@ -87,9 +91,10 @@ class ItemFile extends React.Component {
       <TouchableOpacity>
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: "row",
             margin: 5,
-          }}>
+          }}
+        >
           {getImage(this.props.type)}
         </View>
       </TouchableOpacity>
@@ -99,39 +104,39 @@ class ItemFile extends React.Component {
 
 function getImage(type) {
   switch (type) {
-    case 'xls':
+    case "xls":
       return (
         <Image
           resizeMode="contain"
           style={{ width: 50, height: 50 }}
-          source={require('../../../../images/ic_xls.png')}
+          source={require("../../../../images/ic_xls.png")}
         />
       );
 
-    case 'pdf':
+    case "pdf":
       return (
         <Image
           resizeMode="contain"
           style={{ width: 50, height: 50 }}
-          source={require('../../../../images/ic_pdf.png')}
+          source={require("../../../../images/ic_pdf.png")}
         />
       );
 
-    case 'doc':
+    case "doc":
       return (
         <Image
           resizeMode="contain"
           style={{ width: 50, height: 50 }}
-          source={require('../../../../images/ic_doc.png')}
+          source={require("../../../../images/ic_doc.png")}
         />
       );
 
-    case 'txt':
+    case "txt":
       return (
         <Image
           resizeMode="contain"
           style={{ width: 50, height: 50 }}
-          source={require('../../../../images/ic_txt.png')}
+          source={require("../../../../images/ic_txt.png")}
         />
       );
 
@@ -140,7 +145,7 @@ function getImage(type) {
         <Image
           resizeMode="contain"
           style={{ width: 50, height: 50 }}
-          source={require('../../../../images/ic_jpg.png')}
+          source={require("../../../../images/ic_jpg.png")}
         />
       );
   }
@@ -153,11 +158,11 @@ const styles = StyleSheet.create({
     marginEnd: 15,
     marginTop: 7,
     marginBottom: 8,
-    backgroundColor: 'white',
-    alignItems: 'center',
+    backgroundColor: "white",
+    alignItems: "center",
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     borderRadius: 15,
-    paddingTop: 5
+    paddingTop: 5,
   },
 });

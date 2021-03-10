@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   setApplicationsAndOffersData,
   setApplicationsAndOffersDataClear,
@@ -9,9 +9,9 @@ import {
   setApplicationsAndOffersFirstlyOpened,
   setApplicationsAndOffersDisplayAcrhived,
   fetchAllRequests,
-  withdrawRequest
-} from '../../../store/pages/offers/applicationsAndOffers/actions';
-import ScreenApplicationsAndOffers from './ScreenApplicationsAndOffers';
+  withdrawRequest,
+} from "../../../store/pages/offers/applicationsAndOffers/actions";
+import ScreenApplicationsAndOffers from "./ScreenApplicationsAndOffers";
 
 class ApplicationsAndOffersContainer extends React.Component {
   render() {
@@ -36,10 +36,18 @@ class ApplicationsAndOffersContainer extends React.Component {
           this.props.setApplicationsAndOffersDataClear
         }
         setSelectedOfferData={this.props.setSelectedOfferData}
-        setApplicationsAndOffersOnlyMy={this.props.setApplicationsAndOffersOnlyMy}
-        setApplicationsAndOffersLoading={this.props.setApplicationsAndOffersLoading}
-        setApplicationsAndOffersFirstlyOpened={this.props.setApplicationsAndOffersFirstlyOpened}
-        setApplicationsAndOffersDisplayAcrhived={this.props.setApplicationsAndOffersDisplayAcrhived}
+        setApplicationsAndOffersOnlyMy={
+          this.props.setApplicationsAndOffersOnlyMy
+        }
+        setApplicationsAndOffersLoading={
+          this.props.setApplicationsAndOffersLoading
+        }
+        setApplicationsAndOffersFirstlyOpened={
+          this.props.setApplicationsAndOffersFirstlyOpened
+        }
+        setApplicationsAndOffersDisplayAcrhived={
+          this.props.setApplicationsAndOffersDisplayAcrhived
+        }
         fetchAllRequests={this.props.fetchAllRequests}
         withdrawRequest={this.props.withdrawRequest}
       />
@@ -47,19 +55,20 @@ class ApplicationsAndOffersContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
     accountId: state.apartment.accountId,
     workPeriods: state.apartment.workPeriods,
     currentWorkPeriod: state.apartmentHeader.currentWorkPeriod,
-    applicationsAndOffersData: state.applicationsAndOffers.applicationsAndOffersData,
+    applicationsAndOffersData:
+      state.applicationsAndOffers.applicationsAndOffersData,
     onlyMy: state.applicationsAndOffers.onlyMy,
     userData: state.apartment.userData,
     loading: state.applicationsAndOffers.loading,
     firstlyOpened: state.applicationsAndOffers.firstlyOpened,
-    displayArchived: state.applicationsAndOffers.displayArchived
+    displayArchived: state.applicationsAndOffers.displayArchived,
   };
 };
 
@@ -72,7 +81,7 @@ const mapDispatchToProps = {
   setApplicationsAndOffersFirstlyOpened,
   setApplicationsAndOffersDisplayAcrhived,
   fetchAllRequests,
-  withdrawRequest
+  withdrawRequest,
 };
 
 export default connect(

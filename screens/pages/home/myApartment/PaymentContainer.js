@@ -1,10 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   setCurrentPaymentsData,
-  fetchPayment
-} from '../../../../store/pages/home/myApartment/payments/actions';
-import ScreenPayment from './ScreenPayment';
+  fetchPayment,
+} from "../../../../store/pages/home/myApartment/payments/actions";
+import ScreenPayment from "./ScreenPayment";
 
 class PaymentContainer extends React.Component {
   render() {
@@ -23,7 +23,7 @@ class PaymentContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -35,10 +35,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   setCurrentPaymentsData,
-  fetchPayment
-}
+  fetchPayment,
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PaymentContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentContainer);

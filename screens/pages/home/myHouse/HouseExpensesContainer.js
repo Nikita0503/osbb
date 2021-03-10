@@ -1,7 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {setExpensesData, setExpensesSelectedFile, fetchExpenses } from '../../../../store/pages/home/myHouse/houseExpenses/actions';
-import ScreenHouseExpenses from './ScreenHouseExpenses';
+import React from "react";
+import { connect } from "react-redux";
+import {
+  setExpensesData,
+  setExpensesSelectedFile,
+  fetchExpenses,
+} from "../../../../store/pages/home/myHouse/houseExpenses/actions";
+import ScreenHouseExpenses from "./ScreenHouseExpenses";
 
 class HouseExpensesContainer extends React.Component {
   render() {
@@ -25,7 +29,7 @@ class HouseExpensesContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -42,7 +46,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   setExpensesData,
   setExpensesSelectedFile,
-  fetchExpenses
+  fetchExpenses,
 };
 
 export default connect(

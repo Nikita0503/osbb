@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Text,
   View,
@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   Button,
   ScrollView,
-} from 'react-native';
-import PageHeader from '../../../../components/PageHeader';
-import DataComponent from '../../../../components/DataComponent';
+} from "react-native";
+import PageHeader from "../../../../components/PageHeader";
+import DataComponent from "../../../../components/DataComponent";
 
 export default class ScreenAccrualHistory extends React.Component {
   constructor(props) {
@@ -20,23 +20,32 @@ export default class ScreenAccrualHistory extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchAccrualHistory(this.props.token, this.props.accountId, this.props.osbbId, this.props.currentWorkPeriod);
+    this.props.fetchAccrualHistory(
+      this.props.token,
+      this.props.accountId,
+      this.props.osbbId,
+      this.props.currentWorkPeriod
+    );
   }
 
   render() {
     return (
       <View>
-        <ScrollView ref={ref => {this.scrollView = ref}}>
-        <PageHeader
-          navigation={this.props.navigation}
-          title="Історія нарахувань"
-        />
+        <ScrollView
+          ref={(ref) => {
+            this.scrollView = ref;
+          }}
+        >
+          <PageHeader
+            navigation={this.props.navigation}
+            title="Історія нарахувань"
+          />
           <View style={styles.container}>
-          {showAccrual(
-            this.props.accrualHistoryCurrentSelectedData,
-            this.onSelectedAccrualsDataChange
-          )}
-            <View style={{ flexDirection: 'row' }}>
+            {showAccrual(
+              this.props.accrualHistoryCurrentSelectedData,
+              this.onSelectedAccrualsDataChange
+            )}
+            <View style={{ flexDirection: "row" }}>
               <Text style={styles.dataColumnNameStyle}>Внесок</Text>
               <Text style={styles.dataColumnNameStyle}>Нарахування</Text>
             </View>
@@ -56,7 +65,7 @@ export default class ScreenAccrualHistory extends React.Component {
                   debt={item.finishBalance}
                 />
               )}
-              keyExtractor={item => item.contribution}
+              keyExtractor={(item) => item.contribution}
             />
           </View>
         </ScrollView>
@@ -70,10 +79,11 @@ class Item extends React.Component {
     return (
       <TouchableOpacity
         onPress={() => {
-          this.props.onSelectedAccrualsDataChange(this.props.accrualData)
-          this.props.scrollView.scrollTo(0)
-        }}>
-        <View style={{ flexDirection: 'row', paddingTop: 5 }}>
+          this.props.onSelectedAccrualsDataChange(this.props.accrualData);
+          this.props.scrollView.scrollTo(0);
+        }}
+      >
+        <View style={{ flexDirection: "row", paddingTop: 5 }}>
           <Text style={styles.itemStyle}>{this.props.contribution}</Text>
           <Text style={styles.itemStyle}>{this.props.charges}</Text>
         </View>
@@ -88,19 +98,21 @@ function showAccrual(selectedAccrualsData, onSelectedAccrualsDataChange) {
       <View style={styles.containerForSelected}>
         <View
           style={{
-            width: '100%',
-            backgroundColor: '#F9F9F9',
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}>
+            width: "100%",
+            backgroundColor: "#F9F9F9",
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           <Text
             style={{
-              maxWidth: '80%',
+              maxWidth: "80%",
               marginTop: 10,
               marginBottom: 10,
               fontSize: 18,
-            }}>
+            }}
+          >
             Нарахування {selectedAccrualsData.caption}
           </Text>
           <Button
@@ -135,7 +147,7 @@ function showAccrual(selectedAccrualsData, onSelectedAccrualsDataChange) {
 
 function getStartOfMonth(dateStr) {
   var date = new Date(dateStr);
-  return '1' + getMonthByNumber(date.getMonth()) + date.getFullYear();
+  return "1" + getMonthByNumber(date.getMonth()) + date.getFullYear();
 }
 
 function getEndOfMonth(dateStr) {
@@ -168,40 +180,40 @@ function getMonthByNumber(number) {
   var month;
   switch (number) {
     case 0:
-      month = ' січ. ';
+      month = " січ. ";
       break;
     case 1:
-      month = ' лют. ';
+      month = " лют. ";
       break;
     case 2:
-      month = ' бер. ';
+      month = " бер. ";
       break;
     case 3:
-      month = ' квіт. ';
+      month = " квіт. ";
       break;
     case 4:
-      month = ' трав. ';
+      month = " трав. ";
       break;
     case 5:
-      month = ' черв. ';
+      month = " черв. ";
       break;
     case 6:
-      month = ' лип. ';
+      month = " лип. ";
       break;
     case 7:
-      month = ' серп. ';
+      month = " серп. ";
       break;
     case 8:
-      month = ' вер. ';
+      month = " вер. ";
       break;
     case 9:
-      month = ' жовт. ';
+      month = " жовт. ";
       break;
     case 10:
-      month = ' лист. ';
+      month = " лист. ";
       break;
     case 11:
-      month = ' груд. ';
+      month = " груд. ";
       break;
   }
   return month;
@@ -212,7 +224,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginTop: 7,
     marginBottom: 8,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     marginHorizontal: 5,
   },
   containerForSelected: {
@@ -223,21 +235,21 @@ const styles = StyleSheet.create({
   },
   dataColumnNameStyle: {
     marginVertical: 10,
-    width: '50%',
+    width: "50%",
     fontSize: 15,
-    fontWeight: 'bold',
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
   },
   itemStyle: {
-    width: '50%',
+    width: "50%",
     fontSize: 14,
     paddingVertical: 4,
-    color: '#364A5F',
-    alignContent: 'center',
-    textAlign: 'center',
-    borderTopColor: '#E0E0E0',
+    color: "#364A5F",
+    alignContent: "center",
+    textAlign: "center",
+    borderTopColor: "#E0E0E0",
     borderTopWidth: 1,
   },
 });

@@ -2,17 +2,16 @@ import {
   SEND_INDICATIONS_TEXT,
   SEND_INDICATIONS_COUNTERS,
   SEND_INDICATIONS_COUNTERS_CHANGE,
-  SEND_INDICATIONS_SELECTED_COUNTER
-} from './actions';
+  SEND_INDICATIONS_SELECTED_COUNTER,
+} from "./actions";
 
 const defaultState = {
   indicationText: null,
   sendIndicationsCounters: [],
-  selectedCounter: null
+  selectedCounter: null,
 };
 
 export const sendIndicationsReducer = (state = defaultState, action) => {
-  
   switch (action.type) {
     case SEND_INDICATIONS_TEXT:
       return {
@@ -35,8 +34,8 @@ export const sendIndicationsReducer = (state = defaultState, action) => {
     case SEND_INDICATIONS_SELECTED_COUNTER:
       return {
         ...state,
-        selectedCounter: action.payload
-      }
+        selectedCounter: action.payload,
+      };
   }
   return state;
 };

@@ -1,8 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {setAllHouseData, setAllHouseCostsData, fetchHouseData } from '../../../../store/pages/home/myHouse/house/actions';
-import {setExpensesGeneralData, setExpensesFilesData } from '../../../../store/pages/home/myHouse/houseExpenses/actions';
-import ScreenMyHouse from './ScreenMyHouse';
+import React from "react";
+import { connect } from "react-redux";
+import {
+  setAllHouseData,
+  setAllHouseCostsData,
+  fetchHouseData,
+} from "../../../../store/pages/home/myHouse/house/actions";
+import {
+  setExpensesGeneralData,
+  setExpensesFilesData,
+} from "../../../../store/pages/home/myHouse/houseExpenses/actions";
+import ScreenMyHouse from "./ScreenMyHouse";
 
 class MyHouseContainer extends React.Component {
   render() {
@@ -26,7 +33,7 @@ class MyHouseContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -34,7 +41,7 @@ const mapStateToProps = state => {
     workPeriods: state.apartment.workPeriods,
     currentWorkPeriod: state.apartmentHeader.currentWorkPeriod,
     allHouseData: state.house.allHouseData,
-    allHouseCostsData: state.house.allHouseCostsData
+    allHouseCostsData: state.house.allHouseCostsData,
   };
 };
 
@@ -43,10 +50,7 @@ const mapDispatchToProps = {
   setAllHouseCostsData,
   setExpensesGeneralData,
   setExpensesFilesData,
-  fetchHouseData
+  fetchHouseData,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MyHouseContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MyHouseContainer);

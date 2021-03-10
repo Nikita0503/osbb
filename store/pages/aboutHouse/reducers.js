@@ -1,8 +1,8 @@
 import {
   ABOUT_HOUSE_DATA,
   ABOUT_HOUSE_DOCUMENTS,
-  ABOUT_HOUSE_DATA_SELECTED_FILE
-} from './actions';
+  ABOUT_HOUSE_DATA_SELECTED_FILE,
+} from "./actions";
 
 const defaultState = {
   aboutHouseData: null,
@@ -11,7 +11,6 @@ const defaultState = {
 };
 
 export const aboutHouseReducer = (state = defaultState, action) => {
-  
   switch (action.type) {
     case ABOUT_HOUSE_DATA:
       return {
@@ -26,7 +25,7 @@ export const aboutHouseReducer = (state = defaultState, action) => {
     case ABOUT_HOUSE_DATA_SELECTED_FILE:
       return {
         ...state,
-        aboutHouseSelectedFile: action.payload
+        aboutHouseSelectedFile: action.payload,
       };
   }
   return state;

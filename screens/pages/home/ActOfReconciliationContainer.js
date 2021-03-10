@@ -1,19 +1,21 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {setFromMonth, 
-  setFromYear, 
-  setToMonth, 
-  setToYear, 
-  setSelectedData, 
-  setFromMonths, 
-  setToMonths, 
-  setShowLoading, 
-  setFromMonthShow, 
-  setFromYearShow, 
-  setToMonthShow, 
+import React from "react";
+import { connect } from "react-redux";
+import {
+  setFromMonth,
+  setFromYear,
+  setToMonth,
+  setToYear,
+  setSelectedData,
+  setFromMonths,
+  setToMonths,
+  setShowLoading,
+  setFromMonthShow,
+  setFromYearShow,
+  setToMonthShow,
   setToYearShow,
-  fetchData } from '../../../store/pages/home/actOfReconciliation/actions';
-import ScreenActOfReconciliation from './ScreenActOfReconciliation';
+  fetchData,
+} from "../../../store/pages/home/actOfReconciliation/actions";
+import ScreenActOfReconciliation from "./ScreenActOfReconciliation";
 
 class ActOfReconciliationContainer extends React.Component {
   render() {
@@ -54,7 +56,7 @@ class ActOfReconciliationContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -71,7 +73,7 @@ const mapStateToProps = state => {
     fromMonthShow: state.actOfReconciliation.fromMonthShow,
     fromYearShow: state.actOfReconciliation.fromYearShow,
     toMonthShow: state.actOfReconciliation.toMonthShow,
-    toYearShow: state.actOfReconciliation.toYearShow
+    toYearShow: state.actOfReconciliation.toYearShow,
   };
 };
 
@@ -88,7 +90,7 @@ const mapDispatchToProps = {
   setFromYearShow,
   setToMonthShow,
   setToYearShow,
-  fetchData
+  fetchData,
 };
 
 export default connect(

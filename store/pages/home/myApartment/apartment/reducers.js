@@ -1,4 +1,4 @@
-  import {
+import {
   APARTMENT_CHANGE_USERDATA,
   APARTMENT_CHANGE_OSBB_ID,
   APARTMENT_CHANGE_ACCOUNT_ID,
@@ -11,8 +11,8 @@
   APARTMENT_CHANGE_DEBT_DATA,
   APARTMENT_CHANGE_LIQPAY_DATA,
   APARTMENT_CHANGE_IS_ACTIVATED,
-  APARTMENT_CLEAR_DATA
-} from './actions';
+  APARTMENT_CLEAR_DATA,
+} from "./actions";
 
 const defaultState = {
   userData: null,
@@ -26,7 +26,7 @@ const defaultState = {
   allCostsData: [],
   debtData: [],
   liqpayData: null,
-  isActivated: null
+  isActivated: null,
 };
 
 export const apartmentReducer = (state = defaultState, action) => {
@@ -45,13 +45,13 @@ export const apartmentReducer = (state = defaultState, action) => {
         allCostsData: [],
         debtData: [],
         liqpayData: null,
-        isActivated: null
-      }
+        isActivated: null,
+      };
     case APARTMENT_CHANGE_IS_ACTIVATED:
       return {
         ...state,
-        isActivated: action.payload
-      }
+        isActivated: action.payload,
+      };
     case APARTMENT_CHANGE_USERDATA:
       return {
         ...state,
@@ -88,25 +88,25 @@ export const apartmentReducer = (state = defaultState, action) => {
         currentApartmentData: action.payload,
       };
     case APARTMENT_CHANGE_ALL_COSTS_DATA:
-      return{
+      return {
         ...state,
         allCostsData: [...state.allCostsData, action.payload],
-      }
+      };
     case APARTMENT_CHANGE_CURRENT_COSTS_DATA:
-      return{
+      return {
         ...state,
-        currentCostsData: action.payload
-      }
+        currentCostsData: action.payload,
+      };
     case APARTMENT_CHANGE_DEBT_DATA:
-      return{
+      return {
         ...state,
-        debtData: [...state.debtData, action.payload]
-      }
+        debtData: [...state.debtData, action.payload],
+      };
     case APARTMENT_CHANGE_LIQPAY_DATA:
-      return{
+      return {
         ...state,
-        liqpayData: action.payload
-      }
+        liqpayData: action.payload,
+      };
   }
 
   return state;

@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   fetchAccrualHistory,
   setCurrentAccrualsData,
-  setSelectedAccrualsData
-} from '../../../../store/pages/home/myApartment/accrualHistory/actions';
-import ScreenAccrualHistory from './ScreenAccrualHistory';
+  setSelectedAccrualsData,
+} from "../../../../store/pages/home/myApartment/accrualHistory/actions";
+import ScreenAccrualHistory from "./ScreenAccrualHistory";
 
 class AccrualHistoryContainer extends React.Component {
   render() {
@@ -17,7 +17,9 @@ class AccrualHistoryContainer extends React.Component {
         accountId={this.props.accountId}
         currentWorkPeriod={this.props.currentWorkPeriod}
         accrualHistoryCurrentData={this.props.accrualHistoryCurrentData}
-        accrualHistoryCurrentSelectedData={this.props.accrualHistoryCurrentSelectedData}
+        accrualHistoryCurrentSelectedData={
+          this.props.accrualHistoryCurrentSelectedData
+        }
         fetchAccrualHistory={this.props.fetchAccrualHistory}
         setCurrentAccrualsData={this.props.setCurrentAccrualsData}
         setSelectedAccrualsData={this.props.setSelectedAccrualsData}
@@ -26,7 +28,7 @@ class AccrualHistoryContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -34,15 +36,16 @@ const mapStateToProps = state => {
     currentWorkPeriod: state.apartmentHeader.currentWorkPeriod,
     isSelected: state.accrualHistory.isSelected,
     accrualHistoryCurrentData: state.accrualHistory.accrualHistoryCurrentData,
-    accrualHistoryCurrentSelectedData: state.accrualHistory.accrualHistoryCurrentSelectedData
+    accrualHistoryCurrentSelectedData:
+      state.accrualHistory.accrualHistoryCurrentSelectedData,
   };
 };
 
 const mapDispatchToProps = {
   setCurrentAccrualsData,
   setSelectedAccrualsData,
-  fetchAccrualHistory
-}
+  fetchAccrualHistory,
+};
 
 export default connect(
   mapStateToProps,

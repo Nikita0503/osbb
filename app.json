@@ -3,13 +3,12 @@
     "name": "ОСББ 365",
     "slug": "osbbMobileExpo",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "1.0.7",
+    "version": "1.0.14",
     "orientation": "portrait",
     "icon": "./images/app_icon.png",
     "splash": {
@@ -23,18 +22,18 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-	  "ios": {
+    "ios": {
       "bundleIdentifier": "com.osbb365.osbb365",
-      "buildNumber": "11.0.0",
+      "buildNumber": "16.0.0",
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Для подальшої роботи осбб потрібна камера. Чи надаєте ви доступ ОСББ 365 до вашої камери?"
       }
     },
-	  "android": {
+    "android": {
       "package": "com.osbb365.osbb365",
-      "versionCode": 10
+      "versionCode": 18,
+      "permissions": []
     }
-    
   }
 }

@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   setFlatInfoCountersClear,
   fetchFlatInfoGeneralData,
@@ -9,9 +9,9 @@ import {
   fetchFlatInfoIndividualContributions,
   fetchFlatInfoPrivileges,
   fetchFlatInfoCounters,
-  fetchFlatInfoContracts
-} from '../../store/pages/flatInfo/actions';
-import ScreenFlatInfo from './ScreenFlatInfo';
+  fetchFlatInfoContracts,
+} from "../../store/pages/flatInfo/actions";
+import ScreenFlatInfo from "./ScreenFlatInfo";
 
 class FlatInfoContainer extends React.Component {
   render() {
@@ -29,7 +29,9 @@ class FlatInfoContainer extends React.Component {
         flatInfoParameters={this.props.flatInfoParameters}
         flatInfoPrivileges={this.props.flatInfoPrivileges}
         flatInfoContributions={this.props.flatInfoContributions}
-        flatInfoIndividualContributions={this.props.flatInfoIndividualContributions}
+        flatInfoIndividualContributions={
+          this.props.flatInfoIndividualContributions
+        }
         flatInfoCounters={this.props.flatInfoCounters}
         flatInfoContracts={this.props.flatInfoContracts}
         setFlatInfoCountersClear={this.props.setFlatInfoCountersClear}
@@ -37,7 +39,9 @@ class FlatInfoContainer extends React.Component {
         fetchFlatInfoLodgerData={this.props.fetchFlatInfoLodgerData}
         fetchFlatInfoParameters={this.props.fetchFlatInfoParameters}
         fetchFlatInfoContributions={this.props.fetchFlatInfoContributions}
-        fetchFlatInfoIndividualContributions={this.props.fetchFlatInfoIndividualContributions}
+        fetchFlatInfoIndividualContributions={
+          this.props.fetchFlatInfoIndividualContributions
+        }
         fetchFlatInfoPrivileges={this.props.fetchFlatInfoPrivileges}
         fetchFlatInfoCounters={this.props.fetchFlatInfoCounters}
         fetchFlatInfoContracts={this.props.fetchFlatInfoContracts}
@@ -46,7 +50,7 @@ class FlatInfoContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -75,10 +79,7 @@ const mapDispatchToProps = {
   fetchFlatInfoIndividualContributions,
   fetchFlatInfoPrivileges,
   fetchFlatInfoCounters,
-  fetchFlatInfoContracts
+  fetchFlatInfoContracts,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FlatInfoContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(FlatInfoContainer);

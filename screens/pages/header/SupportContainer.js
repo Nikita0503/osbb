@@ -1,13 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { setHelpChatMessage, 
-  setHelpChatMessages, 
+import React from "react";
+import { connect } from "react-redux";
+import {
+  setHelpChatMessage,
+  setHelpChatMessages,
   setHelpChatMessagesClear,
   setHelpChatConsultant,
   openChat,
   closeChat,
-  sendMessage} from '../../../store/pages/header/help/actions';
-import ScreenSupport from './ScreenSupport';
+  sendMessage,
+} from "../../../store/pages/header/help/actions";
+import ScreenSupport from "./ScreenSupport";
 
 class SupportContainer extends React.Component {
   render() {
@@ -33,7 +35,7 @@ class SupportContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -41,7 +43,7 @@ const mapStateToProps = state => {
     workPeriods: state.apartment.workPeriods,
     helpChatMessage: state.helpChat.helpChatMessage,
     helpChatMessages: state.helpChat.helpChatMessages,
-    consultant: state.helpChat.consultant
+    consultant: state.helpChat.consultant,
   };
 };
 
@@ -52,10 +54,7 @@ const mapDispatchToProps = {
   setHelpChatConsultant,
   openChat,
   closeChat,
-  sendMessage
+  sendMessage,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SupportContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SupportContainer);

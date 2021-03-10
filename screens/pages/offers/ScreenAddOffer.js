@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Text,
   View,
@@ -10,9 +10,9 @@ import {
   ScrollView,
   TextInput,
   Picker,
-  Alert
-} from 'react-native';
-import PageHeader from '../../../components/PageHeader';
+  Alert,
+} from "react-native";
+import PageHeader from "../../../components/PageHeader";
 
 export default class ScreenAddOffer extends React.Component {
   constructor(props) {
@@ -24,8 +24,8 @@ export default class ScreenAddOffer extends React.Component {
     this.props.setAddOfferButtonSendIsDisabled(false);
   }
 
-  setStartSelected(){
-    if(this.props.addOfferSystem == null){
+  setStartSelected() {
+    if (this.props.addOfferSystem == null) {
       this.props.setAddOfferSystem(1);
       this.props.setAddOfferPublicity(1);
     }
@@ -34,86 +34,86 @@ export default class ScreenAddOffer extends React.Component {
   render() {
     return (
       <View
-        style={{ width: '100%', height: '100%', backgroundColor: '#EEEEEE' }}>
+        style={{ width: "100%", height: "100%", backgroundColor: "#EEEEEE" }}
+      >
         <PageHeader navigation={this.props.navigation} title="Подати заявку" />
         <View style={styles.container}>
-          <ScrollView style={{width: '90%'}}>
+          <ScrollView style={{ width: "90%" }}>
             <TextInput
               style={{
-                width: '90%',
+                width: "90%",
                 borderBottomWidth: 1,
-                borderBottomColor: 'gray',
-                alignSelf: 'center',
-                marginTop: 10
+                borderBottomColor: "gray",
+                alignSelf: "center",
+                marginTop: 10,
               }}
               placeholder="Тема"
-              onChangeText={text => {
+              onChangeText={(text) => {
                 this.props.setAddOfferTopic(text);
               }}
               value={this.props.addOfferTopic}
             />
             {this.setStartSelected()}
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: "row" }}>
               <Picker
                 prompt="Система"
                 selectedValue={this.props.addOfferSystem}
-                style={{ width: '45%', marginLeft: 15 }}
+                style={{ width: "45%", marginLeft: 15 }}
                 onValueChange={(itemValue, itemIndex) => {
                   this.props.setAddOfferSystem(itemValue);
-                }}>
-               
-                <Picker.Item key={0} label={'вода'} value={1} />
-                <Picker.Item key={0} label={'тепло'} value={2} />
-                <Picker.Item key={0} label={'газ'} value={3} />
-                <Picker.Item key={0} label={'електрика'} value={4} />
+                }}
+              >
+                <Picker.Item key={0} label={"вода"} value={1} />
+                <Picker.Item key={0} label={"тепло"} value={2} />
+                <Picker.Item key={0} label={"газ"} value={3} />
+                <Picker.Item key={0} label={"електрика"} value={4} />
                 <Picker.Item
                   key={0}
-                  label={'прибудинкова територія'}
+                  label={"прибудинкова територія"}
                   value={5}
                 />
-                <Picker.Item key={0} label={'ліфт'} value={6} />
+                <Picker.Item key={0} label={"ліфт"} value={6} />
                 <Picker.Item
                   key={0}
-                  label={'сходова клітка (марші)'}
+                  label={"сходова клітка (марші)"}
                   value={7}
                 />
-                <Picker.Item key={0} label={'під`їзд'} value={8} />
+                <Picker.Item key={0} label={"під`їзд"} value={8} />
               </Picker>
               <Picker
                 prompt="Публічність"
                 selectedValue={this.props.addOfferPublicity}
-                style={{ width: '45%', marginLeft: 10 }}
+                style={{ width: "45%", marginLeft: 10 }}
                 onValueChange={(itemValue, itemIndex) => {
                   this.props.setAddOfferPublicity(itemValue);
-                }}>
-                
-                <Picker.Item key={0} label={'публічна'} value={1} />
-                <Picker.Item key={0} label={'приватна'} value={2} />
+                }}
+              >
+                <Picker.Item key={0} label={"публічна"} value={1} />
+                <Picker.Item key={0} label={"приватна"} value={2} />
               </Picker>
             </View>
             <TextInput
               multiline
               style={{
-                width: '90%',
+                width: "90%",
                 borderBottomWidth: 1,
-                borderBottomColor: 'gray',
-                alignSelf: 'center',
+                borderBottomColor: "gray",
+                alignSelf: "center",
               }}
               placeholder="Введіть текст заявки або пропозиції"
-              onChangeText={text => {
+              onChangeText={(text) => {
                 this.props.setAddOfferText(text);
               }}
               value={this.props.addOfferText}
             />
-        
           </ScrollView>
           <TouchableOpacity
             disabled={this.props.addOfferIsDisabled}
             style={{
-              width: '100%',
-              backgroundColor: '#F9F9F9',
-              alignItems: 'center',
-              borderRadius: 15
+              width: "100%",
+              backgroundColor: "#F9F9F9",
+              alignItems: "center",
+              borderRadius: 15,
             }}
             onPress={() => {
               this.props.addOffer(
@@ -124,16 +124,18 @@ export default class ScreenAddOffer extends React.Component {
                 this.props.workPeriods,
                 this.props.navigation,
                 this.props.token
-              )
-            }}>
+              );
+            }}
+          >
             <View>
               <Text
                 style={{
                   marginTop: 10,
                   marginBottom: 10,
-                  color: '#364A5F',
+                  color: "#364A5F",
                   fontSize: 18,
-                }}>
+                }}
+              >
                 Додати пропозицію
               </Text>
             </View>
@@ -151,9 +153,10 @@ class ItemFile extends React.Component {
       <TouchableOpacity>
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: "row",
             margin: 5,
-          }}>
+          }}
+        >
           {getImage(this.props.type)}
         </View>
       </TouchableOpacity>
@@ -163,39 +166,39 @@ class ItemFile extends React.Component {
 
 function getImage(type) {
   switch (type) {
-    case 'xls':
+    case "xls":
       return (
         <Image
           resizeMode="contain"
           style={{ width: 50, height: 50 }}
-          source={require('../../../images/ic_xls.png')}
+          source={require("../../../images/ic_xls.png")}
         />
       );
 
-    case 'pdf':
+    case "pdf":
       return (
         <Image
           resizeMode="contain"
           style={{ width: 50, height: 50 }}
-          source={require('../../../images/ic_pdf.png')}
+          source={require("../../../images/ic_pdf.png")}
         />
       );
 
-    case 'doc':
+    case "doc":
       return (
         <Image
           resizeMode="contain"
           style={{ width: 50, height: 50 }}
-          source={require('../../../images/ic_doc.png')}
+          source={require("../../../images/ic_doc.png")}
         />
       );
 
-    case 'txt':
+    case "txt":
       return (
         <Image
           resizeMode="contain"
           style={{ width: 50, height: 50 }}
-          source={require('../../../images/ic_txt.png')}
+          source={require("../../../images/ic_txt.png")}
         />
       );
 
@@ -204,7 +207,7 @@ function getImage(type) {
         <Image
           resizeMode="contain"
           style={{ width: 50, height: 50 }}
-          source={require('../../../images/ic_jpg.png')}
+          source={require("../../../images/ic_jpg.png")}
         />
       );
   }
@@ -218,9 +221,9 @@ const styles = StyleSheet.create({
     marginEnd: 15,
     marginTop: 7,
     marginBottom: 8,
-    backgroundColor: 'white',
-    alignItems: 'center',
+    backgroundColor: "white",
+    alignItems: "center",
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
 });

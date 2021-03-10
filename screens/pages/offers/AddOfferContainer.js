@@ -1,12 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { setAddOfferTopic,
-         setAddOfferText, 
-         setAddOfferSystem, 
-         setAddOfferPublicity, 
-         setAddOfferButtonSendIsDisabled,
-         addOffer } from '../../../store/pages/offers/addOffer/actions';
-import ScreenAddOffer from './ScreenAddOffer';
+import React from "react";
+import { connect } from "react-redux";
+import {
+  setAddOfferTopic,
+  setAddOfferText,
+  setAddOfferSystem,
+  setAddOfferPublicity,
+  setAddOfferButtonSendIsDisabled,
+  addOffer,
+} from "../../../store/pages/offers/addOffer/actions";
+import ScreenAddOffer from "./ScreenAddOffer";
 
 class AddOfferContainer extends React.Component {
   render() {
@@ -26,14 +28,16 @@ class AddOfferContainer extends React.Component {
         setAddOfferText={this.props.setAddOfferText}
         setAddOfferSystem={this.props.setAddOfferSystem}
         setAddOfferPublicity={this.props.setAddOfferPublicity}
-        setAddOfferButtonSendIsDisabled={this.props.setAddOfferButtonSendIsDisabled}
+        setAddOfferButtonSendIsDisabled={
+          this.props.setAddOfferButtonSendIsDisabled
+        }
         addOffer={this.props.addOffer}
       />
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     osbbId: state.apartment.osbbId,
@@ -43,7 +47,7 @@ const mapStateToProps = state => {
     addOfferText: state.addOffer.addOfferText,
     addOfferSystem: state.addOffer.addOfferSystem,
     addOfferPublicity: state.addOffer.addOfferPublicity,
-    addOfferIsDisabled: state.addOffer.addOfferIsDisabled
+    addOfferIsDisabled: state.addOffer.addOfferIsDisabled,
   };
 };
 
@@ -53,10 +57,7 @@ const mapDispatchToProps = {
   setAddOfferSystem,
   setAddOfferPublicity,
   setAddOfferButtonSendIsDisabled,
-  addOffer
+  addOffer,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddOfferContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AddOfferContainer);
